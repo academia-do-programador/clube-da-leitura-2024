@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using ClubeDaLeitura.ConsoleApp.ModuloMulta;
 
-namespace ClubeDaLeitura.ConsoleApp
+namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 {
-    public class Emprestimo
+    public class Amigo
     {
-        public Amigo Amigo
+        public string Nome { get; set; }
+
+        public string NomeResponsavel
         {
             get => default;
             set
@@ -15,7 +14,7 @@ namespace ClubeDaLeitura.ConsoleApp
             }
         }
 
-        public Revista Revista
+        public string Telefone
         {
             get => default;
             set
@@ -23,7 +22,7 @@ namespace ClubeDaLeitura.ConsoleApp
             }
         }
 
-        public bool Concluido
+        public string Endereco
         {
             get => default;
             set
@@ -31,7 +30,7 @@ namespace ClubeDaLeitura.ConsoleApp
             }
         }
 
-        public System.DateTime Data
+        public Multa[] HistoricoMultas
         {
             get => default;
             set
@@ -39,12 +38,9 @@ namespace ClubeDaLeitura.ConsoleApp
             }
         }
 
-        public System.DateTime DataDevolucao
+        public void Validar()
         {
-            get => default;
-            set
-            {
-            }
+
         }
     }
 }

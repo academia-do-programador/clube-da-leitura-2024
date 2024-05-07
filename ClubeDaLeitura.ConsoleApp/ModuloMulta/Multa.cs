@@ -1,8 +1,8 @@
-﻿namespace ClubeDaLeitura.ConsoleApp
+﻿namespace ClubeDaLeitura.ConsoleApp.ModuloMulta
 {
-    public class Caixa
+    public class Multa
     {
-        public Revista[] Revistas
+        public decimal Valor
         {
             get => default;
             set
@@ -10,7 +10,7 @@
             }
         }
 
-        public string Cor
+        public DateTime Data
         {
             get => default;
             set
@@ -18,15 +18,7 @@
             }
         }
 
-        public string Etiqueta
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public int TempoEmprestimo
+        public bool EstaPaga
         {
             get => default;
             set

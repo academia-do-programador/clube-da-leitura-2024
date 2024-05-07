@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
+using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 
-namespace ClubeDaLeitura.ConsoleApp
+namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
 {
     public class Reserva
     {
-        private System.DateTime dataAbertura;
+        private DateTime dataAbertura;
 
         public Amigo Amigo
         {

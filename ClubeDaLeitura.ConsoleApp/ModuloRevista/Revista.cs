@@ -1,10 +1,14 @@
-﻿namespace ClubeDaLeitura.ConsoleApp
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
+
+namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 {
-    public class Amigo
+    public class Revista
     {
-        public string Nome { get; set; }
-
-        public string NomeResponsavel
+        public string Titulo
         {
             get => default;
             set
@@ -12,7 +16,7 @@
             }
         }
 
-        public string Telefone
+        public int NumeroEdicao
         {
             get => default;
             set
@@ -20,7 +24,7 @@
             }
         }
 
-        public string Endereco
+        public int Ano
         {
             get => default;
             set
@@ -28,17 +32,12 @@
             }
         }
 
-        public Multa[] HistoricoMultas
+        public Caixa Caixa
         {
             get => default;
             set
             {
             }
-        }
-
-        public void Validar()
-        {
-
         }
     }
 }

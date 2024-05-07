@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
+using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 
-namespace ClubeDaLeitura.ConsoleApp
+namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 {
-    public class Revista
+    public class Emprestimo
     {
-        public string Titulo
+        public Amigo Amigo
         {
             get => default;
             set
@@ -15,7 +17,7 @@ namespace ClubeDaLeitura.ConsoleApp
             }
         }
 
-        public int NumeroEdicao
+        public Revista Revista
         {
             get => default;
             set
@@ -23,7 +25,7 @@ namespace ClubeDaLeitura.ConsoleApp
             }
         }
 
-        public int Ano
+        public bool Concluido
         {
             get => default;
             set
@@ -31,7 +33,15 @@ namespace ClubeDaLeitura.ConsoleApp
             }
         }
 
-        public Caixa Caixa
+        public DateTime Data
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public DateTime DataDevolucao
         {
             get => default;
             set
