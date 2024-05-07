@@ -13,7 +13,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
         public string Etiqueta { get; set; }
         public string Cor { get; set; }
         public string DiasDeEmprestimo { get; set; }
-        public Revista Revistas { get; set; }
+        public Revista[] Revistas { get; set; }
         public Caixa(string etiqueta, string cor, string diasDeEmprestimo, Revista revistas)
         {
             Etiqueta = etiqueta;
