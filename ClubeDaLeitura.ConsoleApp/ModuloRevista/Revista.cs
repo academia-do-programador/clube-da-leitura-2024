@@ -16,6 +16,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
             }
         }
 
+        public string Revista { get; }
+
         public int NumeroEdicao
         {
             get => default;
@@ -23,6 +25,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
             {
             }
         }
+
+        public string AnoRevista { get; }
+        public string CaixaArmazenamento { get; }
 
         public int Ano
         {
@@ -38,6 +43,14 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
             set
             {
             }
+        }
+        public Revista(string titulorevista, string numeroEdicao, string anoRevista, string caixadeArmazenamento)
+        {
+            Revista = titulorevista;
+            NumeroEdicao = numeroEdicao;
+            AnoRevista = anoRevista;
+            CaixaArmazenamento = caixadeArmazenamento;
+
         }
     }
 }

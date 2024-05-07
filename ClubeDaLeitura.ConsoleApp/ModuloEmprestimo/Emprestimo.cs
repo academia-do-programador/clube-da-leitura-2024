@@ -48,5 +48,25 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             {
             }
         }
+
+        public string NomedaRevista { get; }
+        public string DataEmprestimo { get; }
+        public string DataDevoluçao { get; }
+        public string StatusEmprestimo { get; }
+
+        public Emprestimo(string nome, string nomedaRevista, string dataEmprestimo, string dataDevolução, string statusEmprestimo)
+        {
+            Emprestimo = nome;
+            NomedaRevista = nomedaRevista;
+            DataEmprestimo = dataEmprestimo;
+            DataDevoluçao = dataDevolução;
+            StatusEmprestimo = statusEmprestimo;
+
+
+
+
+
+
+        }
     }
 }

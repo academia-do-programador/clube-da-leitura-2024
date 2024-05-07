@@ -28,6 +28,10 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             }
         }
 
+        public string CorDaCaixa { get; }
+        public string DiasdeEmprestimo { get; }
+        public string Revista { get; }
+
         public int TempoEmprestimo
         {
             get => default;
@@ -35,5 +39,18 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             {
             }
         }
-    }
-}
+        public Caixa(string etiqueta, string corCaixa, string diasdeEmprestimo, string revista)
+        {
+            Etiqueta = etiqueta;
+            CorDaCaixa = corCaixa;
+            DiasdeEmprestimo = diasdeEmprestimo;
+            Revista = revista;
+        }
+
+         public void Validar()
+        {
+
+        }
+       }
+      }
+
