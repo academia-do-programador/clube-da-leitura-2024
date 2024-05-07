@@ -38,6 +38,15 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
             }
         }
 
+        public Amigo(string nome, string nomeResponsavel, string telefone, string endereco)
+        {
+            Nome = nome;
+            NomeResponsavel = nomeResponsavel;
+            Telefone = telefone;
+            Endereco = endereco;
+        }
+
+
         public void Validar()
         {
 
