@@ -62,11 +62,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             DataDevoluçao = dataDevolução;
             StatusEmprestimo = statusEmprestimo;
 
-
-
-
-
-
         }
     }
 }

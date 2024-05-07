@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
+using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
@@ -34,7 +35,15 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
             {
             }
         }
+        public Reserva(string nome, string nomedaRevista, string dataEmprestimo, string dataDevolução, string statusEmprestimo)
+        {
+            Reserva = nome;
+            NomedaRevista = nomedaRevista;
+            DataEmprestimo = dataEmprestimo;
+            DataDevoluçao = dataDevolução;
+            StatusEmprestimo = statusEmprestimo;
 
-     }
+
+        }
     }
 }
