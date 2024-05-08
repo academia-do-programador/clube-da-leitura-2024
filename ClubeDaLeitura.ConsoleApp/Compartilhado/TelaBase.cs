@@ -98,7 +98,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         {
             Console.Clear();
             Console.WriteLine("-----------------------------------------------");
-            Console.WriteLine($"               Gestão de {tipoEntidade}s      ");
+            Console.WriteLine($"              Gestão de {tipoEntidade}s      ");
             Console.WriteLine("-----------------------------------------------");
             Console.WriteLine(texto);
         }
@@ -112,7 +112,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         {
             for (int i = 1; i < texto.Length; i++)
             {
-                if (texto[i].Length > 15)
+                if (texto[i].Length > 15) 
                 {
                     char[] divideTexto = texto[i].ToCharArray();
                     texto[i] = null;
