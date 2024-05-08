@@ -28,7 +28,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
                 {
                     case "1": Registrar(); break;
                     case "2": Editar(ref retornar); break;
-                    case "3": Excluir(); break;
+                    case "3": Excluir(ref retornar); break;
                     case "4": VisualizarRegistros(true); break;
                     case "R": break;
                     case "S": sair = true; break;
@@ -47,7 +47,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             while (true)
             {
                 retornar = false;
-                if (!repositorio.ExistemItensCadastrados()) { RepositorioVazio(ref retornar); return; }
+                if (repositorio.ExistemItensCadastrados()) { RepositorioVazio(ref retornar); return; }
 
                 ApresentarCabecalhoEntidade($"\nEditando {tipoEntidade}...\n");
                 VisualizarRegistros(false);
@@ -63,10 +63,13 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
                 }
             }
         }
-        public void Excluir()
+        public void Excluir(ref bool retornar)
         {
             while(true)
             {
+                retornar = false;
+                if (repositorio.ExistemItensCadastrados()) { RepositorioVazio(ref retornar); return; }
+
                 ApresentarCabecalhoEntidade($"\nExcluindo {tipoEntidade}...\n");
                 VisualizarRegistros(false);
 
