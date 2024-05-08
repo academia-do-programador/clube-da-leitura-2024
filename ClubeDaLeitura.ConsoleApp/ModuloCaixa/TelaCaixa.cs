@@ -19,7 +19,12 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 
         public override void VisualizarRegistros(bool exibirTitulo)
         {
-            throw new NotImplementedException();
+            if (!repositorio.ExistemItensCadastrados()) { RepositorioVazio(); return; };
+            if (exibirTitulo) ApresentarCabecalhoEntidade("Visualizando Caixas...");
+
+            Console.WriteLine(
+                "{0, -10} | {1, -20} | {2, -20} | {3, -20}",
+                "Id", "Etiqueta", "Cor", "Tempo de empréstimo");
         }
 
         protected override EntidadeBase ObterRegistro()
