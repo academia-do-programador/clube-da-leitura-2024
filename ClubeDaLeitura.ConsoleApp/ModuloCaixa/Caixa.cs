@@ -12,24 +12,33 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
         public string Etiqueta { get; set; }
         public string Cor { get; set; }
         public string DiasDeEmprestimo { get; set; }
-        public ArrayList Revistas { get; set; }
 
-        public Caixa(string etiqueta, string cor, string diasDeEmprestimo, Revista revistas)
+        public Caixa(string etiqueta, string cor, string diasDeEmprestimo)
         {
             Etiqueta = etiqueta;
             Cor = cor;
             DiasDeEmprestimo = diasDeEmprestimo;
-            Revistas.Add(revistas);
         }
 
         public override ArrayList Validar()
         {
-            throw new NotImplementedException();
-        }
+            ArrayList erros = new ArrayList();
+
+            VerificaNulo(ref erros, Etiqueta, "etiqueta");
+            VerificaNulo(ref erros, Cor, "cor");
+            VerificaNulo(ref erros, DiasDeEmprestimo, "dias de empréstimo");
+
+            return erros;
+        }   
 
         public override void AtualizarRegistro(EntidadeBase novoRegistro)
         {
-            throw new NotImplementedException();
+            Caixa caixaAtualizada = (Caixa)novoRegistro;
+
+            Etiqueta = caixaAtualizada.Etiqueta;
+            Cor = caixaAtualizada.Cor;
+            DiasDeEmprestimo = caixaAtualizada.DiasDeEmprestimo;
         }
+
     }
 }
