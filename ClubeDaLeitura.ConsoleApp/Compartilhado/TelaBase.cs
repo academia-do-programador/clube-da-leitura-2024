@@ -2,9 +2,8 @@
 
 namespace ClubeDaLeitura.ConsoleApp.Compartilhado
 {
-    public class TelaBase
+    internal abstract class TelaBase
     {
-
         public string tipoEntidade = "";
         public RepositorioBase repositorio = null;
 
@@ -173,4 +172,4 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
         protected abstract EntidadeBase ObterRegistro();
     }
 }
-}
+

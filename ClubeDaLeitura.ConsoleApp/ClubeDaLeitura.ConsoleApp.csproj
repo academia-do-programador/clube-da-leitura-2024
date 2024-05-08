@@ -13,4 +13,12 @@
     <None Remove="Documentacao\NewFolder\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ModuloCaixa\" />
+    <Folder Include="ModuloEmprestimo\" />
+    <Folder Include="ModuloMulta\" />
+    <Folder Include="ModuloReserva\" />
+    <Folder Include="ModuloRevista\" />
+  </ItemGroup>
+
 </Project>

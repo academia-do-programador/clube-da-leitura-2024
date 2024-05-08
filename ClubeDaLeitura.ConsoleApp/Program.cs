@@ -1,4 +1,5 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
+using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 
 namespace ClubeDaLeitura.ConsoleApp
 {
@@ -6,6 +7,16 @@ namespace ClubeDaLeitura.ConsoleApp
     {
         static void Main(string[] args)
         {
+            RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
+
+            TelaAmigo telaAmigo = new TelaAmigo();
+            telaAmigo.tipoEntidade = "Amigo";
+            telaAmigo.repositorio = repositorioAmigo;
+
+            telaAmigo.CadastrarEntidadeTeste();
+
+
+
             while (true)
             {
                 char opcaoPrincipalEscolhida = TelaPrincipal.ApresentarMenuPrincipal();
@@ -15,8 +26,8 @@ namespace ClubeDaLeitura.ConsoleApp
 
                 TelaBase tela = null;
 
-                //if (opcaoPrincipalEscolhida == '1')
-                //    tela = telaPaciente;
+                if (opcaoPrincipalEscolhida == '1')
+                    tela = telaAmigo;
 
                 //else if (opcaoPrincipalEscolhida == '2')
                 //    tela = telaFornecedor;

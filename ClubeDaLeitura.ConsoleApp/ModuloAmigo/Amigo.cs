@@ -1,5 +1,5 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
-using ClubeDaLeitura.ConsoleApp.ModuloMulta;
+using System.Collections;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 {
@@ -12,11 +12,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
         public string Telefone { get; set; }
 
         public string Endereco { get; set; }
-        
-        public Multa[] HistoricoMultas { get; set; }
-
-
-
+  
 
         public Amigo(string nome, string nomeResponsavel, string telefone, string endereco)
         {
@@ -26,16 +22,34 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
             Endereco = endereco;
         }
 
-
-
-        public override void Validar()
+        public override ArrayList Validar()
         {
-            throw new NotImplementedException();
+            ArrayList erros = new ArrayList();
+
+            if (string.IsNullOrEmpty(Nome.Trim()))
+                erros.Add("O campo \"nome\" é obrigatório");
+
+            if (string.IsNullOrEmpty(NomeResponsavel.Trim()))
+                erros.Add("O campo \"nomeResponsavel\" é obrigatório");
+
+            if (string.IsNullOrEmpty(Telefone.Trim()))
+                erros.Add("O campo \"telefone\" é obrigatório");
+
+            if (string.IsNullOrEmpty(Endereco.Trim()))
+                erros.Add("O campo \"endereco\" é obrigatório");
+
+            return erros;
         }
 
-        public override void AtualizarRegistro(EntidadeBase novoegistro)
+
+        public override void AtualizarRegistro(EntidadeBase novoRegistro)
         {
-            throw new NotImplementedException();
+            Amigo novasInformacoes = (Amigo)novoRegistro;
+
+            this.Nome = novasInformacoes.Nome;
+            this.NomeResponsavel = novasInformacoes.NomeResponsavel;
+            this.Telefone = novasInformacoes.Telefone;
+            this.Endereco = novasInformacoes.Endereco;
         }
     }
 }
