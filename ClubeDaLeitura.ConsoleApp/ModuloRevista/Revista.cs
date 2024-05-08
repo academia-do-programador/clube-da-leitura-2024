@@ -26,5 +26,10 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
         {
             throw new NotImplementedException();
         }
+
+        public override void AtualizarRegistro(EntidadeBase novoRegistro)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

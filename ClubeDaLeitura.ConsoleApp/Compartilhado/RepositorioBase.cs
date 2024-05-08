@@ -1,65 +1,41 @@
-﻿namespace ControleMedicamentos.ConsoleApp.Compartilhado
+﻿using System.Collections;
+
+namespace ControleMedicamentos.ConsoleApp.Compartilhado
 {
     public abstract class RepositorioBase
     {
-        private EntidadeBase[] registros = new EntidadeBase[100];
+        private ArrayList registros = [];
         public int contadorId = 0;
 
         public void Cadastrar(EntidadeBase novoRegistro)
         {
             contadorId++;
             novoRegistro.Id = contadorId;
-            RegistrarItem(novoRegistro);
+            registros.Add(novoRegistro);
         }
-
         public void Editar(int id, EntidadeBase novaEntidade)
         {
             novaEntidade.Id = id;
-            registros[id - 1] = novaEntidade;
+            foreach (EntidadeBase registro in registros) 
+                if (registro.Id == id) registro.AtualizarRegistro(novaEntidade);
         }
-
-        public void Excluir(int id) => registros[id - 1] = null;
-
-        public bool ExistemItensCadastrados() => contadorId != 0;
-
-        public EntidadeBase[] SelecionarTodos()
+        public void Excluir(int id)
         {
-            return registros;
+            foreach (EntidadeBase registro in registros)
+                if (registro.Id == id) registros.Remove(registro);
         }
 
         public EntidadeBase SelecionarPorId(int id)
         {
-            for (int i = 0; i < registros.Length; i++)
-            {
-                EntidadeBase e = registros[i];
-
-                if (e == null) continue;
-
-                else if (e.Id == id) return e;
-            }
+            foreach (EntidadeBase registro in registros)
+                if (registro.Id == id) return registro;
             return null;
         }
-
         public bool Existe(int id)
         {
-            foreach(EntidadeBase entidade in registros) if (entidade != null)
+            foreach(EntidadeBase entidade in registros) 
                 if (entidade.Id == id) return true;
             return false;
-        }
-
-        protected void RegistrarItem(EntidadeBase novoRegistro)
-        {
-            for (int i = 0; i < registros.Length; i++)
-            {
-                if (registros[i] != null)
-                    continue;
-
-                else
-                {
-                    registros[i] = novoRegistro;
-                    break;
-                }
-            }
         }
     }
 

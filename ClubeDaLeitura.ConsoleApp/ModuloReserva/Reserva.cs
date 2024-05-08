@@ -27,5 +27,10 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
         {
             throw new NotImplementedException();
         }
+
+        public override void AtualizarRegistro(EntidadeBase novoRegistro)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

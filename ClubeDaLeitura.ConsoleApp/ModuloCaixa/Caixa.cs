@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 using ControleMedicamentos.ConsoleApp.Compartilhado;
-
 namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 {
     public class Caixa : EntidadeBase
@@ -13,16 +12,22 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
         public string Etiqueta { get; set; }
         public string Cor { get; set; }
         public string DiasDeEmprestimo { get; set; }
-        public Revista[] Revistas { get; set; }
+        public ArrayList Revistas { get; set; }
+
         public Caixa(string etiqueta, string cor, string diasDeEmprestimo, Revista revistas)
         {
             Etiqueta = etiqueta;
             Cor = cor;
             DiasDeEmprestimo = diasDeEmprestimo;
-            Revistas = revistas;
+            Revistas.Add(revistas);
         }
 
         public override ArrayList Validar()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void AtualizarRegistro(EntidadeBase novoRegistro)
         {
             throw new NotImplementedException();
         }

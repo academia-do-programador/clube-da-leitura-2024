@@ -10,6 +10,14 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 {
     internal class TelaAmigo : TelaBase
     {
+        TelaBase telaMulta;
+        public TelaAmigo(RepositorioBase repositorio, TelaBase telaMulta, string tipoEntidade)
+        {
+            this.repositorio = repositorio;
+            this.telaMulta = telaMulta;
+            this.tipoEntidade = tipoEntidade;
+        }
+
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             throw new NotImplementedException();
