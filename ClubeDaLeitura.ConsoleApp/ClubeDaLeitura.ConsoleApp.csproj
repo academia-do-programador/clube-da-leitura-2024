@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ModuloCaixa\" />
     <Folder Include="ModuloEmprestimo\" />
     <Folder Include="ModuloMulta\" />
     <Folder Include="ModuloReserva\" />

@@ -1,5 +1,6 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
+using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 
 namespace ClubeDaLeitura.ConsoleApp
 {
@@ -7,6 +8,7 @@ namespace ClubeDaLeitura.ConsoleApp
     {
         static void Main(string[] args)
         {
+            #region Instâncias da Classe "Amigo"
             RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
 
             TelaAmigo telaAmigo = new TelaAmigo();
@@ -14,7 +16,15 @@ namespace ClubeDaLeitura.ConsoleApp
             telaAmigo.repositorio = repositorioAmigo;
 
             telaAmigo.CadastrarEntidadeTeste();
+            #endregion
 
+            RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
+
+            TelaCaixa telaCaixa = new TelaCaixa();
+            telaCaixa.tipoEntidade = "Caixa";
+            telaCaixa.repositorio = repositorioCaixa;
+
+            telaCaixa.CadastrarEntidadeTeste();
 
 
             while (true)
@@ -29,8 +39,8 @@ namespace ClubeDaLeitura.ConsoleApp
                 if (opcaoPrincipalEscolhida == '1')
                     tela = telaAmigo;
 
-                //else if (opcaoPrincipalEscolhida == '2')
-                //    tela = telaFornecedor;
+                else if (opcaoPrincipalEscolhida == '2')
+                    tela = telaCaixa;
 
                 //else if (opcaoPrincipalEscolhida == '3')
                 //    tela = telaMedicamento;

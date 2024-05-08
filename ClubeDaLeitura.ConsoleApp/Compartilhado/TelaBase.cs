@@ -150,7 +150,7 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
             Console.Clear();
 
             Console.WriteLine("----------------------------------------");
-            Console.WriteLine("|       Controle de Medicamentos       |");
+            Console.WriteLine("|           Clube da Leitura           |");
             Console.WriteLine("----------------------------------------");
 
             Console.WriteLine();
