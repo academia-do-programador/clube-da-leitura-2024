@@ -5,7 +5,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
     public abstract class RepositorioBase
     {
         private ArrayList registros = [];
-        public int contadorId = 0;
+        private int contadorId = 0;
 
         public void Cadastrar(EntidadeBase novoRegistro)
         {
@@ -31,11 +31,19 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
                 if (registro.Id == id) return registro;
             return null;
         }
+        public ArrayList SelecionarTodos() => registros;
+        public bool ExistemItensCadastrados() => contadorId != 0;
+        public int CadastrandoID() => contadorId + 1;
         public bool Existe(int id)
         {
             foreach(EntidadeBase entidade in registros) 
                 if (entidade.Id == id) return true;
             return false;
+        }
+        public bool ItemRepetido()
+        {
+
+            return true;
         }
     }
 

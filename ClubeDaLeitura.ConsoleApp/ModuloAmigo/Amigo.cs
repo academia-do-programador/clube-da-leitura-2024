@@ -23,12 +23,21 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 
         public override ArrayList Validar()
         {
-            throw new NotImplementedException();
+            ArrayList erros = new ArrayList();
+            VerificaNulo(ref erros, Nome, "Nome");
+            VerificaNulo(ref erros, NomeResponsavel, "Responsável");
+            VerificaNulo(ref erros, Telefone, "Telefone");
+            VerificaNulo(ref erros, Endereco, "Endereço");
+            return erros;
         }
-
         public override void AtualizarRegistro(EntidadeBase novoRegistro)
         {
-            throw new NotImplementedException();
+            Amigo novoAmigo = (Amigo)novoRegistro;
+
+            Nome = novoAmigo.Nome;
+            NomeResponsavel = novoAmigo.NomeResponsavel;
+            Telefone = novoAmigo.Telefone;
+            Endereco = novoAmigo.Endereco;
         }
     }
 }

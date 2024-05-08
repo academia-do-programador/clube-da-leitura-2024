@@ -4,7 +4,6 @@ using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
 using ClubeDaLeitura.ConsoleApp.ModuloMulta;
 using ClubeDaLeitura.ConsoleApp.ModuloReserva;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
-
 namespace ControleMedicamentos.ConsoleApp.Compartilhado
 {
     internal class TelaPrincipal : TelaBase
@@ -19,7 +18,6 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         public void MenuPrincipal(ref bool sair)
         {
             Console.Clear();
-
             Console.WriteLine("-----------------------------------------------");
             Console.WriteLine("|               Clube do Livro                |");
             Console.WriteLine("-----------------------------------------------\n");
@@ -48,6 +46,6 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         }
 
         public override void VisualizarRegistros(bool exibirTitulo) => throw new NotImplementedException();
-        protected override EntidadeBase ObterRegistro() => throw new NotImplementedException();
+        protected override EntidadeBase ObterRegistro(int id) => throw new NotImplementedException();
     }
 }
