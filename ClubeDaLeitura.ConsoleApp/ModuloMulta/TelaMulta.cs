@@ -16,7 +16,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloMulta
             throw new NotImplementedException();
         }
 
-        protected override EntidadeBase ObterRegistro()
+        protected override EntidadeBase ObterRegistro(int id)
         {
             throw new NotImplementedException();
         }

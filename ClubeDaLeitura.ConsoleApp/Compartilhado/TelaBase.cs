@@ -27,7 +27,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
                 switch (operacaoEscolhida)
                 {
                     case "1": Registrar(); break;
-                    case "2": Editar(); break;
+                    case "2": Editar(ref retornar); break;
                     case "3": Excluir(); break;
                     case "4": VisualizarRegistros(true); break;
                     case "R": break;
@@ -38,15 +38,16 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         }
         public virtual void Registrar()
         {
-            EntidadeBase entidade = ObterRegistro();
+            EntidadeBase entidade = ObterRegistro(repositorio.CadastrandoID());
             RealizaAcao(() => repositorio.Cadastrar(entidade), "cadastrado");
         }
-        protected abstract EntidadeBase ObterRegistro();
-        public void Editar()
+        protected abstract EntidadeBase ObterRegistro(int id);
+        public void Editar(ref bool retornar)
         {
             while (true)
             {
-                if (repositorio.contadorId != 0) { RepositorioVazio(); return; }
+                retornar = false;
+                if (!repositorio.ExistemItensCadastrados()) { RepositorioVazio(ref retornar); return; }
 
                 ApresentarCabecalhoEntidade($"\nEditando {tipoEntidade}...\n");
                 VisualizarRegistros(false);
@@ -56,7 +57,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
                 if (!repositorio.Existe(idEntidadeEscolhida)) IdInvalido();
                 else
                 {
-                    EntidadeBase entidade = ObterRegistro();
+                    EntidadeBase entidade = ObterRegistro(idEntidadeEscolhida);
                     RealizaAcao(() => repositorio.Editar(idEntidadeEscolhida, entidade), "editado");
                     break;
                 }
@@ -92,8 +93,8 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         {
             Console.Clear();
             Console.WriteLine("-----------------------------------------------");
-            Console.WriteLine($"           Gestão de {tipoEntidade}s          ");
-            Console.WriteLine("-----------------------------------------------\n");
+            Console.WriteLine($"               Gestão de {tipoEntidade}s      ");
+            Console.WriteLine("-----------------------------------------------");
             Console.WriteLine(texto);
         }
         protected void ApresentarErros(ArrayList erros)
@@ -101,7 +102,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             foreach (string erro in erros) ExibirMensagem(erro, ConsoleColor.Red);
             Console.ReadKey(true);
         }
-        protected virtual void TabelaDeCadastro(params string[] texto) { }
+        protected virtual void TabelaDeCadastro(int id, params string[] texto) { }
         public void ExibirMensagem(string mensagem, ConsoleColor cor)
         {
             Console.ForegroundColor = cor;
@@ -224,9 +225,10 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             ExibirMensagem($"\nO {tipoEntidade} mencionado não existe! ", ConsoleColor.DarkYellow);
             Console.ReadKey(true);
         }
-        protected void RepositorioVazio()
+        protected void RepositorioVazio(ref bool repetir)
         {
             ExibirMensagem($"Ainda não existem itens cadastrados! ", ConsoleColor.Red);
+            repetir = true;
             Console.ReadKey(true);
         }
         #endregion

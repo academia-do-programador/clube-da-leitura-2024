@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ControleMedicamentos.ConsoleApp.Compartilhado;
-
-
 namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 {
     internal class TelaAmigo : TelaBase
@@ -20,12 +18,45 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 
         public override void VisualizarRegistros(bool exibirTitulo)
         {
-            throw new NotImplementedException();
+            bool retornar = false;
+            if (!repositorio.ExistemItensCadastrados()) { RepositorioVazio(ref retornar); return; }
+            if (exibirTitulo) ApresentarCabecalhoEntidade("Visualizando amigos...\n");
+
+            Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -10} | {4, -5}",
+                "Id", "Nome", "Responsável", "Telefone", "Endereço");
+
+            foreach (Amigo amigo in repositorio.SelecionarTodos())
+                Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -10} | {4, -5}", 
+                    amigo.Id, amigo.Nome, amigo.NomeResponsavel, amigo.Telefone, amigo.Endereco);
+            
+            if (exibirTitulo) RecebeString("\n'Enter' para continuar ");
+        }
+        protected override EntidadeBase ObterRegistro(int id)
+        {
+            string nome = "-", nomeResp = "-", telefono = "-", endereco = "-";
+            EntidadeBase novoRegistro = new Amigo(nome, nomeResp, telefono, endereco);
+
+            RecebeAtributo(() => novoRegistro = new Amigo(nome, nomeResp, telefono, endereco), ref novoRegistro, ref nome,
+                () => TabelaDeCadastro(id, "{0, -5} | ", nome, nomeResp, telefono));
+
+            RecebeAtributo(() => novoRegistro = new Amigo(nome, nomeResp, telefono, endereco), ref novoRegistro, ref nomeResp,
+                () => TabelaDeCadastro(id, "{0, -5} | {1, -15} | ", nome, nomeResp, telefono));
+
+            RecebeAtributo(() => novoRegistro = new Amigo(nome, nomeResp, telefono, endereco), ref novoRegistro, ref telefono,
+                () => TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | ", nome, nomeResp, telefono));
+
+            RecebeAtributo(() => novoRegistro = new Amigo(nome, nomeResp, telefono, endereco), ref novoRegistro, ref endereco,
+                () => TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | {3, -10} | ", nome, nomeResp, telefono));
+
+            return novoRegistro;
         }
 
-        protected override EntidadeBase ObterRegistro()
+        protected override void TabelaDeCadastro(int id, params string[] texto)
         {
-            throw new NotImplementedException();
+            Console.Clear();
+            ApresentarCabecalhoEntidade($"Cadastrando amigo...\n");
+            Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -10} | {4, -5}", "Id", "Nome", "Responsável", "Telefone", "Endereço");
+            Console.Write(texto[0], id, texto[1], texto[2], texto[3]);
         }
     }
 }
