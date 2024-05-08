@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using ControleMedicamentos.ConsoleApp.Compartilhado;
@@ -25,21 +26,16 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
             Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -10} | {4, -5}",
                 "Id", "Nome", "Responsável", "Telefone", "Endereço");
 
-/*          for (int i = 1; i < texto.Length; i++)
-            {
-                if (texto[i].Length > 15)
-                {
-                    char[] divideTexto = texto[i].ToCharArray();
-                    texto[i] = null;
-                    for (int j = 0; j < 12; j++) texto[i] += divideTexto[j];
-                    texto[i] += "...";
-                }
-            }
-*/
             foreach (Amigo amigo in repositorio.SelecionarTodos())
-                Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -10} | {4, -5}", 
-                    amigo.Id, amigo.Nome, amigo.NomeResponsavel, amigo.Telefone, amigo.Endereco);
-            
+            {
+                string[] parametros = [amigo.Id.ToString(), amigo.Nome, amigo.NomeResponsavel, amigo.Telefone, amigo.Endereco];
+
+                AjustaTamanhoDeVisualizacao(parametros);
+
+                Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -10} | {4, -5}",
+                    parametros[0], parametros[1], parametros[2], parametros[3], parametros[4]);
+            }
+
             if (exibirTitulo) RecebeString("\n'Enter' para continuar ");
         }
         protected override EntidadeBase ObterRegistro(int id)
@@ -78,16 +74,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
             ApresentarCabecalhoEntidade($"Cadastrando amigo...\n");
             Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -15} | {4, -5}", "Id", "Nome", "Responsável", "Telefone", "Endereço");
 
-            for(int i = 1; i < texto.Length; i++)
-            {
-                if (texto[i].Length > 15)
-                {
-                    char[] divideTexto = texto[i].ToCharArray();
-                    texto[i] = null;
-                    for (int j = 0; j < 12; j++) texto[i] += divideTexto[j];
-                    texto[i] += "...";
-                }
-            }
+            AjustaTamanhoDeVisualizacao(texto);
+
             Console.Write(texto[0], id, texto[1], texto[2], texto[3]);
         }
     }

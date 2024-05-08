@@ -20,6 +20,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
             Endereco = endereco;
         }
 
+
         public override ArrayList Validar()
         {
             ArrayList erros = new ArrayList();

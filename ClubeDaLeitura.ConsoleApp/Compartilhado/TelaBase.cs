@@ -106,6 +106,19 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             Console.ReadKey(true);
         }
         protected virtual void TabelaDeCadastro(int id, params string[] texto) { }
+        public void AjustaTamanhoDeVisualizacao(params string[] texto)
+        {
+            for (int i = 1; i < texto.Length; i++)
+            {
+                if (texto[i].Length > 15)
+                {
+                    char[] divideTexto = texto[i].ToCharArray();
+                    texto[i] = null;
+                    for (int j = 0; j < 12; j++) texto[i] += divideTexto[j];
+                    texto[i] += "...";
+                }
+            }
+        }
         public void ExibirMensagem(string mensagem, ConsoleColor cor)
         {
             Console.ForegroundColor = cor;
