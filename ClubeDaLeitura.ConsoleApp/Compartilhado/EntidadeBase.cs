@@ -1,6 +1,13 @@
-﻿namespace ClubeDaLeitura.ConsoleApp.Compartilhado
+﻿using System.Collections;
+
+namespace ClubeDaLeitura.ConsoleApp.Compartilhado
 {
-    public class EntidadeBase
+    internal abstract class EntidadeBase
     {
+        public int Id { get; set; }
+
+        public abstract ArrayList Validar();
+
+        public abstract void AtualizarRegistro(EntidadeBase novoegistro);
     }
 }

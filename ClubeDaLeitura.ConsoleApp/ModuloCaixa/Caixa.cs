@@ -1,44 +1,19 @@
-﻿using ClubeDaLeitura.ConsoleApp.ModuloRevista;
+﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
+using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 {
-    public class Caixa
+    public class Caixa : EntidadeBase
     {
-        public Revista[] Revistas
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public Revista[] Revistas { get; set; }
 
-        public string Cor
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public string Etiqueta { get; set; }
+        public string CorDaCaixa { get; set; }
+        public string DiasdeEmprestimo { get; set; }
+        public string Revista { get; set; }
 
-        public string Etiqueta
-        {
-            get => default;
-            set
-            {
-            }
-        }
 
-        public string CorDaCaixa { get; }
-        public string DiasdeEmprestimo { get; }
-        public string Revista { get; }
 
-        public int TempoEmprestimo
-        {
-            get => default;
-            set
-            {
-            }
-        }
         public Caixa(string etiqueta, string corCaixa, string diasdeEmprestimo, string revista)
         {
             Etiqueta = etiqueta;
@@ -47,10 +22,18 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             Revista = revista;
         }
 
-         public void Validar()
-        {
+
+
+         public override void Validar()
+         {
+            throw new NotImplementedException();
 
         }
-       }
-      }
+
+        public override void AtualizarRegistro(EntidadeBase novoegistro)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
 
