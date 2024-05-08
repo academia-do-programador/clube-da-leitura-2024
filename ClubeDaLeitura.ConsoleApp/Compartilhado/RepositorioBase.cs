@@ -22,7 +22,10 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         public void Excluir(int id)
         {
             foreach (EntidadeBase registro in registros)
-                if (registro.Id == id) registros.Remove(registro);
+                if (registro.Id == id)
+                {
+                    registros.Remove(registro); return;
+                }
         }
 
         public EntidadeBase SelecionarPorId(int id)
@@ -32,7 +35,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             return null;
         }
         public ArrayList SelecionarTodos() => registros;
-        public bool ExistemItensCadastrados() => contadorId != 0;
+        public bool ExistemItensCadastrados() => registros.Count == 0;
         public int CadastrandoID() => contadorId + 1;
         public bool Existe(int id)
         {
@@ -40,10 +43,12 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
                 if (entidade.Id == id) return true;
             return false;
         }
-        public bool ItemRepetido()
+        public bool ItemRepetido(string nome)
         {
+            foreach(EntidadeBase registro in registros) 
+                if (registro.Nome == nome) return true;
 
-            return true;
+            return false;
         }
     }
 
