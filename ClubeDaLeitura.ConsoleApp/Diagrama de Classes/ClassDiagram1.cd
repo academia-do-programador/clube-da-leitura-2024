@@ -3,14 +3,14 @@
   <Class Name="ClubeDaLeitura.ConsoleApp.ModuloAmigo.Amigo">
     <Position X="4.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAgAAAAAAIAAAAAAAAAAAAAQAAAAAAAAEAEAA=</HashCode>
+      <HashCode>AAAAAAAAgAAAAAAIAAAAAACAAAAAAQAAAAAAAAEAEAA=</HashCode>
       <FileName>ModuloAmigo\Amigo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ClubeDaLeitura.ConsoleApp.ModuloEmprestimo.Emprestimo">
     <Position X="7.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAEAAEAAAAAAAAAAAAAQAAAAQBAAAAAAEAAAAA=</HashCode>
+      <HashCode>AAAAAAAEAAEAAAAAAAAAAACAQAAAAQBAAAAAAEAAAAA=</HashCode>
       <FileName>ModuloEmprestimo\Emprestimo.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -21,7 +21,7 @@
   <Class Name="ClubeDaLeitura.ConsoleApp.ModuloMulta.Multa">
     <Position X="2" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAAAAQAAAAAAgEAAAAA=</HashCode>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAACAAAAAAQAAAAAAgEAAAAA=</HashCode>
       <FileName>ModuloMulta\Multa.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -30,16 +30,8 @@
   </Class>
   <Class Name="ClubeDaLeitura.ConsoleApp.ModuloRevista.Revista">
     <Position X="10" Y="2.75" Width="1.5" />
-    <AssociationLine Name="Caixa" Type="ClubeDaLeitura.ConsoleApp.ModuloCaixa.Caixa" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="10" Y="3.812" />
-        <Point X="9.625" Y="3.812" />
-        <Point X="9.625" Y="4.496" />
-        <Point X="8.25" Y="4.496" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAAAAAAAACAAAAAAAAAAQAAAAAAAAAAADA=</HashCode>
+      <HashCode>IAAAAAAAAAAAAAAAAACAAACAAAAAAQAAAAAAAAAAADA=</HashCode>
       <FileName>ModuloRevista\Revista.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -49,7 +41,7 @@
   <Class Name="ClubeDaLeitura.ConsoleApp.ModuloReserva.Reserva">
     <Position X="4.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAEAAAAAIAAAAAAAAAAAAAAAQBAAAAAAEAAAAA=</HashCode>
+      <HashCode>AAAAAAAEAAAAAIAAAAAAAACAAAAAAQBAAAAAAEAAAAA=</HashCode>
       <FileName>ModuloReserva\Reserva.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -59,7 +51,7 @@
   <Class Name="ClubeDaLeitura.ConsoleApp.ModuloCaixa.Caixa">
     <Position X="6.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAAEAAQAAAAgAAAAAAIA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAACAAAEAAQAAAAgAAAAAAAA=</HashCode>
       <FileName>ModuloCaixa\Caixa.cs</FileName>
     </TypeIdentifier>
   </Class>
