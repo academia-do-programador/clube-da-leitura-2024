@@ -9,9 +9,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 {
     public class Caixa : EntidadeBase
     {
-        public string Etiqueta { get; set; }
         public string Cor { get; set; }
         public string DiasDeEmprestimo { get; set; }
+        public ArrayList revistas;
 
         public Caixa(string etiqueta, string cor, string diasDeEmprestimo)
         {
@@ -30,7 +30,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 
             return erros;
         }   
-
         public override void AtualizarRegistro(EntidadeBase novoRegistro)
         {
             Caixa caixaAtualizada = (Caixa)novoRegistro;
@@ -39,6 +38,5 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             Cor = caixaAtualizada.Cor;
             DiasDeEmprestimo = caixaAtualizada.DiasDeEmprestimo;
         }
-
     }
 }

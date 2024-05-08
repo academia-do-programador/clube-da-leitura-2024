@@ -23,7 +23,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
             if (repositorio.ExistemItensCadastrados()) { RepositorioVazio(ref retornar); return; }
             if (exibirTitulo) ApresentarCabecalhoEntidade("Visualizando amigos...\n");
 
-            Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -10} | {4, -5}",
+            Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -15} | {4, -5}",
                 "Id", "Nome", "Responsável", "Telefone", "Endereço");
 
             foreach (Amigo amigo in repositorio.SelecionarTodos())
@@ -32,7 +32,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 
                 AjustaTamanhoDeVisualizacao(parametros);
 
-                Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -10} | {4, -5}",
+                Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -15} | {4, -5}",
                     parametros[0], parametros[1], parametros[2], parametros[3], parametros[4]);
             }
 
@@ -47,12 +47,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
             {
                 RecebeAtributo(() => novoRegistro = new Amigo(nome, nomeResp, telefono, endereco), ref novoRegistro, ref nome,
                     () => TabelaDeCadastro(id, "{0, -5} | ", nome, nomeResp, telefono));
-                
-                if (repositorio.ItemRepetido(nome))
-                {
-                    ExibirMensagem("\nEste amigo já existe. Tente novamente ", ConsoleColor.Red);
-                    Console.ReadKey(true); 
-                }
+                ItemJaCadastrado(nome);
             } 
             while (repositorio.ItemRepetido(nome));
 
