@@ -2,7 +2,6 @@
 
 namespace ClubeDaLeitura.ConsoleApp.Compartilhado
 {
-
     internal abstract class RepositorioBase
     {
         protected ArrayList registros = new ArrayList();
