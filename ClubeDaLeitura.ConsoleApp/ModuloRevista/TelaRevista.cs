@@ -18,10 +18,24 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
             this.tipoEntidade = tipoEntidade;
         }
 
+        public override void Registrar()
+        {
+            bool repetir = false;
+
+            ApresentarCabecalhoEntidade($"Cadastrando {tipoEntidade}...\n");
+            if (telaCaixa.repositorio.ExistemItensCadastrados())
+            {
+                RepositorioVazio(ref repetir);
+                ExibirMensagem("Nenhuma Caixa cadastrada! Caixas são necessárias para o cadastro de revistas.", ConsoleColor.Red);
+                Console.ReadKey(true);
+            }
+            else            
+                base.Registrar();
+        }
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             bool retornar = false;
-            if (!repositorio.ExistemItensCadastrados()) { RepositorioVazio(ref retornar); return; };
+            if (repositorio.ExistemItensCadastrados()) { RepositorioVazio(ref retornar); return; };
             if (exibirTitulo) ApresentarCabecalhoEntidade("Visualizando Revista...");
 
             Console.WriteLine(
@@ -36,7 +50,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 
                 Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -15} | {4, -15}",
                     parametros[0], parametros[1], parametros[2], parametros[3], parametros[4]);
-            
             }
 
             if (exibirTitulo) RecebeString("\n'Enter' para continuar ");
@@ -67,6 +80,10 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 
             TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | {3, -15} ", titulo, edicao, ano, caixa.Etiqueta);
             RecebeAtributo(novaRev, caixaa, ref novoRegistro, ref caixaSelecionada, telaCaixa, "Caixa", ref idCaixa);
+
+            caixa = (Caixa)telaCaixa.repositorio.SelecionarPorId(idCaixa);
+
+            novoRegistro = new Revista(titulo, edicao, ano, caixa);
 
             return novoRegistro;
         }
