@@ -46,7 +46,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         {
             while (true)
             {
-                if (!repositorio.ExistemItensCadastrados()) { RepositorioVazio(); return; }
+                if (repositorio.contadorId != 0) { RepositorioVazio(); return; }
 
                 ApresentarCabecalhoEntidade($"\nEditando {tipoEntidade}...\n");
                 VisualizarRegistros(false);
@@ -88,19 +88,12 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             ExibirMensagem($"\nO(a) {tipoEntidade} foi {acaoRealizada}(a) com sucesso!", ConsoleColor.Green);
             Console.ReadKey(true);
         }
-        protected void ApresentarCabecalho()
-        {
-            Console.Clear();
-            Console.WriteLine("----------------------------------------");
-            Console.WriteLine("|       Controle de Medicamentos       |");
-            Console.WriteLine("----------------------------------------");
-        }
         public void ApresentarCabecalhoEntidade(string texto)
         {
             Console.Clear();
-            Console.WriteLine("----------------------------------------");
-            Console.WriteLine($"          Gestão de {tipoEntidade}s        ");
-            Console.WriteLine("----------------------------------------");
+            Console.WriteLine("-----------------------------------------------");
+            Console.WriteLine($"           Gestão de {tipoEntidade}s          ");
+            Console.WriteLine("-----------------------------------------------\n");
             Console.WriteLine(texto);
         }
         protected void ApresentarErros(ArrayList erros)

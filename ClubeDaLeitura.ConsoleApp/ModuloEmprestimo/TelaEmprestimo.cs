@@ -9,6 +9,15 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 {
     internal class TelaEmprestimo : TelaBase
     {
+        TelaBase telaAmigo, telaRevista;
+        public TelaEmprestimo(RepositorioBase repositorio, TelaBase telaAmigo, TelaBase telaRevista, string tipoEntidade)
+        {
+            this.repositorio = repositorio;
+            this.telaAmigo = telaAmigo;
+            this.telaRevista = telaRevista;
+            this.tipoEntidade = tipoEntidade;
+        }
+
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             throw new NotImplementedException();

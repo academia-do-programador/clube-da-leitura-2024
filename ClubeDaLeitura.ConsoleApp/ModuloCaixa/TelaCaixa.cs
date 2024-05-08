@@ -9,6 +9,14 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 {
     internal class TelaCaixa : TelaBase
     {
+        TelaBase telaRevista;
+        public TelaCaixa(RepositorioBase repositorio, TelaBase telaRevista, string tipoEntidade)
+        {
+            this.repositorio = repositorio;
+            this.telaRevista = telaRevista;
+            this.tipoEntidade = tipoEntidade;
+        }
+
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             throw new NotImplementedException();
