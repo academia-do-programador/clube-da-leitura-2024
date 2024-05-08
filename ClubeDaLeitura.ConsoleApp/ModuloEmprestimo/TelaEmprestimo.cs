@@ -52,6 +52,18 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
                 }
             }
         }
+        public override void Registrar()
+        {
+            bool repetir = false;
+            ApresentarCabecalhoEntidade($"Cadastrando {tipoEntidade}...\n");
+            
+            if (telaAmigo.repositorio.ExistemItensCadastrados() || telaRevista.repositorio.ExistemItensCadastrados()) RepositorioVazio(ref repetir);
+            else
+            {
+                Emprestimo entidade = (Emprestimo)ObterRegistro(repositorio.CadastrandoID());
+                RealizaAcao(() => repositorio.Cadastrar(entidade), "cadastrado");
+            }
+        }
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             throw new NotImplementedException();
@@ -59,30 +71,43 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
         protected override EntidadeBase ObterRegistro(int id)
         {
-            //Amigo, Revista, DataEmprestimo, diasParaDevover
-
             int idSelecionado = 0; 
-            TimeSpan diasParaDevolver = new TimeSpan(2, 0, 0, 0);
-            EntidadeBase amigoSelecionado = (Amigo)telaAmigo.repositorio.SelecionarPorId(0);
-            EntidadeBase revistaSelecionada = (Amigo)telaRevista.repositorio.SelecionarPorId(0);
-            EntidadeBase novoEmprestimo = new Emprestimo(amigoSelecionado, revistaSelecionada, diasParaDevolver, DateTime.Now);
+            TimeSpan diasParaDevolver = new TimeSpan(0, 0, 0, 0);
 
-            return novoEmprestimo;
-/*            do
-            {
-                RecebeAtributo(() => novoRegistro = new Caixa(etiqueta, cor, diasDeEmprestimo), ref novoRegistro, ref etiqueta,
-                    () => TabelaDeCadastro(id, "{0, -5} | ", etiqueta, cor, diasDeEmprestimo));
-                ItemJaCadastrado(etiqueta);
-            }
-            while (repositorio.ItemRepetido(etiqueta));
+            EntidadeBase amigoSelecionado = new Amigo("-", "-", "-", "-");
+            EntidadeBase revistaSelecionada = new Revista("-", "-", "-", null);
+            EntidadeBase novoEmprestimo = new Emprestimo(amigoSelecionado, revistaSelecionada, DateTime.Now, DateTime.Now);
 
-            RecebeAtributo(() => novoRegistro = new Caixa(etiqueta, cor, diasDeEmprestimo), ref novoRegistro, ref cor,
-                () => TabelaDeCadastro(id, "{0, -5} | {1, -15} | ", etiqueta, cor, diasDeEmprestimo));
 
-            RecebeAtributo(() => novoRegistro = new Caixa(etiqueta, cor, diasDeEmprestimo), ref novoRegistro, ref diasDeEmprestimo,
-                () => TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | ", etiqueta, cor, diasDeEmprestimo));
+            TabelaDeCadastro(id, "{0, -5} | ", amigoSelecionado.Nome, revistaSelecionada.Titulo, "-", "-");
+            RecebeAtributo(() => new Emprestimo(amigoSelecionado, revistaSelecionada, DateTime.Now, DateTime.Now),
+                () => amigoSelecionado = (Amigo)telaAmigo.repositorio.SelecionarPorId(idSelecionado), 
+                ref novoEmprestimo, ref amigoSelecionado, telaAmigo, "amigo", ref idSelecionado);
 
-            return novoRegistro;
-*/        }
+
+            TabelaDeCadastro(id, "{0, -5} | {1, -15} | ", amigoSelecionado.Nome, revistaSelecionada.Titulo, "-", "-");
+            RecebeAtributo(() => new Emprestimo(amigoSelecionado, revistaSelecionada, DateTime.Now, DateTime.Now),
+                () => revistaSelecionada = (Revista)telaRevista.repositorio.SelecionarPorId(idSelecionado), 
+                ref novoEmprestimo, ref revistaSelecionada, telaRevista, "revista", ref idSelecionado);
+
+
+            Revista revista = (Revista)revistaSelecionada;
+            diasParaDevolver = new TimeSpan(revista.Caixa.DiasDeEmprestimo, 0, 0, 0);
+
+            TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | {3, -20} | {4, -5} | ", amigoSelecionado.Nome, revistaSelecionada.Titulo, DateTime.Now.ToString("d"), DateTime.Now.Add(diasParaDevolver).ToString("d"));
+
+            return new Emprestimo(amigoSelecionado, revistaSelecionada, DateTime.Now, DateTime.Now.Add(diasParaDevolver));
+        }
+        protected override void TabelaDeCadastro(int id, params string[] texto)
+        {
+            Console.Clear();
+            ApresentarCabecalhoEntidade($"Cadastrando caixa...\n");
+            Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -20} | {4, -5}", "Id", "Amigo", "Revista", "Data empréstimo", "Data devolução");
+
+            AjustaTamanhoDeVisualizacao(texto);
+
+            Console.Write(texto[0], id, texto[1], texto[2], texto[3], texto[4]);
+        }
+
     }
 }

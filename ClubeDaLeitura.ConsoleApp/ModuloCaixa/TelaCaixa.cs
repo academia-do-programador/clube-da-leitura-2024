@@ -27,7 +27,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 
             foreach (Caixa caixa in repositorio.SelecionarTodos())
             {
-                string[] parametros = [caixa.Id.ToString(), caixa.Etiqueta, caixa.Cor, caixa.DiasDeEmprestimo];
+                string[] parametros = [caixa.Id.ToString(), caixa.Etiqueta, caixa.Cor, caixa.DiasDeEmprestimo.ToString()];
 
                 AjustaTamanhoDeVisualizacao(parametros);
                 CorDaCaixa(caixa.Cor);
@@ -42,13 +42,14 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
         }
         protected override EntidadeBase ObterRegistro(int id)
         {
-            string etiqueta = "-", cor = "-", diasDeEmprestimo = "-";
+            string etiqueta = "-", cor = "-";
+            int diasDeEmprestimo = 0;
             EntidadeBase novoRegistro = new Caixa(etiqueta, cor, diasDeEmprestimo);
 
             do
             {
                 RecebeAtributo(() => novoRegistro = new Caixa(etiqueta, cor, diasDeEmprestimo), ref novoRegistro, ref etiqueta,
-                    () => TabelaDeCadastro(id, "{0, -5} | ", etiqueta, cor, diasDeEmprestimo));
+                    () => TabelaDeCadastro(id, "{0, -5} | ", etiqueta, cor, diasDeEmprestimo.ToString()));
                 ItemJaCadastrado(etiqueta);
             }
             while (repositorio.ItemRepetido(etiqueta));
@@ -56,13 +57,13 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             do
             {
                 RecebeAtributo(() => novoRegistro = new Caixa(etiqueta, cor, diasDeEmprestimo), ref novoRegistro, ref cor,
-                    () => TabelaDeCadastro(id, "{0, -5} | {1, -15} | ", etiqueta, cor, diasDeEmprestimo));
+                    () => TabelaDeCadastro(id, "{0, -5} | {1, -15} | ", etiqueta, cor, diasDeEmprestimo.ToString()));
                 CorNaoExiste(cor);
             }
             while (!CorDaCaixa(cor)); Console.ResetColor();
 
             RecebeAtributo(() => novoRegistro = new Caixa(etiqueta, cor, diasDeEmprestimo), ref novoRegistro, ref diasDeEmprestimo,
-                () => TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | ", etiqueta, cor, diasDeEmprestimo));
+                () => TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | ", etiqueta, cor, diasDeEmprestimo.ToString()));
 
             return novoRegistro;
         }

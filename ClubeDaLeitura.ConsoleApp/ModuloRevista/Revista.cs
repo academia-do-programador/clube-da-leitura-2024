@@ -11,7 +11,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 {
     public class Revista : EntidadeBase
     {
-        public string Titulo { get; set; }
         public string Edicao { get; set; }
         public string Ano { get; set; }
         public Caixa Caixa { get; set; }

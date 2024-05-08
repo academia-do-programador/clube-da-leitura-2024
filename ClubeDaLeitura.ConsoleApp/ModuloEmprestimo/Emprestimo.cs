@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 using ClubeDaLeitura.ConsoleApp.ModuloMulta;
@@ -18,18 +19,21 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         public DateTime DataDevolucao { get; set; }
         public string Status { get; set; }
 
-        public Emprestimo(EntidadeBase amigo, EntidadeBase revistaEmprestada, TimeSpan diasParaDevolver, DateTime dataEmprestimo)
+        public Emprestimo(EntidadeBase amigo, EntidadeBase revistaEmprestada, DateTime dataEmprestimo, DateTime dataDevolucao)
         {
             Amigo = amigo;
             Revista = revistaEmprestada;
-            DataDevolucao = dataEmprestimo.Add(diasParaDevolver);
             DataEmprestimo = dataEmprestimo;
+            DataDevolucao = dataDevolucao;
             Status = "aberto";
         }
 
         public override ArrayList Validar()
         {
-            throw new NotImplementedException();
+            ArrayList erros = new ArrayList();
+            VerificaNulo(ref erros, Amigo);
+            VerificaNulo(ref erros, Revista);
+            return erros;
         }
 
         public override void AtualizarRegistro(EntidadeBase novoRegistro)

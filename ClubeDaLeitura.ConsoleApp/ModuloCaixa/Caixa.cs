@@ -10,10 +10,10 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
     public class Caixa : EntidadeBase
     {
         public string Cor { get; set; }
-        public string DiasDeEmprestimo { get; set; }
+        public int DiasDeEmprestimo { get; set; }
         public ArrayList revistas;
 
-        public Caixa(string etiqueta, string cor, string diasDeEmprestimo)
+        public Caixa(string etiqueta, string cor, int diasDeEmprestimo)
         {
             Etiqueta = etiqueta;
             Cor = cor;
@@ -23,11 +23,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
         public override ArrayList Validar()
         {
             ArrayList erros = new ArrayList();
-
             VerificaNulo(ref erros, Etiqueta, "etiqueta");
             VerificaNulo(ref erros, Cor, "cor");
-            VerificaNulo(ref erros, DiasDeEmprestimo, "dias de empréstimo");
-
             return erros;
         }   
         public override void AtualizarRegistro(EntidadeBase novoRegistro)

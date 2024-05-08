@@ -61,9 +61,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 
             int idCaixa = 0;
 
-            Caixa caixa = new Caixa("-","-","-");
+            Caixa caixa = new Caixa("-","-",0);
 
-            EntidadeBase caixaSelecionada = new Caixa("-", "-", "-");
+            EntidadeBase caixaSelecionada = new Caixa("-", "-", 0);
 
             EntidadeBase novoRegistro = new Revista(titulo, edicao, ano, caixa);
 
