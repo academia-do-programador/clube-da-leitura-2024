@@ -9,7 +9,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         public string tipoEntidade = "";
         public RepositorioBase repositorio;
 
-        public void ApresentarMenu(ref bool sair)
+        public virtual void ApresentarMenu(ref bool sair)
         {
             bool retornar = true;
             while (retornar)
