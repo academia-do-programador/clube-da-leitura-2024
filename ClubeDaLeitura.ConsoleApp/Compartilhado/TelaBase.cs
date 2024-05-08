@@ -1,4 +1,6 @@
 ﻿
+using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
+using System;
 using System.Collections;
 namespace ControleMedicamentos.ConsoleApp.Compartilhado
 {
@@ -7,7 +9,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         public string tipoEntidade = "";
         public RepositorioBase repositorio;
 
-        public void ApresentarMenu(ref bool sair)
+        public virtual void ApresentarMenu(ref bool sair)
         {
             bool retornar = true;
             while (retornar)
@@ -52,7 +54,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
                 ApresentarCabecalhoEntidade($"\nEditando {tipoEntidade}...\n");
                 VisualizarRegistros(false);
 
-                int idEntidadeEscolhida = RecebeInt($"Digite o ID do {tipoEntidade} que deseja editar: ");
+                int idEntidadeEscolhida = RecebeInt($"\nDigite o ID do {tipoEntidade} que deseja editar: ");
 
                 if (!repositorio.Existe(idEntidadeEscolhida)) IdInvalido();
                 else
@@ -73,7 +75,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
                 ApresentarCabecalhoEntidade($"\nExcluindo {tipoEntidade}...\n");
                 VisualizarRegistros(false);
 
-                int idRegistroEscolhido = RecebeInt($"Digite o ID do {tipoEntidade} que deseja excluir: ");
+                int idRegistroEscolhido = RecebeInt($"\nDigite o ID do {tipoEntidade} que deseja excluir: ");
 
                 if (!repositorio.Existe(idRegistroEscolhido)) IdInvalido();
                 else
@@ -125,6 +127,48 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             Console.Write(mensagem);
             Console.ResetColor();
         }
+        public bool CorDaCaixa(string cor)
+        {
+            cor = cor.ToLower();
+
+            if (cor == "azul")
+            {
+                Console.BackgroundColor = ConsoleColor.Blue;
+                Console.ForegroundColor = ConsoleColor.Black; return true;
+            }
+            if (cor == "vermelho" || cor == "vermelha")
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.Black; return true;
+            }
+            if (cor == "verde")
+            {
+                Console.BackgroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.Black; return true;
+            }
+            if (cor == "branco" || cor == "branca")
+            {
+                Console.BackgroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Black; return true;
+            }
+            if (cor == "amarelo" || cor == "amarela")
+            {
+                Console.BackgroundColor = ConsoleColor.Yellow;
+                Console.ForegroundColor = ConsoleColor.Black; return true;
+            }
+            if (cor == "ciano" || cor == "ciana")
+            {
+                Console.BackgroundColor = ConsoleColor.Cyan;
+                Console.ForegroundColor = ConsoleColor.Black; return true;
+            }
+            if (cor == "rosa")
+            {
+                Console.BackgroundColor = ConsoleColor.Magenta;
+                Console.ForegroundColor = ConsoleColor.Black; return true;
+            }
+            if (cor == "preto" || cor == "preta") return true;
+            return false;
+        }
 
         #region Inputs
         public static string RecebeString(string texto)
@@ -139,7 +183,10 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             if (string.IsNullOrEmpty(input)) NaoEhNumero(ref input, texto);
 
             foreach (char c in input.ToCharArray())
+            {
+                if (c == '-') NaoEhNumero(ref input, texto);
                 if (Convert.ToInt32(c) >= 48 && Convert.ToInt32(c) <= 57) quantidade += c;
+            }
 
             if (quantidade.Length != input.Length) NaoEhNumero(ref quantidade, texto);
 
@@ -246,6 +293,14 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             ExibirMensagem($"Ainda não existem itens cadastrados! ", ConsoleColor.Red);
             repetir = true;
             Console.ReadKey(true);
+        }
+        protected void ItemJaCadastrado(string item)
+        {
+            if (repositorio.ItemRepetido(item))
+            {
+                ExibirMensagem("\nEste item já existe. Tente novamente ", ConsoleColor.Red);
+                Console.ReadKey(true);
+            }
         }
         #endregion
 

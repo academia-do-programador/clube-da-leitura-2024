@@ -45,9 +45,11 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         }
         public bool ItemRepetido(string nome)
         {
-            foreach(EntidadeBase registro in registros) 
+            foreach(EntidadeBase registro in registros)
+            {
                 if (registro.Nome == nome) return true;
-
+                if (registro.Etiqueta == nome) return true;
+            }
             return false;
         }
     }

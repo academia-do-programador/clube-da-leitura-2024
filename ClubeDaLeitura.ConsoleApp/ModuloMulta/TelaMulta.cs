@@ -11,14 +11,10 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloMulta
     {
         public TelaMulta(RepositorioBase repositorio) => this.repositorio = repositorio;
 
-        public override void VisualizarRegistros(bool exibirTitulo)
-        {
-            throw new NotImplementedException();
-        }
-
         protected override EntidadeBase ObterRegistro(int id)
         {
             throw new NotImplementedException();
         }
+        public override void VisualizarRegistros(bool exibirTitulo) => throw new NotImplementedException();
     }
 }
