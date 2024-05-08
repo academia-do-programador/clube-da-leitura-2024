@@ -20,12 +20,67 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 
         public override void VisualizarRegistros(bool exibirTitulo)
         {
-            throw new NotImplementedException();
+            bool retornar = false;
+            if (!repositorio.ExistemItensCadastrados()) { RepositorioVazio(ref retornar); return; };
+            if (exibirTitulo) ApresentarCabecalhoEntidade("Visualizando Revista...");
+
+            Console.WriteLine(
+                "{0, -5} | {1, -15} | {2, -15} | {3, -15} | {4, -15}",
+                "Id", "Titulo", "Edição", "Ano", "Caixa");
+
+            foreach (Revista revista in repositorio.SelecionarTodos())
+            {
+                string[] parametros = [revista.Id.ToString(), revista.Titulo, revista.Edicao, revista.Ano, revista.Caixa.Etiqueta];
+
+                AjustaTamanhoDeVisualizacao(parametros);
+
+                Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -15} | {4, -15}",
+                    parametros[0], parametros[1], parametros[2], parametros[3], parametros[4]);
+            
+            }
+
+            if (exibirTitulo) RecebeString("\n'Enter' para continuar ");
         }
 
         protected override EntidadeBase ObterRegistro(int id)
         {
-            throw new NotImplementedException();
+            string titulo = "-", edicao = "-", ano = "-";
+
+            int idCaixa = 0;
+
+            Caixa caixa = new Caixa("-","-","-");
+
+            EntidadeBase caixaSelecionada = new Caixa("-", "-", "-");
+
+            EntidadeBase novoRegistro = new Revista(titulo, edicao, ano, caixa);
+
+            Action caixaa = () => caixaSelecionada = (Caixa)telaCaixa.repositorio.SelecionarPorId(idCaixa);
+
+            Action novaRev = () => novoRegistro = new Revista(titulo, edicao, ano, caixa);
+
+            RecebeAtributo(() => novoRegistro = new Revista(titulo, edicao, ano, caixa), ref novoRegistro, ref titulo,
+                () => TabelaDeCadastro(id, "{0, -5} | ", titulo, edicao, ano, caixa.Etiqueta));
+            RecebeAtributo(() => novoRegistro = new Revista(titulo, edicao, ano, caixa), ref novoRegistro, ref edicao,
+                () => TabelaDeCadastro(id, "{0, -5} | {1, -15} | ", titulo, edicao, ano, caixa.Etiqueta));
+            RecebeAtributo(() => novoRegistro = new Revista(titulo, edicao, ano, caixa), ref novoRegistro, ref ano,
+                () => TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | ", titulo, edicao, ano, caixa.Etiqueta));
+
+            TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | {3, -15} ", titulo, edicao, ano, caixa.Etiqueta);
+            RecebeAtributo(novaRev, caixaa, ref novoRegistro, ref caixaSelecionada, telaCaixa, "Caixa", ref idCaixa);
+
+            return novoRegistro;
+        }
+
+        protected override void TabelaDeCadastro(int id, params string[] texto)
+        {
+            Console.Clear();
+            ApresentarCabecalhoEntidade($"Cadastrando Revistas...\n");
+            Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -15} | {4, -15}",
+                "Id", "Titulo", "Edição", "Ano", "Caixa");
+
+            AjustaTamanhoDeVisualizacao(texto);
+
+            Console.Write(texto[0], id, texto[1], texto[2], texto[3]);
         }
     }
 }

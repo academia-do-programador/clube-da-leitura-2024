@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 using ControleMedicamentos.ConsoleApp.Compartilhado;
 
@@ -12,10 +13,10 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
     {
         public string Titulo { get; set; }
         public string Edicao { get; set; }
-        public int Ano { get; set; }
+        public string Ano { get; set; }
         public Caixa Caixa { get; set; }
 
-        public Revista(string titulo, string edicao, int ano, Caixa caixa)
+        public Revista(string titulo, string edicao, string ano, Caixa caixa)
         {
             Titulo = titulo;
             Edicao = edicao;
@@ -25,12 +26,22 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 
         public override ArrayList Validar()
         {
-            throw new NotImplementedException();
+            ArrayList erros = new ArrayList();
+            VerificaNulo(ref erros, Titulo, "titulo");
+            VerificaNulo(ref erros, Edicao, "edição");
+            VerificaNulo(ref erros, Ano, "ano");
+            VerificaNulo(ref erros, Caixa);
+            return erros;
         }
 
         public override void AtualizarRegistro(EntidadeBase novoRegistro)
         {
-            throw new NotImplementedException();
+            Revista revistaAtualizada = (Revista)novoRegistro;
+
+            Titulo = revistaAtualizada.Titulo;
+            Edicao = revistaAtualizada.Edicao;
+            Ano = revistaAtualizada.Ano;
+            Caixa = revistaAtualizada.Caixa;
         }
     }
 }
