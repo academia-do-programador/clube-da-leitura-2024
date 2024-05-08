@@ -39,5 +39,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             Cor = caixaAtualizada.Cor;
             DiasDeEmprestimo = caixaAtualizada.DiasDeEmprestimo;
         }
+
     }
 }
