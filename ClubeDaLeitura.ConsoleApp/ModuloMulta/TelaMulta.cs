@@ -67,6 +67,26 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloMulta
 
             if (exibirTitulo) RecebeString("\n'Enter' para continuar ");
         }
+        public virtual void Excluir(ref bool retornar)
+        {
+            while (true)
+            {
+                retornar = false;
+                if (repositorio.ExistemItensCadastrados()) { RepositorioVazio(ref retornar); return; }
+
+                ApresentarCabecalhoEntidade($"\nExcluindo {tipoEntidade}...\n");
+                VisualizarRegistros(false);
+
+                int idRegistroEscolhido = RecebeInt($"\nDigite o ID do {tipoEntidade} que deseja excluir: ");
+
+                if (!repositorio.Existe(idRegistroEscolhido)) IdInvalido();
+                else
+                {
+                    RealizaAcao(() => repositorio.Excluir(idRegistroEscolhido, telaAmigo), "excluído");
+                    break;
+                }
+            }
+        }
 
         protected override EntidadeBase ObterRegistro(int id) => throw new NotImplementedException();
     }
