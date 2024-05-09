@@ -64,8 +64,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             }
             while (!CorDaCaixa(cor)); Console.ResetColor();
 
-            RecebeAtributo(() => novoRegistro = new Caixa(etiqueta, cor, diasDeEmprestimo), ref novoRegistro, ref diasDeEmprestimo,
-                () => TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | ", etiqueta, cor, diasDeEmprestimo.ToString()));
+                RecebeAtributo(() => novoRegistro = new Caixa(etiqueta, cor, diasDeEmprestimo), ref novoRegistro, ref diasDeEmprestimo,
+                    () => TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | ", etiqueta, cor, diasDeEmprestimo.ToString()));
 
             return novoRegistro;
         }

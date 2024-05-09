@@ -53,11 +53,11 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
                 Console.Write("{0, -5} | {1, -15} | {2, -15} | {3, -15} |",
                     parametros[0], parametros[1], parametros[2], parametros[3]);
 
-                telaCaixa.CorDaCaixa(revista.Caixa.Cor);
+                //telaCaixa.CorDaCaixa(revista.Caixa.Cor); 
 
                 Console.WriteLine(" {0, -15}", parametros[4]);
 
-                Console.ResetColor();
+                //Console.ResetColor();
             }
 
             if (exibirTitulo) RecebeString("\n'Enter' para continuar ");
