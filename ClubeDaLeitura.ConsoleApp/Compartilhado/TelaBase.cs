@@ -2,6 +2,7 @@
 using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 using System;
 using System.Collections;
+using System.Runtime.ConstrainedExecution;
 namespace ControleMedicamentos.ConsoleApp.Compartilhado
 {
     public abstract class TelaBase
@@ -178,7 +179,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         }
         public int RecebeInt(string texto)
         {
-            Console.Write(texto);
+            Console.Write(texto);   
             string quantidade = "", input = Console.ReadLine();
             if (string.IsNullOrEmpty(input)) NaoEhNumero(ref input, texto);
 
@@ -281,8 +282,8 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         public void NaoEhNumero(ref string input, string texto)
         {
             ExibirMensagem("Por favor, insira um número ", ConsoleColor.Red);
-            input = Convert.ToString(RecebeInt(texto)); //Para garantir que, ao sair do loop, o método "RecebeInt" não vai puxar a "input" original (nula)
-        }
+            input = Convert.ToString(RecebeInt(texto)); //Para garantir que, ao sair do loop, o método "RecebeInt" não vai puxar a "input" original (nula)            
+        }       
         protected void IdInvalido()
         {
             ExibirMensagem($"\nO {tipoEntidade} mencionado não existe! ", ConsoleColor.DarkYellow);
