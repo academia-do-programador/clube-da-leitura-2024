@@ -57,29 +57,13 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             bool repetir = false;
             ApresentarCabecalhoEntidade($"Cadastrando {tipoEntidade}...\n");
 
-            if(TodosOsAmigosTemMulta()) return;
-            else
-            {
-                if (telaAmigo.repositorio.ExistemItensCadastrados() || telaRevista.repositorio.ExistemItensCadastrados()) RepositorioVazio(ref repetir);
-                else
-                {
-                    Emprestimo entidade = (Emprestimo)ObterRegistro(repositorio.CadastrandoID());
-                    RealizaAcao(() => repositorio.Cadastrar(entidade), "cadastrado");
-                }
-            }
-
+            if (TodosOsAmigosTemMulta()) return;
+            if (NaoHaRevistasDisponiveis()) return;
+            if (telaAmigo.repositorio.ExistemItensCadastrados() || telaRevista.repositorio.ExistemItensCadastrados()) { RepositorioVazio(ref repetir); return; }
+            
+            Emprestimo entidade = (Emprestimo)ObterRegistro(repositorio.CadastrandoID());
+            RealizaAcao(() => repositorio.Cadastrar(entidade), "cadastrado");
         }
-
-        private bool TodosOsAmigosTemMulta()
-        {
-            foreach (Amigo amigo in telaAmigo.repositorio.SelecionarTodos())
-                if (!amigo.multa) return false;
-
-            ExibirMensagem("Todos os amigos tem multa :(", ConsoleColor.Red);
-            Console.ReadKey(true);
-            return true;
-        }
-
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             bool retornar = false;
@@ -101,7 +85,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
             if (exibirTitulo) RecebeString("\n'Enter' para continuar ");
         }
-
         public override void Excluir(ref bool retornar)
         {
             while (true)
@@ -142,11 +125,15 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
                     ref novoEmprestimo, ref amigoSelecionado, telaAmigo, "amigo", ref idSelecionado);
             }
             while (ValidaMultas(amigoSelecionado));
-                
-            TabelaDeCadastro(id, "{0, -5} | {1, -15} | ", amigoSelecionado.Nome, revistaSelecionada.Titulo, "-", "-");
-            RecebeAtributo(() => new Emprestimo(amigoSelecionado, revistaSelecionada, DateTime.Now, DateTime.Now),
-                () => revistaSelecionada = (Revista)telaRevista.repositorio.SelecionarPorId(idSelecionado),
-                ref novoEmprestimo, ref revistaSelecionada, telaRevista, "revista", ref idSelecionado);
+
+            do
+            {
+                TabelaDeCadastro(id, "{0, -5} | {1, -15} | ", amigoSelecionado.Nome, revistaSelecionada.Titulo, "-", "-");
+                RecebeAtributo(() => new Emprestimo(amigoSelecionado, revistaSelecionada, DateTime.Now, DateTime.Now),
+                    () => revistaSelecionada = (Revista)telaRevista.repositorio.SelecionarPorId(idSelecionado),
+                    ref novoEmprestimo, ref revistaSelecionada, telaRevista, "revista", ref idSelecionado);
+            }
+            while (ValidaReserva(revistaSelecionada));
 
             Revista revista = (Revista)revistaSelecionada;
             Caixa caixa = (Caixa)revista.Caixa;
@@ -168,6 +155,36 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
                     return true;
                 }
             return false;
+        }
+        private bool TodosOsAmigosTemMulta()
+        {
+            foreach (Amigo amigo in telaAmigo.repositorio.SelecionarTodos())
+                if (!amigo.multa) return false;
+
+            ExibirMensagem("Todos os amigos tem multa :(", ConsoleColor.Red);
+            Console.ReadKey(true);
+            return true;
+        }
+        private bool ValidaReserva(EntidadeBase revistaSelecionada)
+        {
+/*            if (revistaSelecionada.Status) 
+            {
+                ExibirMensagem("Esta revista já está reservada. Escolha outra ", ConsoleColor.Red);
+                Console.ReadKey(true);
+            }
+            return revistaSelecionada.Status;*/
+            return false;
+        }
+        private bool NaoHaRevistasDisponiveis()
+        {
+            /*            foreach (Revista revista in telaRevista.repositorio.SelecionarTodos())
+                            if (!revista.Status) return false;
+
+                        ExibirMensagem("Todos as revistas estão reservadas :(", ConsoleColor.Red);
+                        Console.ReadKey(true);
+                        return true;
+            */
+            return false;  
         }
 
         protected override void TabelaDeCadastro(int id, params string[] texto)
