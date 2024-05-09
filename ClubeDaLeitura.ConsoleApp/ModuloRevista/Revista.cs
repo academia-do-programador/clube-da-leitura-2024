@@ -13,9 +13,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
     {
         public string Edicao { get; set; }
         public string Ano { get; set; }
-        public Caixa Caixa { get; set; }
+        public EntidadeBase Caixa { get; set; }
 
-        public Revista(string titulo, string edicao, string ano, Caixa caixa)
+        public Revista(string titulo, string edicao, string ano, EntidadeBase caixa)
         {
             Titulo = titulo;
             Edicao = edicao;

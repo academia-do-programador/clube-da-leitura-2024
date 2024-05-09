@@ -65,7 +65,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
                 }
             }
         }
-        public void Excluir(ref bool retornar)
+        public virtual void Excluir(ref bool retornar)
         {
             while(true)
             {
@@ -283,7 +283,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             ExibirMensagem("Por favor, insira um número ", ConsoleColor.Red);
             input = Convert.ToString(RecebeInt(texto)); //Para garantir que, ao sair do loop, o método "RecebeInt" não vai puxar a "input" original (nula)
         }
-        private void IdInvalido()
+        protected void IdInvalido()
         {
             ExibirMensagem($"\nO {tipoEntidade} mencionado não existe! ", ConsoleColor.DarkYellow);
             Console.ReadKey(true);

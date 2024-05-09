@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
+using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
+using System.Collections;
 
 namespace ControleMedicamentos.ConsoleApp.Compartilhado
 {
@@ -19,13 +21,20 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             foreach (EntidadeBase registro in registros) 
                 if (registro.Id == id) registro.AtualizarRegistro(novaEntidade);
         }
-        public void Excluir(int id)
+        public void Excluir(int id) => registros.Remove(SelecionarPorId(id));
+        public void Excluir(int id, DateTime devolucao, TelaBase telaAmigo, TelaBase telaMulta)
         {
-            foreach (EntidadeBase registro in registros)
-                if (registro.Id == id)
-                {
-                    registros.Remove(registro); return;
-                }
+            Emprestimo emprestimo = (Emprestimo)SelecionarPorId(id);
+
+            if (devolucao > emprestimo.DataDevolucao)
+                foreach (Amigo amigo in telaAmigo.repositorio.SelecionarTodos())
+                    if (amigo == emprestimo.Amigo) 
+                    {
+                        telaMulta.repositorio.Cadastrar(amigo);
+                        amigo.multa = true;
+                    }
+
+            registros.Remove(emprestimo);
         }
 
         public EntidadeBase SelecionarPorId(int id)
@@ -52,6 +61,9 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             }
             return false;
         }
-    }
+        public void GerarMulta()
+        {
 
+        }
+    }
 }

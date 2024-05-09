@@ -30,12 +30,14 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
                 string[] parametros = [caixa.Id.ToString(), caixa.Etiqueta, caixa.Cor, caixa.DiasDeEmprestimo.ToString()];
 
                 AjustaTamanhoDeVisualizacao(parametros);
+
+                Console.Write("{0, -5} | {1, -15} |", parametros[0], parametros[1]);
+
                 CorDaCaixa(caixa.Cor);
-
-                Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -20}",
-                    parametros[0], parametros[1], parametros[2], parametros[3]);
-
+                Console.Write(" {0, -15} ", parametros[2]);
                 Console.ResetColor();
+
+                Console.WriteLine("| {0, -20}", parametros[3]);
             }
            
             if (exibirTitulo) RecebeString("\n'Enter' para continuar ");
