@@ -22,6 +22,16 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
                 if (registro.Id == id) registro.AtualizarRegistro(novaEntidade);
         }
         public void Excluir(int id) => registros.Remove(SelecionarPorId(id));
+        public void Excluir(int id, TelaBase telaAmigo)
+        {
+            Emprestimo multa = (Emprestimo)SelecionarPorId(id);
+            registros.Remove(multa);
+            foreach (Amigo amigo in telaAmigo.repositorio.SelecionarTodos())
+            {
+                if (amigo == multa.Amigo) amigo.multa = false;
+                telaAmigo.repositorio.Editar(id, amigo);
+            }
+        }
         public void Excluir(int id, DateTime devolucao, TelaBase telaAmigo, TelaBase telaMulta)
         {
             Emprestimo emprestimo = (Emprestimo)SelecionarPorId(id);
@@ -65,10 +75,6 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
                 if (registro.Etiqueta == nome) return true;
             }
             return false;
-        }
-        public void GerarMulta()
-        {
-
         }
     }
 }
