@@ -88,5 +88,27 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
                 Console.ReadKey(true);
             }
         }
+        //public virtual int RecebeInt(string texto)
+        //{
+        //    Console.Write(texto);
+        //    string quantidade = "", input = Console.ReadLine();
+
+        //    if (string.IsNullOrEmpty(input)) 
+        //        NaoEhNumero(ref input, texto);
+
+        //    foreach (char c in input.ToCharArray())
+        //    {
+        //        if (c == '-') NaoEhNumero(ref input, texto);
+        //        if (Convert.ToInt32(c) >= 48 && Convert.ToInt32(c) <= 57) quantidade += c;
+        //    }
+
+        //    if (quantidade.Length != input.Length) NaoEhNumero(ref quantidade, texto);
+
+        //    return Convert.ToInt32(quantidade);
+        //}
     }
 }
+
+//ExibirMensagem("Por favor, insira um número ", ConsoleColor.Red);
+
+//input = Convert.ToString(RecebeInt(texto));
