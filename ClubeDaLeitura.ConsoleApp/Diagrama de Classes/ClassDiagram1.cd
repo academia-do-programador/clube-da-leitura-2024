@@ -34,9 +34,6 @@
       <HashCode>AAAAAAAEAAAAAIAAAAAAAACAAAAAAQBAAAAAAEAAAAA=</HashCode>
       <FileName>ModuloReserva\Reserva.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Amigo" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="ClubeDaLeitura.ConsoleApp.ModuloCaixa.Caixa">
     <Position X="6.75" Y="3.75" Width="1.5" />

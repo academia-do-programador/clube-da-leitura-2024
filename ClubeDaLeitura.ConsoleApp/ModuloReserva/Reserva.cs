@@ -2,24 +2,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
+using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
+using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 using ControleMedicamentos.ConsoleApp.Compartilhado;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
 {
     public class Reserva : EntidadeBase
     {
+        public EntidadeBase Amigo { get; set; }
+        public EntidadeBase Revista { get; set; }
         public DateTime Validade { get; set; }
-        public Amigo Amigo { get; set; }
-        public int Revista { get; set; }
         public bool Status { get; set; }
 
-        public Reserva(DateTime validade, Amigo amigo, int revista, bool status)
+        public Reserva(DateTime validade, Amigo amigo, Revista revista, bool status)
         {
-            Validade = validade;
             Amigo = amigo;
             Revista = revista;
+            Validade = validade;
             Status = status;
         }
 
@@ -30,7 +33,12 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
 
         public override void AtualizarRegistro(EntidadeBase novoRegistro)
         {
-            throw new NotImplementedException();
+            Reserva reservaAtualizada = (Reserva)novoRegistro;
+
+            Validade = reservaAtualizada.Validade;
+            Amigo = reservaAtualizada.Amigo;
+            Revista = reservaAtualizada.Revista;
+            Status = reservaAtualizada.Status;
         }
     }
 }
