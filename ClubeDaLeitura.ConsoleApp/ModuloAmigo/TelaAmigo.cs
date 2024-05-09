@@ -23,17 +23,20 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
             if (repositorio.ExistemItensCadastrados()) { RepositorioVazio(ref retornar); return; }
             if (exibirTitulo) ApresentarCabecalhoEntidade("Visualizando amigos...\n");
 
-            Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -15} | {4, -5}",
+            Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -15} | {4, -10}",
                 "Id", "Nome", "Responsável", "Telefone", "Endereço");
 
             foreach (Amigo amigo in repositorio.SelecionarTodos())
             {
                 string[] parametros = [amigo.Id.ToString(), amigo.Nome, amigo.NomeResponsavel, amigo.Telefone, amigo.Endereco];
-
                 AjustaTamanhoDeVisualizacao(parametros);
 
-                Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -15} | {4, -5}",
+                if (amigo.multa == true) { Console.BackgroundColor = ConsoleColor.Red; Console.ForegroundColor = ConsoleColor.Black; }
+
+                Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -15} | {4, -10}",
                     parametros[0], parametros[1], parametros[2], parametros[3], parametros[4]);
+                
+                Console.ResetColor();
             }
 
             if (exibirTitulo) RecebeString("\n'Enter' para continuar ");

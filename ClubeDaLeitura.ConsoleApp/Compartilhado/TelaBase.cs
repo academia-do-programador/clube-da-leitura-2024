@@ -245,10 +245,8 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         }
         public void RecebeAtributo(Action funcao, Action atributo, ref EntidadeBase novaEntidade, ref EntidadeBase novoAtributo, TelaBase tela, string texto, ref int idEscolhido)
         {
-            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine($"\n\n{texto}s...");
             tela.VisualizarRegistros(false);
-            Console.ResetColor();
             ArrayList erros;
 
             do

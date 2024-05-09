@@ -79,9 +79,15 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
             RecebeAtributo(() => novoRegistro = new Revista(titulo, edicao, ano, caixaSelecionada), ref novoRegistro, ref ano,
                 () => TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | ", titulo, edicao, ano, caixaSelecionada.Etiqueta));
 
-            TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | {3, -15} ", titulo, edicao, ano, caixaSelecionada.Etiqueta);
+            TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | {3, -15} | ", titulo, edicao, ano, caixaSelecionada.Etiqueta);
             RecebeAtributo(() => novoRegistro = new Revista(titulo, edicao, ano, caixaSelecionada),
                 () => caixaSelecionada = (Caixa)telaCaixa.repositorio.SelecionarPorId(idCaixa), ref novoRegistro, ref caixaSelecionada, telaCaixa, "caixa", ref idCaixa);
+            
+            TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | {3, -15} | ", titulo, edicao, ano, caixaSelecionada.Etiqueta);
+            CorDaCaixa(((Caixa)caixaSelecionada).Cor); 
+            Console.Write("{0, -5}", caixaSelecionada.Etiqueta);
+            Console.ResetColor();
+            Console.WriteLine();
 
             return novoRegistro;
         }
@@ -90,12 +96,12 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
         {
             Console.Clear();
             ApresentarCabecalhoEntidade($"Cadastrando revistas...\n");
-            Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -15} | {4, -15}",
+            Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -15} | {4, -5}",
                 "Id", "Titulo", "Edição", "Ano", "Caixa");
 
             AjustaTamanhoDeVisualizacao(texto);
 
-            Console.Write(texto[0], id, texto[1], texto[2], texto[3]);
+            Console.Write(texto[0], id, texto[1], texto[2], texto[3], texto[4]);
         }
     }
 }

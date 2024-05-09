@@ -12,7 +12,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         static TelaRevista telaRevista = new(new RepositorioRevista(), telaCaixa, "revista");
         static TelaReserva telaReserva = new(new RepositorioReserva(), telaAmigo, "reserva");
         static TelaAmigo telaAmigo = new(new RepositorioAmigo(), telaMulta, "amigo");
-        static TelaMulta telaMulta = new(new RepositorioMulta(), telaAmigo);
+        static TelaMulta telaMulta = new(new RepositorioMulta(), telaAmigo, "multa");
         static TelaEmprestimo telaEmprestimo = new(new RepositorioEmprestimo(), telaAmigo, telaRevista, telaMulta, "empréstimo");
         
         public void MenuPrincipal(ref bool sair)
@@ -27,6 +27,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             Console.WriteLine("3 - Gerir caixas");
             Console.WriteLine("4 - Gerir empréstimos");
             Console.WriteLine("5 - Gerir reservas");
+            Console.WriteLine("6 - Gerir multas");
             Console.WriteLine("S - Sair");
 
             string opcaoEscolhida = RecebeString("\nEscolha uma das opções: ");
@@ -39,6 +40,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
                 case "3": tela = telaCaixa; break;
                 case "4": tela = telaEmprestimo; break;
                 case "5": tela = telaReserva; break;
+                case "6": tela = telaMulta; break;
                 case "S": sair = true; break;
                 default: OpcaoInvalida(); break;
             }
