@@ -1,6 +1,9 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
+using ClubeDaLeitura.ConsoleApp.Modulo_Revista;
 using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
+using ClubeDaLeitura.ConsoleApp.ModuloRevista;
+
 
 namespace ClubeDaLeitura.ConsoleApp
 {
@@ -27,6 +30,23 @@ namespace ClubeDaLeitura.ConsoleApp
             telaCaixa.CadastrarEntidadeTeste();
 
 
+           RepositorioRevista repositorioRevista = new RepositorioRevista();
+
+            TelaRevista telaRevista = new TelaRevista();
+            telaRevista.tipoEntidade = "Revista";
+            telaRevista.repositorio = repositorioRevista;
+
+
+            telaRevista.telaCaixa = telaCaixa;
+            telaRevista.repositorioCaixa = repositorioCaixa;
+            
+
+
+          //  telaRevista.CadastrarEntidadeTeste();
+
+
+
+
             while (true)
             {
                 char opcaoPrincipalEscolhida = TelaPrincipal.ApresentarMenuPrincipal();
@@ -42,8 +62,8 @@ namespace ClubeDaLeitura.ConsoleApp
                 else if (opcaoPrincipalEscolhida == '2')
                     tela = telaCaixa;
 
-                //else if (opcaoPrincipalEscolhida == '3')
-                //    tela = telaMedicamento;
+                else if (opcaoPrincipalEscolhida == '3')
+                    tela = telaRevista;
 
                 //else if (opcaoPrincipalEscolhida == '4')
                 //    tela = telaFuncionario;
