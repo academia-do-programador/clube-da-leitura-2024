@@ -50,7 +50,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             Console.Write("Digite a cor da caixa desejada: ");
             string cor = Console.ReadLine();
 
-            Console.Write("Digite a Quantidade Limite de Dias para Emprestimos: ");
+            Console.Write("Digite a Quantidade Limite de Dias para Emprestimos: "); 
             int tempoEscohido = int.Parse(Console.ReadLine());
 
 
