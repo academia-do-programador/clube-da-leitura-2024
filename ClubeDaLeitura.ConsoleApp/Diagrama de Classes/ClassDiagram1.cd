@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ClubeDaLeitura.ConsoleApp.ModuloAmigo.Amigo">
-    <Position X="4.5" Y="0.5" Width="1.5" />
+    <Position X="4.5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAgAAAAAAIAAAAAACAAgAAAQAAAAAAAAAAEAA=</HashCode>
       <FileName>ModuloAmigo\Amigo.cs</FileName>
@@ -10,19 +10,19 @@
   <Class Name="ClubeDaLeitura.ConsoleApp.ModuloEmprestimo.Emprestimo">
     <Position X="7.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAEAAEAAAAAAAACAACAQAAAAQBAAAAAAEAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAEAAAAAAQACAACAQAAAAQBAAAAAAEAAAAA=</HashCode>
       <FileName>ModuloEmprestimo\Emprestimo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ClubeDaLeitura.ConsoleApp.ModuloMulta.Multa">
     <Position X="2" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAEAAAAAAAAAAAAAACAAAAAAQAAAAAAgEAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAQAAAAAAgAAAAAA=</HashCode>
       <FileName>ModuloMulta\Multa.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ClubeDaLeitura.ConsoleApp.ModuloRevista.Revista">
-    <Position X="10" Y="2.75" Width="1.5" />
+    <Position X="14" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAAAAAAAAAAAAAAAAACAAACAAAAAAQAAAAAAAAAAACA=</HashCode>
       <FileName>ModuloRevista\Revista.cs</FileName>
@@ -39,7 +39,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="ClubeDaLeitura.ConsoleApp.ModuloCaixa.Caixa">
-    <Position X="6.75" Y="3.75" Width="1.5" />
+    <Position X="9.75" Y="1.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAEAAQAAAAgAgAAAAAA=</HashCode>
       <FileName>ModuloCaixa\Caixa.cs</FileName>

@@ -10,6 +10,7 @@ namespace ClubeDaLeitura.ConsoleApp
             bool sair = false;
             do tela.MenuPrincipal(ref sair);
             while (!sair);
+
         }
     }
 }
