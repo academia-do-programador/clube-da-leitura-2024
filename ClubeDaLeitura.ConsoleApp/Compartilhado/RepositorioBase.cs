@@ -30,7 +30,12 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
                 foreach (Amigo amigo in telaAmigo.repositorio.SelecionarTodos())
                     if (amigo == emprestimo.Amigo) 
                     {
-                        telaMulta.repositorio.Cadastrar(amigo);
+                        string[] tempo = (devolucao - emprestimo.DataDevolucao).ToString().Split('.');
+                        if (tempo[0].Length > 3) tempo[0] = "1";
+                        emprestimo.TempoAtraso = Convert.ToInt32(tempo[0]);
+                        Editar(id, emprestimo);
+
+                        telaMulta.repositorio.Cadastrar(emprestimo);
                         amigo.multa = true;
                     }
 

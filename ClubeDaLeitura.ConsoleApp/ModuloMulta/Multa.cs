@@ -11,19 +11,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloMulta
     public class Multa : EntidadeBase
     {
         public DateTime VetarEmprestimo { get; set; }
-        public ArrayList Amigo { get; set; }
-        public bool Status;
 
-        public Multa(DateTime vetarEmprestimo, bool status)
-        {
-            VetarEmprestimo = vetarEmprestimo;
-            Status = status;
-        }
-
-        public override ArrayList Validar()
-        {
-            throw new NotImplementedException();
-        }
+        public override ArrayList Validar() => throw new NotImplementedException();
 
         public override void AtualizarRegistro(EntidadeBase novoRegistro)
         {

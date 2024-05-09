@@ -75,7 +75,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             foreach (Amigo amigo in telaAmigo.repositorio.SelecionarTodos())
                 if (!amigo.multa) return false;
 
-            Console.WriteLine("Todos os amigos tem multa :(");
+            ExibirMensagem("Todos os amigos tem multa :(", ConsoleColor.Red);
             Console.ReadKey(true);
             return true;
         }
@@ -84,7 +84,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         {
             bool retornar = false;
             if (repositorio.ExistemItensCadastrados()) { RepositorioVazio(ref retornar); return; };
-            if (exibirTitulo) ApresentarCabecalhoEntidade("Visualizando revistas...\n");
+            if (exibirTitulo) ApresentarCabecalhoEntidade("Visualizando empréstimos em aberto...\n");
 
             Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -20} | {4, -5}", 
                 "Id", "Amigo", "Revista", "Data de empréstimo", "Data de devolução");
@@ -117,7 +117,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
                 if (!repositorio.Existe(idRegistroEscolhido)) IdInvalido();
                 else
                 {
-                    DateTime devolucao = RecebeData("Informe a data da devolução: ");
+                    DateTime devolucao = RecebeData("\nInforme a data da devolução: ");
 
                     RealizaAcao(() => repositorio.Excluir(idRegistroEscolhido, devolucao, telaAmigo, telaMulta), "devolvido");
                     break;
@@ -160,8 +160,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
         private bool ValidaMultas(EntidadeBase amigoSelecionado)
         {
-            foreach (Amigo amigo in telaMulta.repositorio.SelecionarTodos())
-                if (amigoSelecionado == amigo)
+            foreach (Emprestimo multa in telaMulta.repositorio.SelecionarTodos())
+                if (amigoSelecionado == multa.Amigo)
                 {
                     ExibirMensagem("Este amigo possui multas em aberto. Não é possível emprestar ", ConsoleColor.Red);
                     Console.ReadKey(true);

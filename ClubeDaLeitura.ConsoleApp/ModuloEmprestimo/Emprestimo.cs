@@ -17,7 +17,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         public EntidadeBase Multa { get; set; }
         public DateTime DataEmprestimo { get; set; }
         public DateTime DataDevolucao { get; set; }
-        public string Status { get; set; }
+        public int TempoAtraso { get; set; } = 0;
 
         public Emprestimo(EntidadeBase amigo, EntidadeBase revistaEmprestada, DateTime dataEmprestimo, DateTime dataDevolucao)
         {
@@ -25,7 +25,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             Revista = revistaEmprestada;
             DataEmprestimo = dataEmprestimo;
             DataDevolucao = dataDevolucao;
-            Status = "aberto";
         }
 
         public override ArrayList Validar()
@@ -38,7 +37,13 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
         public override void AtualizarRegistro(EntidadeBase novoRegistro)
         {
-            throw new NotImplementedException();
+            Emprestimo emprestimo = (Emprestimo)novoRegistro;
+
+            Amigo = emprestimo.Amigo;
+            Revista = emprestimo.Revista;
+            DataEmprestimo = emprestimo.DataEmprestimo;
+            DataDevolucao = emprestimo.DataDevolucao;
+            TempoAtraso = emprestimo.TempoAtraso;
         }
     }
 }
