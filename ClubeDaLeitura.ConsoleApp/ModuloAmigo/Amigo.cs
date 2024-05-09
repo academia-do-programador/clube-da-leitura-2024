@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ClubeDaLeitura.ConsoleApp.ModuloMulta;
 using ControleMedicamentos.ConsoleApp.Compartilhado;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
@@ -12,6 +13,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
         public string NomeResponsavel { get; set; }
         public string Telefone { get; set; }
         public string Endereco { get; set; }
+        public bool multa;
         public Amigo(string nome, string nomeResponsavel, string telefone, string endereco)
         {
             Nome = nome;

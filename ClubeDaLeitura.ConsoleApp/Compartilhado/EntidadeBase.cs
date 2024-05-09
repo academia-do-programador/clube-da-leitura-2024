@@ -6,7 +6,6 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         public string Nome { get; set; }
         public string Etiqueta { get; set; }
         public string Titulo { get; set; }
-        public int Quantidade { get; set; } = 5;
         public int Id { get; set; }
 
         public abstract ArrayList Validar();

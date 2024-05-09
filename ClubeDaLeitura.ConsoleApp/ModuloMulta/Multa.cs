@@ -11,7 +11,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloMulta
     public class Multa : EntidadeBase
     {
         public DateTime VetarEmprestimo { get; set; }
-        public Amigo Amigo { get; set; }
+        public ArrayList Amigo { get; set; }
         public bool Status;
 
         public Multa(DateTime vetarEmprestimo, bool status)
