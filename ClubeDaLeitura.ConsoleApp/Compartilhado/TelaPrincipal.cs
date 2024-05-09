@@ -10,10 +10,10 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
     {
         static TelaCaixa telaCaixa = new(new RepositorioCaixa(), "caixa");
         static TelaRevista telaRevista = new(new RepositorioRevista(), telaCaixa, "revista");
-        static TelaReserva telaReserva = new(new RepositorioReserva(), telaAmigo, "reserva");
         static TelaAmigo telaAmigo = new(new RepositorioAmigo(), telaMulta, "amigo");
+        static TelaReserva telaReserva = new(new RepositorioReserva(), telaAmigo, telaRevista, "reserva");
         static TelaMulta telaMulta = new(new RepositorioMulta(), telaAmigo, "multa");
-        static TelaEmprestimo telaEmprestimo = new(new RepositorioEmprestimo(), telaAmigo, telaRevista, telaMulta, "empréstimo");
+        static TelaEmprestimo telaEmprestimo = new(new RepositorioEmprestimo(), telaAmigo, telaRevista, telaMulta, telaReserva, "empréstimo");
         
         public void MenuPrincipal(ref bool sair)
         {

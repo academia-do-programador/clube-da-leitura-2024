@@ -18,7 +18,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
         public DateTime Validade { get; set; }
         public bool Status { get; set; }
 
-        public Reserva(DateTime validade, Amigo amigo, Revista revista, bool status)
+        public Reserva( EntidadeBase amigo, EntidadeBase revista, DateTime validade, bool status)
         {
             Amigo = amigo;
             Revista = revista;
@@ -28,7 +28,12 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
 
         public override ArrayList Validar()
         {
-            throw new NotImplementedException();
+            ArrayList erros = new ArrayList();
+
+            VerificaNulo(ref erros, Amigo);
+            VerificaNulo(ref erros, Revista);
+
+            return erros;
         }
 
         public override void AtualizarRegistro(EntidadeBase novoRegistro)

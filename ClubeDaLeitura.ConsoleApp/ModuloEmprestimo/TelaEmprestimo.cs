@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 using ClubeDaLeitura.ConsoleApp.ModuloMulta;
+using ClubeDaLeitura.ConsoleApp.ModuloReserva;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 using ControleMedicamentos.ConsoleApp.Compartilhado;
 using Microsoft.Win32;
@@ -13,14 +14,15 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 {
     internal class TelaEmprestimo : TelaBase
     {
-        TelaBase telaAmigo, telaRevista, telaMulta;
-        public TelaEmprestimo(RepositorioBase repositorio, TelaBase telaAmigo, TelaBase telaRevista, TelaBase telaMulta, string tipoEntidade)
+        TelaBase telaAmigo, telaRevista, telaMulta, telaReserva;
+        public TelaEmprestimo(RepositorioBase repositorio, TelaBase telaAmigo, TelaBase telaRevista, TelaBase telaMulta, TelaBase telaReserva, string tipoEntidade)
         {
             this.repositorio = repositorio;
             this.telaAmigo = telaAmigo;
             this.telaRevista = telaRevista;
             this.telaMulta = telaMulta;
             this.tipoEntidade = tipoEntidade;
+            this.telaReserva = telaReserva;
         }
 
         public override void ApresentarMenu(ref bool sair)
@@ -167,24 +169,27 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         }
         private bool ValidaReserva(EntidadeBase revistaSelecionada)
         {
-/*            if (revistaSelecionada.Status) 
-            {
-                ExibirMensagem("Esta revista já está reservada. Escolha outra ", ConsoleColor.Red);
-                Console.ReadKey(true);
-            }
-            return revistaSelecionada.Status;*/
+            foreach (Reserva reserva in telaReserva.repositorio.SelecionarTodos())
+                if (reserva.Revista == revistaSelecionada)
+                {
+                    ExibirMensagem("Esta revista já está reservada. Escolha outra ", ConsoleColor.Red);
+                    Console.ReadKey(true);
+                    return true;
+                }
+
             return false;
         }
         private bool NaoHaRevistasDisponiveis()
         {
-            /*            foreach (Revista revista in telaRevista.repositorio.SelecionarTodos())
-                            if (!revista.Status) return false;
+            if (telaReserva.repositorio.SelecionarTodos().Count == 0) return false;
 
-                        ExibirMensagem("Todos as revistas estão reservadas :(", ConsoleColor.Red);
-                        Console.ReadKey(true);
-                        return true;
-            */
-            return false;  
+            foreach (Revista revista in telaRevista.repositorio.SelecionarTodos())
+                foreach (Reserva reserva in telaReserva.repositorio.SelecionarTodos())
+                    if (reserva.Revista != revista) return false;
+
+            ExibirMensagem("Todos as revistas estão reservadas :(", ConsoleColor.Red);
+            Console.ReadKey(true);
+            return true;
         }
 
         protected override void TabelaDeCadastro(int id, params string[] texto)
