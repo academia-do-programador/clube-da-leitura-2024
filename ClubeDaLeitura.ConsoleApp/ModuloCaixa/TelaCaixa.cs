@@ -41,6 +41,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
         }
 
 
+
         protected override EntidadeBase ObterRegistro()
         {
             Console.Write("Digite a etiqueta da caixa: ");
