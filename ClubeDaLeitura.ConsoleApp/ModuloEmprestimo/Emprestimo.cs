@@ -16,6 +16,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
         public DateTime DataEmprestimo { get; set; }
         public DateTime DataDevolucao { get; set; }
+
         
 
         //public Revista Revista { get; set; }

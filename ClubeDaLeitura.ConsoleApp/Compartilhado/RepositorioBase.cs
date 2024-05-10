@@ -86,11 +86,6 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
 
             return false;
         }
-
-        internal static void Cadastrar(Revista revista)
-        {
-            throw new NotImplementedException();
-        }
     }
 
 }
