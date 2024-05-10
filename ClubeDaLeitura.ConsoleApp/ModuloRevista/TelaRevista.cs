@@ -1,5 +1,4 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
-using ClubeDaLeitura.ConsoleApp.Modulo_Revista;
 using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 
 using System.Collections;
@@ -10,49 +9,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
     {
         public TelaCaixa telaCaixa = null;
         public RepositorioCaixa repositorioCaixa = null;
-
-
-
-
-        public override void Registrar()
-        {
-            ApresentarCabecalho();
-
-            Console.WriteLine($"Cadastrando {tipoEntidade}...");
-
-            Console.WriteLine();
-
-            EntidadeBase entidade = ObterRegistro();
-
-
-            ArrayList erros = entidade.Validar();
-
-            if (erros.Count > 0)
-            {
-                ApresentarErros(erros);
-                return;
-            }
-
-
-            InserirRegistro(entidade);
-
-            ExibirMensagem($"O {tipoEntidade} foi cadastrado com sucesso!", ConsoleColor.Green);
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         public override void VisualizarRegistros(bool exibirTitulo)
@@ -107,9 +63,12 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
             int idCaixa = int.Parse(Console.ReadLine());
 
             Caixa caixasSelecionada = (Caixa)repositorioCaixa.SelecionarPorId(idCaixa);
+
+            Revista novaRevista = new Revista(nome, edicao, ano, caixasSelecionada);
+
+            AdicionaRevista(caixasSelecionada, novaRevista);
             
-            
-            return new Revista (nome, edicao, ano, caixasSelecionada);    
+            return novaRevista;
         }
 
 
@@ -123,5 +82,14 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 
             repositorio.Cadastrar(revista); 
         }
+
+
+
+        public void AdicionaRevista(Caixa caixaSelecionada, Revista revistaSelecionada)
+        {
+            repositorioCaixa.AdicionaRevista(caixaSelecionada.Id, caixaSelecionada, revistaSelecionada);
+        }
+
+
     }
 }

@@ -13,10 +13,7 @@
     <EmbeddedResource Remove="Documentacao\NewFolder\**" />
     <EmbeddedResource Remove="ModuloMulta\**" />
     <None Remove="Documentacao\NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ModuloMulta\" />
+    <None Remove="ModuloMulta\**" />
   </ItemGroup>
 
 </Project>

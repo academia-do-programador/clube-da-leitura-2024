@@ -1,10 +1,40 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
+using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 using System.Collections;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 {
     class TelaCaixa : TelaBase
     {
+        public override char ApresentarMenu()
+        {
+            Console.Clear();
+
+            Console.WriteLine("----------------------------------------");
+            Console.WriteLine($"        Gestão de {tipoEntidade}s        ");
+            Console.WriteLine("----------------------------------------");
+
+            Console.WriteLine();
+
+            Console.WriteLine($"1 - Cadastrar {tipoEntidade}");
+            Console.WriteLine($"2 - Editar {tipoEntidade}");
+            Console.WriteLine($"3 - Excluir {tipoEntidade}");
+            Console.WriteLine($"4 - Visualizar {tipoEntidade}s");
+            Console.WriteLine($"5 - Visualizar todas as Revistas das caixas");
+
+
+            Console.WriteLine("S - Voltar");
+
+            Console.WriteLine();
+
+            Console.Write("Escolha uma das opções: ");
+            char operacaoEscolhida = Convert.ToChar(Console.ReadLine());
+
+            return operacaoEscolhida;
+        }
+
+
+
 
         public override void VisualizarRegistros(bool exibirTitulo)
         {
@@ -18,8 +48,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             Console.WriteLine();
 
             Console.WriteLine(
-                "{0, -10} | {1, -20} | {2, -20} | {3, -30}",
-                "Id", "Etiqueta", "Cor", "Quantidade De Dias para Emprestimo"
+                "{0, -10} | {1, -20} | {2, -20} | {3, -30} |",
+                "Id", "Etiqueta", "Cor", "Prazo Maximo para Emprestimo"
             );
 
             ArrayList caixasCadastradas = repositorio.SelecionarTodos();
@@ -59,11 +89,58 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 
 
 
-        public void CadastrarEntidadeTeste()
+        public void CadastrarCaixaNovidade()
         {
-            Caixa caixa = new Caixa("Ação", "Azul", 5);
+            Caixa caixa = new Caixa("Novidades", "Azul", 3);
 
             repositorio.Cadastrar(caixa);
+        }
+
+
+
+        //public void ListarTodasRevistas()
+        //{
+        //    VisualizarRegistros(false);
+
+        //    Console.Write("Digite o ID da caixa que deseja ver as Revistas: ");
+        //    int idCaixa = int.Parse(Console.ReadLine());
+
+        //    Caixa caixaSelecionada = (Caixa)repositorio.SelecionarPorId(idCaixa);
+
+        //    foreach (Revista revistas in caixaSelecionada.Revistas)
+        //    {
+        //        if (revistas == null)
+        //            continue;
+
+        //        Console.WriteLine(revistas.Nome);
+        //    }
+
+        //    Console.ReadLine();
+        //}
+
+        public override void OperacaoAdicionada()
+        {
+            ListarRevistas();
+
+            void ListarRevistas()
+            {
+                VisualizarRegistros(false);
+
+                Console.Write("Digite o ID da caixa que deseja ver as Revistas: ");
+                int idCaixa = int.Parse(Console.ReadLine());
+
+                Caixa caixaSelecionada = (Caixa)repositorio.SelecionarPorId(idCaixa);
+
+                foreach (Revista revistas in caixaSelecionada.Revistas)
+                {
+                    if (revistas == null)
+                        continue;
+
+                    Console.WriteLine(revistas.Nome);
+                }
+
+                Console.ReadLine();
+            }
         }
     }
 }

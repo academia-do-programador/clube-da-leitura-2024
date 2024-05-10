@@ -30,20 +30,9 @@ namespace ClubeDaLeitura.ConsoleApp
             telaCaixa.tipoEntidade = "Caixa";
             telaCaixa.repositorio = repositorioCaixa;
 
-            telaCaixa.CadastrarEntidadeTeste();
+            telaCaixa.CadastrarCaixaNovidade();
             #endregion
 
-
-            RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
-
-            TelaEmprestimo telaEmprestimo = new TelaEmprestimo();
-            telaEmprestimo.tipoEntidade = "Emprestimo";
-            telaEmprestimo.repositorio = repositorioEmprestimo;
-
-            telaEmprestimo.telaAmigo = telaAmigo;
-            telaEmprestimo.repositorioAmigo = repositorioAmigo;
-
-            telaEmprestimo.CadastrarEntidadeTeste();
 
 
 
@@ -59,6 +48,20 @@ namespace ClubeDaLeitura.ConsoleApp
 
             telaRevista.CadastrarEntidadeTeste();
 
+
+            RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
+
+            TelaEmprestimo telaEmprestimo = new TelaEmprestimo();
+            telaEmprestimo.tipoEntidade = "Emprestimo";
+            telaEmprestimo.repositorio = repositorioEmprestimo;
+
+            telaEmprestimo.telaAmigo = telaAmigo;
+            telaEmprestimo.repositorioAmigo = repositorioAmigo;
+
+            telaEmprestimo.telaRevista = telaRevista;
+            telaEmprestimo.repositorioRevista = repositorioRevista;
+
+            telaEmprestimo.CadastrarEntidadeTeste();
 
 
 
@@ -123,6 +126,10 @@ namespace ClubeDaLeitura.ConsoleApp
 
                 else if (operacaoEscolhida == '4')
                     tela.VisualizarRegistros(true);
+
+                else if (operacaoEscolhida == '5')
+                    tela.OperacaoAdicionada();
+                    //telaCaixa.ListarTodasRevistas();
             }
         }
     }

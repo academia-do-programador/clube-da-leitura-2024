@@ -6,6 +6,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 {
     internal class Caixa : EntidadeBase
     {
+        public static int contadorRevistas;
+
         public string Etiqueta { get; set; }
         public string Cor {  get; set; }
         public int QuantidadeDiasEmprestado { get; set; }
@@ -13,8 +15,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 
         public Revista[] Revistas { get; set; }
 
-
-        //Faltando Adicionar as Revistas
 
         public Caixa(string etiqueta, string cor, int tempoEscolhido)
         {
@@ -55,12 +55,14 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
         }
 
 
-
-        public bool AdicionouRevista(Revista novaRevista)
+        public void AdicionarRevista(EntidadeBase novoRegistro, Revista novaRevista)
         {
+            Caixa novasInformacoes = (Caixa)novoRegistro;
 
-
-            return false;
+            this.Etiqueta = novasInformacoes.Etiqueta;
+            this.Cor = novasInformacoes.Cor;
+            this.QuantidadeDiasEmprestado = novasInformacoes.QuantidadeDiasEmprestado;
+            this.Revistas[contadorRevistas++] = novaRevista;
         }
     }
 }
