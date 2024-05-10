@@ -1,52 +1,49 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
+using ClubeDaLeitura.ConsoleApp.ModuloReserva;
+using ClubeDaLeitura.ConsoleApp.ModuloRevista;
+
+
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
+namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
 {
-    internal class Emprestimo : EntidadeBase
+    internal class Reserva : EntidadeBase
     {
         public string Status { get; set; }
-
+        public Reserva reserva { get; set; }
+ 
         public DateTime DataEmprestimo { get; set; }
         public DateTime DataDevolucao { get; set; }
+        
+        public int ReservaValida { get; internal set; }
+        public object ValidadeReserva { get; internal set; }
 
+        public Reserva reservaValida; 
+        public Reserva validadeReserva; 
         
 
-        //public Revista Revista { get; set; }
-        public Amigo Amigo { get; set; }
-
-
-        public Emprestimo(Amigo amigo, DateTime dataEmprestimo)
+       
+        public Reserva (Reserva reserva, DateTime dataEmprestimo)
         {
-            Amigo = amigo;
-            //Revista = revista;
-
+            Reserva = reserva;  
+            
             DataEmprestimo = dataEmprestimo;
-            
-            
-            DataDevolucao = DataDevolucao;
-
+            DataDevolucao = dataDevolucao;
 
             Status = VerificaStatus();
         }
-
-
-
 
         public override ArrayList Validar()
         {
 
             ArrayList erros = new ArrayList();
 
-            if (Amigo == null)
-                erros.Add("O campo \"Amigo\" é obrigatório");
+            if (Reserva == null)
+                erros.Add("O campo \"Reserva\" é obrigatório");
 
             if (DataEmprestimo == null)
                 erros.Add("O campo \"Data de Emprestimo\" é obrigatório");
@@ -63,10 +60,11 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
 
         private DateTime dataAtual = DateTime.Now;
+        private DateTime dataDevolucao;
 
         public string VerificaStatus()
         {
-            if(DataDevolucao < dataAtual)
+            if (DataDevolucao < dataAtual)
                 return "Válido";
 
 
