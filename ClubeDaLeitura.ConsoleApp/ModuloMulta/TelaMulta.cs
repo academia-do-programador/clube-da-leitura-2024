@@ -79,7 +79,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloMulta
 
                 int idRegistroEscolhido = RecebeInt($"\nDigite o ID do {tipoEntidade} que deseja excluir: ");
 
-                if (!repositorio.Existe(idRegistroEscolhido)) IdInvalido();
+                if (!repositorio.Existe(idRegistroEscolhido, this)) IdInvalido();
                 else
                 {
                     RealizaAcao(() => repositorio.Excluir(idRegistroEscolhido, telaAmigo), "excluído");

@@ -57,7 +57,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
 
                 int idEntidadeEscolhida = RecebeInt($"\nDigite o ID do {tipoEntidade} que deseja editar: ");
 
-                if (!repositorio.Existe(idEntidadeEscolhida)) IdInvalido();
+                if (!repositorio.Existe(idEntidadeEscolhida, this)) IdInvalido();
                 else
                 {
                     EntidadeBase entidade = ObterRegistro(idEntidadeEscolhida);
@@ -78,7 +78,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
 
                 int idRegistroEscolhido = RecebeInt($"\nDigite o ID do {tipoEntidade} que deseja excluir: ");
 
-                if (!repositorio.Existe(idRegistroEscolhido)) IdInvalido();
+                if (!repositorio.Existe(idRegistroEscolhido, this)) IdInvalido();
                 else
                 {
                     RealizaAcao(() => repositorio.Excluir(idRegistroEscolhido), "excluído");
@@ -289,38 +289,16 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         }
         protected bool IdEhValido(int IdSelecionado, TelaBase tela, ref EntidadeBase entidadeSelecionada, Action funcao)
         {
-            foreach (EntidadeBase entidade in tela.repositorio.SelecionarTodos())
-            {
-                if (entidade.Id == IdSelecionado)
-                {
-                    return true;
-                }
-            }
+            if(repositorio.Existe(IdSelecionado, tela)) return true;
+
             funcao();
-            tela.IdInvalido();
-            return false;
-        }
-        protected bool IdEhValido(int IdSelecionado, TelaBase tela)
-        {
-            foreach (EntidadeBase entidade in tela.repositorio.SelecionarTodos())
-            {
-                if (entidade.Id == IdSelecionado)
-                {
-                    return true;
-                }
-            }
             tela.IdInvalido();
             return false;
         }
         protected bool IdEhValido(int IdSelecionado)
         {
-            foreach (EntidadeBase entidade in repositorio.SelecionarTodos())
-            {
-                if (entidade.Id == IdSelecionado)
-                {
-                    return true;
-                }
-            }
+            if (repositorio.Existe(IdSelecionado, this)) return true;
+
             IdInvalido();
             return false;
         }
