@@ -13,7 +13,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
     class TelaReserva : TelaBase
     {
         public TelaReserva telaReserva = new TelaReserva();
-        public RepositorioReserva repositorioReserva = new RepositorioReserva();            public Reserva reservaValida;
+        public RepositorioReserva repositorioReserva = new RepositorioReserva(); public Reserva reservaValida;
         public Reserva validadeReserva;
 
 
