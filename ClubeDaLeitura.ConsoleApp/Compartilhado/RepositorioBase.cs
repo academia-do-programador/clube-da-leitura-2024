@@ -1,5 +1,8 @@
 ﻿using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
+using ClubeDaLeitura.ConsoleApp.ModuloMulta;
+using ClubeDaLeitura.ConsoleApp.ModuloReserva;
+using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 using System.Collections;
 
 namespace ControleMedicamentos.ConsoleApp.Compartilhado
@@ -15,6 +18,23 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             novoRegistro.Id = contadorId;
             registros.Add(novoRegistro);
         }
+        public void Cadastrar(EntidadeBase novoRegistro, TelaBase telaRevista)
+        {
+            contadorId++;
+            novoRegistro.Id = contadorId++;
+            registros.Add(novoRegistro);
+
+            Reserva reserva = (Reserva)novoRegistro;
+
+            if (!reserva.Status) return;
+
+            foreach (Revista revista in telaRevista.repositorio.SelecionarTodos())
+                if (revista == reserva.Revista)
+                {
+                    revista.indiponivel = true;
+                    telaRevista.repositorio.Editar(revista.Id, revista);
+                }
+        }
         public void Editar(int id, EntidadeBase novaEntidade)
         {
             novaEntidade.Id = id;
@@ -29,10 +49,10 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             foreach (Amigo amigo in telaAmigo.repositorio.SelecionarTodos())
             {
                 if (amigo == multa.Amigo) amigo.multa = false;
-                telaAmigo.repositorio.Editar(id, amigo);
+                telaAmigo.repositorio.Editar(amigo.Id, amigo);
             }
         }
-        public void Excluir(int id, DateTime devolucao, TelaBase telaAmigo, TelaBase telaMulta)
+        public void Excluir(int id, DateTime devolucao, TelaBase telaAmigo, TelaBase telaMulta, TelaBase telaRevista)
         {
             Emprestimo emprestimo = (Emprestimo)SelecionarPorId(id);
 
@@ -44,12 +64,30 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
                         if (tempo[0].Length > 3) tempo[0] = "1";
                         emprestimo.TempoAtraso = Convert.ToInt32(tempo[0]);
                         Editar(id, emprestimo);
+                        amigo.multa = true;
 
                         telaMulta.repositorio.Cadastrar(emprestimo);
-                        amigo.multa = true;
+                        telaAmigo.repositorio.Editar(amigo.Id, amigo);
                     }
+            
+            foreach (Revista revista in telaRevista.repositorio.SelecionarTodos())
+            {
+                if (revista == emprestimo.Revista) revista.indiponivel = false;
+                telaRevista.repositorio.Editar(revista.Id, revista);
+            }
 
             registros.Remove(emprestimo);
+        }
+        public void Excluir(int id, TelaBase telaRevista, int i)
+        {
+            Reserva reserva = (Reserva)SelecionarPorId(id);
+            registros.Remove(reserva);
+
+            foreach (Revista revista in telaRevista.repositorio.SelecionarTodos())
+            {
+                if (revista == reserva.Revista) revista.indiponivel = false;
+                telaRevista.repositorio.Editar(revista.Id, revista);
+            }
         }
 
         public EntidadeBase SelecionarPorId(int id)
@@ -61,9 +99,9 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         public ArrayList SelecionarTodos() => registros;
         public bool ExistemItensCadastrados() => registros.Count == 0;
         public int CadastrandoID() => contadorId + 1;
-        public bool Existe(int id)
+        public bool Existe(int id, TelaBase tela)
         {
-            foreach(EntidadeBase entidade in registros) 
+            foreach(EntidadeBase entidade in tela.repositorio.registros) 
                 if (entidade.Id == id) return true;
             return false;
         }

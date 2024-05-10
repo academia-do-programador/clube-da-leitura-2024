@@ -15,14 +15,14 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
     {
         public EntidadeBase Amigo { get; set; }
         public EntidadeBase Revista { get; set; }
-        public DateTime Validade { get; set; }
+        public DateTime DataReserva { get; set; }
         public bool Status { get; set; }
 
         public Reserva( EntidadeBase amigo, EntidadeBase revista, DateTime validade, bool status)
         {
             Amigo = amigo;
             Revista = revista;
-            Validade = validade;
+            DataReserva = validade;
             Status = status;
         }
 
@@ -40,7 +40,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
         {
             Reserva reservaAtualizada = (Reserva)novoRegistro;
 
-            Validade = reservaAtualizada.Validade;
+            DataReserva = reservaAtualizada.DataReserva;
             Amigo = reservaAtualizada.Amigo;
             Revista = reservaAtualizada.Revista;
             Status = reservaAtualizada.Status;

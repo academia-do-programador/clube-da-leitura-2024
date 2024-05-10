@@ -14,6 +14,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
         public string Edicao { get; set; }
         public string Ano { get; set; }
         public EntidadeBase Caixa { get; set; }
+        public bool indiponivel; //reservada ou emprestada
+
         public Revista(string titulo, string edicao, string ano, EntidadeBase caixa)
         {
             Titulo = titulo;
@@ -40,6 +42,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
             Edicao = revistaAtualizada.Edicao;
             Ano = revistaAtualizada.Ano;
             Caixa = revistaAtualizada.Caixa;
+            indiponivel = revistaAtualizada.indiponivel;
         }
     }
 }

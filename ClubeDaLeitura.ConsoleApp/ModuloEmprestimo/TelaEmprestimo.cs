@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,15 +15,14 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 {
     internal class TelaEmprestimo : TelaBase
     {
-        TelaBase telaAmigo, telaRevista, telaMulta, telaReserva;
-        public TelaEmprestimo(RepositorioBase repositorio, TelaBase telaAmigo, TelaBase telaRevista, TelaBase telaMulta, TelaBase telaReserva, string tipoEntidade)
+        TelaBase telaAmigo, telaRevista, telaMulta;
+        public TelaEmprestimo(RepositorioBase repositorio, TelaBase telaAmigo, TelaBase telaRevista, TelaBase telaMulta, string tipoEntidade)
         {
             this.repositorio = repositorio;
             this.telaAmigo = telaAmigo;
             this.telaRevista = telaRevista;
             this.telaMulta = telaMulta;
             this.tipoEntidade = tipoEntidade;
-            this.telaReserva = telaReserva;
         }
 
         public override void ApresentarMenu(ref bool sair)
@@ -99,12 +99,11 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
                 int idRegistroEscolhido = RecebeInt($"\nDigite o ID do {tipoEntidade} que deseja devolver: ");
 
-                if (!repositorio.Existe(idRegistroEscolhido)) IdInvalido();
+                if (!repositorio.Existe(idRegistroEscolhido, this)) IdInvalido();
                 else
                 {
                     DateTime devolucao = RecebeData("\nInforme a data da devolução: ");
-
-                    RealizaAcao(() => repositorio.Excluir(idRegistroEscolhido, devolucao, telaAmigo, telaMulta), "devolvido");
+                    RealizaAcao(() => repositorio.Excluir(idRegistroEscolhido, devolucao, telaAmigo, telaMulta, telaRevista), "devolvido");
                     break;
                 }
             }
@@ -126,7 +125,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
                     () => amigoSelecionado = (Amigo)telaAmigo.repositorio.SelecionarPorId(idSelecionado),
                     ref novoEmprestimo, ref amigoSelecionado, telaAmigo, "amigo", ref idSelecionado);
             }
-            while (ValidaMultas(amigoSelecionado));
+            while (ValidaMultas(amigoSelecionado) || !IdEhValido(idSelecionado, telaAmigo, ref amigoSelecionado,
+                    () => amigoSelecionado = new Amigo("-", "-", "-", "-")));
 
             do
             {
@@ -135,7 +135,10 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
                     () => revistaSelecionada = (Revista)telaRevista.repositorio.SelecionarPorId(idSelecionado),
                     ref novoEmprestimo, ref revistaSelecionada, telaRevista, "revista", ref idSelecionado);
             }
-            while (ValidaReserva(revistaSelecionada));
+            while (ValidaReserva(revistaSelecionada) || !IdEhValido(idSelecionado, telaRevista, ref revistaSelecionada,
+                    () => revistaSelecionada = new Revista("-", "-", "-", null)));
+
+            ((Revista)telaRevista.repositorio.SelecionarPorId(idSelecionado)).indiponivel = true;
 
             Revista revista = (Revista)revistaSelecionada;
             Caixa caixa = (Caixa)revista.Caixa;
@@ -160,6 +163,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         }
         private bool TodosOsAmigosTemMulta()
         {
+            if (telaAmigo.repositorio.SelecionarTodos().Count == 0) 
+                return false;
+
             foreach (Amigo amigo in telaAmigo.repositorio.SelecionarTodos())
                 if (!amigo.multa) return false;
 
@@ -169,23 +175,20 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         }
         private bool ValidaReserva(EntidadeBase revistaSelecionada)
         {
-            foreach (Reserva reserva in telaReserva.repositorio.SelecionarTodos())
-                if (reserva.Revista == revistaSelecionada)
-                {
-                    ExibirMensagem("Esta revista já está reservada. Escolha outra ", ConsoleColor.Red);
-                    Console.ReadKey(true);
-                    return true;
-                }
+            Revista revista = (Revista)revistaSelecionada;
 
+            if (revista.indiponivel)
+            {
+                ExibirMensagem("Esta revista já está reservada. Escolha outra ", ConsoleColor.Red);
+                Console.ReadKey(true);
+                return true;
+            }
             return false;
         }
         private bool NaoHaRevistasDisponiveis()
         {
-            if (telaReserva.repositorio.SelecionarTodos().Count == 0) return false;
-
             foreach (Revista revista in telaRevista.repositorio.SelecionarTodos())
-                foreach (Reserva reserva in telaReserva.repositorio.SelecionarTodos())
-                    if (reserva.Revista != revista) return false;
+                if (!revista.indiponivel) return false;
 
             ExibirMensagem("Todos as revistas estão reservadas :(", ConsoleColor.Red);
             Console.ReadKey(true);
