@@ -1,5 +1,5 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
-using ClubeDaLeitura.ConsoleApp.Modulo_Revista;
+using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 using System.Collections;
 
@@ -37,7 +37,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
                 Console.WriteLine(
                 "{0, -10} | {1, -20} | {2, -20} | {3, -30} |{4, -30} ",
 
-                    revista.Id, revista.NomedaRevista, revista.Edicao, revista.Ano, revista.Caixa.Cor
+                    revista.Id, revista.Nome, revista.Edicao, revista.Ano, revista.Caixa.Cor
                 );
             }
 
@@ -76,11 +76,10 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
         public void CadastrarEntidadeTeste()
         {
             Caixa caixateste = (Caixa) repositorioCaixa.SelecionarTodos()[0];
-            
 
-         Revista revista = new Revista ("nome", "edição", "anoLancamento", caixateste );
+            Revista revista = new Revista ("nome", "edição", "anoLancamento", caixateste );
 
-            RepositorioBase.Cadastrar(revista);
+            repositorio.Cadastrar(revista);
             
         
         }

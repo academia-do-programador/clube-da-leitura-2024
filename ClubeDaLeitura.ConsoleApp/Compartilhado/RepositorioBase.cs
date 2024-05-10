@@ -1,4 +1,4 @@
-﻿using ClubeDaLeitura.ConsoleApp.Modulo_Revista;
+﻿using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 using System.Collections;
 
 namespace ClubeDaLeitura.ConsoleApp.Compartilhado
@@ -85,11 +85,6 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
             }
 
             return false;
-        }
-
-        internal static void Cadastrar(Revista revista)
-        {
-            throw new NotImplementedException();
         }
     }
 

@@ -1,75 +1,73 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
-using ClubeDaLeitura.ConsoleApp.ModuloReserva;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
-
-
-using System;
 using System.Collections;
-using System.Linq;
-using System.Runtime.ConstrainedExecution;
+
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
 {
     internal class Reserva : EntidadeBase
     {
         public string Status { get; set; }
-        public Reserva reserva { get; set; }
- 
-        public DateTime DataEmprestimo { get; set; }
-        public DateTime DataDevolucao { get; set; }
-        
-        public int ReservaValida { get; internal set; }
-        public object ValidadeReserva { get; internal set; }
+     
+        public DateTime DataReserva { get; set; }
 
-        public Reserva reservaValida; 
-        public Reserva validadeReserva; 
-        
+        private DateTime dataLimite;
+
+        private DateTime dataAtual = DateTime.Now;
+
+        public Amigo Amigo { get; set; }
+        public Revista Revista { get; set; }
+                
 
        
-        public Reserva (Reserva reserva, DateTime dataEmprestimo)
+        public Reserva (Amigo amigo, Revista revista, DateTime dataReserva)
         {
-            Reserva = reserva;  
-            
-            DataEmprestimo = dataEmprestimo;
-            DataDevolucao = dataDevolucao;
+            Amigo = amigo;
+            Revista = revista;
+
+            DataReserva = dataReserva;
+            dataLimite = dataReserva.AddDays(2);
+
 
             Status = VerificaStatus();
         }
 
         public override ArrayList Validar()
         {
-
             ArrayList erros = new ArrayList();
 
-            if (Reserva == null)
-                erros.Add("O campo \"Reserva\" é obrigatório");
+            if (Amigo == null)
+                erros.Add("O campo \"Amigo\" é obrigatório");
 
-            if (DataEmprestimo == null)
-                erros.Add("O campo \"Data de Emprestimo\" é obrigatório");
+            if (Revista == null)
+                erros.Add("O campo \"Revista\" é obrigatória");
 
 
             return erros;
         }
 
 
+
         public override void AtualizarRegistro(EntidadeBase novoRegistro)
         {
-            throw new NotImplementedException();
+            Reserva novasInformacoes = (Reserva)novoRegistro;
+
+            this.Amigo = novasInformacoes.Amigo;
+            this.Revista = novasInformacoes.Revista;
+            this.DataReserva = novasInformacoes.DataReserva;
+            this.Status = novasInformacoes.Status;
         }
 
 
-        private DateTime dataAtual = DateTime.Now;
-        private DateTime dataDevolucao;
-
         public string VerificaStatus()
         {
-            if (DataDevolucao < dataAtual)
-                return "Válido";
+            if (dataAtual >= dataLimite)
+                return "Expirada";
 
 
             else
-                return "Atrasado";
+                return "Válida";
         }
     }
 }

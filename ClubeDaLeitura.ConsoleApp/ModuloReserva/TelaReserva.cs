@@ -1,22 +1,20 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
-using ClubeDaLeitura.ConsoleApp.ModuloReserva;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
-using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
 
 using System.Collections;
-using System.Linq.Expressions;
 
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
 {
     class TelaReserva : TelaBase
     {
-        public TelaReserva telaReserva = new TelaReserva();
-        public RepositorioReserva repositorioReserva = new RepositorioReserva(); public Reserva reservaValida;
-        public Reserva validadeReserva;
+        public TelaAmigo telaAmigo = null;
+        public TelaRevista telaRevista = null;
 
-        
+        public RepositorioAmigo repositorioAmigo = null;
+        public RepositorioRevista repositorioRevista = null;
+
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             if (exibirTitulo)
@@ -29,8 +27,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
             Console.WriteLine();
 
             Console.WriteLine(
-                "| {0, -10} | {1, -20} | {2, -20} | {3, -10} |",
-                "Id", "Reserva Válida", "Status", "Validade Reserva" 
+                "| {0, -10} | {1, -20} | {2, -20} | {3, -20} | {4, -10} |",
+                "Id", "Nome do Amigo", "Nome da Revista", "Data da Reserva", "Status" 
             );
             
             ArrayList reservaCadastradas = repositorio.SelecionarTodos();
@@ -41,38 +39,54 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
                     continue;
 
                 Console.WriteLine(
-                "| {0, -10} | {1, -20} | {2, -20} | {3, -10} |",
-
-                    reserva.Id, reserva.ReservaValida, reserva.Status, reserva.ValidadeReserva
-                    ) ;
+                "| {0, -10} | {1, -20} | {2, -20} | {3, -20} | {4, -10} |",
+                 reserva.Id, reserva.Amigo.Nome, reserva.Revista.Nome, reserva.DataReserva, reserva.Status
+                 ) ;
             }
 
             Console.ReadLine();
             Console.WriteLine();
         }
 
+
+
         protected override EntidadeBase ObterRegistro()
         {
-            telaReserva.VisualizarRegistros(false);
+            telaAmigo.VisualizarRegistros(false);
 
-            Console.Write("Digite o ID da Reserva: ");
-            int idReserva = int.Parse(Console.ReadLine());
+            Console.Write("Digite o ID do Amigo solicitante: ");
+            int idAmigo = int.Parse(Console.ReadLine());
 
-            Reserva reservaCadastrada = (Reserva)repositorioReserva.SelecionarPorId(idReserva);
+            Amigo amigoSelecionado = (Amigo)repositorioAmigo.SelecionarPorId(idAmigo);
 
 
-            Console.Write("Digite a data do emprestimo: ");
-            DateTime dataEmprestimo = Convert.ToDateTime(Console.ReadLine());
+
+            telaRevista.VisualizarRegistros(false);
+
+            Console.Write("Digite o ID da Revista Solicitada: ");
+            int idRevista = int.Parse(Console.ReadLine());
+
+            Revista revistaSelecionada = (Revista)repositorioRevista.SelecionarPorId(idRevista);
+
+
+
+            Console.Write("Digite a data da reserva: ");
+            DateTime dataReserva = Convert.ToDateTime(Console.ReadLine());
             
-            return new Reserva (reservaCadastrada, dataEmprestimo);
+            return new Reserva (amigoSelecionado, revistaSelecionada, dataReserva);
         }
         
+
+
         public void CadastrarEntidadeTeste()
         {
-            Reserva reservaTeste = (Reserva)repositorioReserva.SelecionarTodos()[0];
+            Amigo amigoTeste = (Amigo)repositorioAmigo.SelecionarTodos()[0];
+
+            Revista revistaTeste = (Revista)repositorioRevista.SelecionarTodos()[0];
+
             DateTime dataTeste = DateTime.Now;
 
-            Reserva reserva = new Reserva(reservaTeste, dataTeste);
+            Reserva reserva = new Reserva(amigoTeste, revistaTeste, dataTeste);
 
              repositorio.Cadastrar (reserva);
         }
