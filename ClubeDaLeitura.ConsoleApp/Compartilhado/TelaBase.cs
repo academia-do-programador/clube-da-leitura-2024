@@ -45,7 +45,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             RealizaAcao(() => repositorio.Cadastrar(entidade), "cadastrado");
         }
         protected abstract EntidadeBase ObterRegistro(int id);
-        public void Editar(ref bool retornar)
+        public virtual void Editar(ref bool retornar)
         {
             while (true)
             {
@@ -282,10 +282,47 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             ExibirMensagem("Por favor, insira um número ", ConsoleColor.Red);
             input = Convert.ToString(RecebeInt(texto)); //Para garantir que, ao sair do loop, o método "RecebeInt" não vai puxar a "input" original (nula)            
         }       
-        protected void IdInvalido()
+        public void IdInvalido()
         {
             ExibirMensagem($"\nO {tipoEntidade} mencionado não existe! ", ConsoleColor.DarkYellow);
             Console.ReadKey(true);
+        }
+        protected bool IdEhValido(int IdSelecionado, TelaBase tela, ref EntidadeBase entidadeSelecionada, Action funcao)
+        {
+            foreach (EntidadeBase entidade in tela.repositorio.SelecionarTodos())
+            {
+                if (entidade.Id == IdSelecionado)
+                {
+                    return true;
+                }
+            }
+            funcao();
+            tela.IdInvalido();
+            return false;
+        }
+        protected bool IdEhValido(int IdSelecionado, TelaBase tela)
+        {
+            foreach (EntidadeBase entidade in tela.repositorio.SelecionarTodos())
+            {
+                if (entidade.Id == IdSelecionado)
+                {
+                    return true;
+                }
+            }
+            tela.IdInvalido();
+            return false;
+        }
+        protected bool IdEhValido(int IdSelecionado)
+        {
+            foreach (EntidadeBase entidade in repositorio.SelecionarTodos())
+            {
+                if (entidade.Id == IdSelecionado)
+                {
+                    return true;
+                }
+            }
+            IdInvalido();
+            return false;
         }
         protected void RepositorioVazio(ref bool repetir)
         {
