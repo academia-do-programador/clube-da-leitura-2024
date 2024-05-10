@@ -1,9 +1,9 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
-using ClubeDaLeitura.ConsoleApp.Modulo_Revista;
 using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
 
+using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 
 namespace ClubeDaLeitura.ConsoleApp
 {
@@ -39,7 +39,7 @@ namespace ClubeDaLeitura.ConsoleApp
             telaEmprestimo.telaAmigo = telaAmigo;
             telaEmprestimo.repositorioAmigo = repositorioAmigo;
 
-           RepositorioRevista repositorioRevista = new RepositorioRevista();
+            RepositorioRevista repositorioRevista = new RepositorioRevista();
 
             TelaRevista telaRevista = new TelaRevista();
             telaRevista.tipoEntidade = "Revista";

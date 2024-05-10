@@ -16,7 +16,6 @@
   <ItemGroup>
     <Folder Include="ModuloMulta\" />
     <Folder Include="ModuloReserva\" />
-    <Folder Include="ModuloRevista\" />
   </ItemGroup>
 
 </Project>

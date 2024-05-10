@@ -2,13 +2,13 @@
 using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 using System.Collections;
 
-namespace ClubeDaLeitura.ConsoleApp.Modulo_Revista
+namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 
 
 {
     class Revista : EntidadeBase
     {
-        public string NomedaRevista  { get; set; }
+        public string Nome  { get; set; }
 
         public string Edicao { get; set; }
 
@@ -20,17 +20,19 @@ namespace ClubeDaLeitura.ConsoleApp.Modulo_Revista
 
         public Revista (string nome, string edicao, string ano, Caixa caixa)
         {
-            NomedaRevista = nome;
+            Nome = nome;
             Edicao = edicao;
             Ano = ano;
             Caixa = caixa;
         }
 
+
+
         public override ArrayList Validar()
         {
             ArrayList erros = new ArrayList();
 
-            if (string.IsNullOrEmpty(NomedaRevista.Trim()))
+            if (string.IsNullOrEmpty(Nome.Trim()))
                 erros.Add("O campo \"nome\" é obrigatório");
 
             if (string.IsNullOrEmpty(Ano.Trim()))
@@ -39,18 +41,19 @@ namespace ClubeDaLeitura.ConsoleApp.Modulo_Revista
             if (string.IsNullOrEmpty(Edicao.Trim()))
                 erros.Add("O campo \"edição da revista\" é obrigatório");
 
-            if (Caixa==null)
+            if (Caixa == null)
                 erros.Add("O campo \"caixa\" é obrigatório");
 
             return erros;
         }
 
 
+
         public override void AtualizarRegistro(EntidadeBase novoRegistro)
         {
             Revista novasInformacoes = (Revista)novoRegistro;
 
-            this.NomedaRevista = novasInformacoes.NomedaRevista;
+            this.Nome = novasInformacoes.Nome;
             this.Ano = novasInformacoes.Ano;
             this.Edicao = novasInformacoes.Edicao;
             this.Caixa = novasInformacoes.Caixa;

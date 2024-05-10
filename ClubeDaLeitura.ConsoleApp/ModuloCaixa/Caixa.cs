@@ -1,4 +1,5 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
+using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 using System.Collections;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
@@ -8,8 +9,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
         public string Etiqueta { get; set; }
         public string Cor {  get; set; }
         public int QuantidadeDiasEmprestado { get; set; }
-        
-        //public Revistas[] revistas { get; set; }
+
+
+        public Revista[] Revistas { get; set; }
 
 
         //Faltando Adicionar as Revistas
@@ -19,6 +21,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             Etiqueta = etiqueta;
             Cor = cor;
             QuantidadeDiasEmprestado = tempoEscolhido;
+            
+            Revistas = new Revista[100];
         }
 
 
@@ -48,6 +52,15 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             this.Etiqueta = novasInformacoes.Etiqueta;
             this.Cor = novasInformacoes.Cor;
             this.QuantidadeDiasEmprestado = novasInformacoes.QuantidadeDiasEmprestado;
+        }
+
+
+
+        public bool AdicionouRevista(Revista novaRevista)
+        {
+
+
+            return false;
         }
     }
 }
