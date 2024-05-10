@@ -16,8 +16,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
         public RepositorioReserva repositorioReserva = new RepositorioReserva(); public Reserva reservaValida;
         public Reserva validadeReserva;
 
-
-
+        
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             if (exibirTitulo)
@@ -52,8 +51,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
             Console.WriteLine();
         }
 
-
-
         protected override EntidadeBase ObterRegistro()
         {
             telaReserva.VisualizarRegistros(false);
@@ -66,15 +63,10 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
 
             Console.Write("Digite a data do emprestimo: ");
             DateTime dataEmprestimo = Convert.ToDateTime(Console.ReadLine());
-
-
-
-
+            
             return new Reserva (reservaCadastrada, dataEmprestimo);
         }
-
-
-
+        
         public void CadastrarEntidadeTeste()
         {
             Reserva reservaTeste = (Reserva)repositorioReserva.SelecionarTodos()[0];
