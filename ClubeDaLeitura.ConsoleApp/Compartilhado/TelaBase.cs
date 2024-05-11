@@ -22,6 +22,8 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
             Console.WriteLine($"3 - Excluir {tipoEntidade}");
             Console.WriteLine($"4 - Visualizar {tipoEntidade}s");
 
+            Console.WriteLine();
+
             Console.WriteLine("S - Voltar");
 
             Console.WriteLine();
@@ -171,10 +173,6 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
 
         protected abstract EntidadeBase ObterRegistro();
 
-        public virtual void OperacaoAdicionada()
-        {
-
-        }
     }
 }
 

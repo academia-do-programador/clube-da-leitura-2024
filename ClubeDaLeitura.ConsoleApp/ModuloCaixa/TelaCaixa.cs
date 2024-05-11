@@ -22,6 +22,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             Console.WriteLine($"4 - Visualizar {tipoEntidade}s");
             Console.WriteLine($"5 - Visualizar todas as Revistas das caixas");
 
+            Console.WriteLine();
 
             Console.WriteLine("S - Voltar");
 
@@ -29,6 +30,12 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 
             Console.Write("Escolha uma das opções: ");
             char operacaoEscolhida = Convert.ToChar(Console.ReadLine());
+
+            if (operacaoEscolhida == '5')
+            {
+                ListarTodasRevistas();
+                return 'S';
+            }
 
             return operacaoEscolhida;
         }
@@ -98,27 +105,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 
 
 
-        //public void ListarTodasRevistas()
-        //{
-        //    VisualizarRegistros(false);
-
-        //    Console.Write("Digite o ID da caixa que deseja ver as Revistas: ");
-        //    int idCaixa = int.Parse(Console.ReadLine());
-
-        //    Caixa caixaSelecionada = (Caixa)repositorio.SelecionarPorId(idCaixa);
-
-        //    foreach (Revista revistas in caixaSelecionada.Revistas)
-        //    {
-        //        if (revistas == null)
-        //            continue;
-
-        //        Console.WriteLine(revistas.Nome);
-        //    }
-
-        //    Console.ReadLine();
-        //}
-
-        public override void OperacaoAdicionada()
+        public void ListarTodasRevistas()
         {
             ListarRevistas();
 
@@ -131,12 +118,22 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 
                 Caixa caixaSelecionada = (Caixa)repositorio.SelecionarPorId(idCaixa);
 
-                foreach (Revista revistas in caixaSelecionada.Revistas)
+
+                Console.WriteLine(
+                    "{0, -5} | {1, -10} | {2, -10} | {3, -10} |",
+                    "Id", "Titulo", "Edição nº", "Ano"
+                );
+
+                foreach (Revista revista in caixaSelecionada.Revistas)
                 {
-                    if (revistas == null)
+                    if (revista == null)
                         continue;
 
-                    Console.WriteLine(revistas.Nome);
+                    Console.WriteLine(
+                    "{0, -5} | {1, -10} | {2, -10} | {3, -10} |",
+
+                        revista.Id, revista.Nome, revista.Edicao, revista.Ano
+                    );
                 }
 
                 Console.ReadLine();

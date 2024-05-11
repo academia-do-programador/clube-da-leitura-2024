@@ -1,7 +1,9 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
+using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
 using System.Collections;
+using System.IO.Pipes;
 
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
@@ -14,8 +16,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         public TelaRevista telaRevista = null;
         public RepositorioRevista repositorioRevista = null;
 
-
-        public virtual char ApresentarMenu()
+        public override char ApresentarMenu()
         {
             Console.Clear();
 
@@ -31,12 +32,20 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             Console.WriteLine($"4 - Visualizar {tipoEntidade}s");
             Console.WriteLine($"5 - Visualizar Emprestimos do Mês");
 
+            Console.WriteLine();
+
             Console.WriteLine("S - Voltar");
 
             Console.WriteLine();
 
             Console.Write("Escolha uma das opções: ");
             char operacaoEscolhida = Convert.ToChar(Console.ReadLine());
+
+            if(operacaoEscolhida == '5')
+            {
+                ListaEmprestimosMes();
+                return 'S';
+            }
 
             return operacaoEscolhida;
         }
@@ -102,7 +111,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
 
 
-            return new Emprestimo(amigoSelecionado,revistaSelecionada, dataEmprestimo);
+            return new Emprestimo(amigoSelecionado, revistaSelecionada, dataEmprestimo);
         }
 
 
@@ -110,10 +119,10 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         public void CadastrarEntidadeTeste()
         {
             Amigo amigoTeste = (Amigo)repositorioAmigo.SelecionarTodos()[0];
-            
+
             Revista revistaTeste = (Revista)repositorioRevista.SelecionarTodos()[0];
-            
-            
+
+
             DateTime dataTeste = DateTime.Now;
 
             Emprestimo emprestimo = new Emprestimo(amigoTeste, revistaTeste, dataTeste);
@@ -122,11 +131,128 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         }
 
 
-        public override void OperacaoAdicionada()
+        public void ListaEmprestimosMes()
         {
             Console.WriteLine("Visualizando os Emprestimos do Mês...");
             Console.WriteLine();
 
+            Console.WriteLine(
+                "| 1 - {0}   |\n" +
+                "| 2 - {1} |\n" +
+                "| 3 - {2}     |\n" +
+                "| 4 - {3}     |\n" +
+                "| 5 - {4}      |\n" +
+                "| 6 - {5}     |\n" +
+                "| 7 - {6}     |\n" +
+                "| 8 - {7}    |\n" +
+                "| 9 - {8}  |\n" +
+                "| 10 - {9}  |\n" +
+                "| 11 - {10} |\n" +
+                "| 12 - {11} |",
+                "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+                );
+
+            Console.Write("Digite o Número do Mês que Deseja Visualizar: ");
+            int mes = Convert.ToInt32(Console.ReadLine());
+
+            string nomeMes = AdicionaNomeMes(mes);
+
+            ArrayList emprestimosMes = new ArrayList();
+
+
+
+            ArrayList emprestimosCadastrados = repositorio.SelecionarTodos();
+
+            foreach (Emprestimo emprestimo in emprestimosCadastrados)
+            {
+                if (emprestimo == null)
+                    continue;
+
+
+                if (emprestimo.DataEmprestimo.Month == mes)
+                {
+                    emprestimosMes.Add(emprestimo);
+                }
+            }
+
+
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine($"| Emprestimos do Mês de {nomeMes} |");
+            Console.WriteLine("-----------------------------------");
+            foreach (Emprestimo emprestimo in emprestimosMes)
+            {
+                if (emprestimo == null)
+                    continue;
+
+
+                Console.WriteLine(
+                "| {0, -10} | {1, -20} | {2, -20} | {3, -10} |",
+
+                    emprestimo.Id, emprestimo.Amigo.Nome, emprestimo.DataEmprestimo, emprestimo.Status
+                );
+            }
+
+            Console.ReadLine();
+        }
+
+
+
+        private string AdicionaNomeMes(int numeroMes)
+        {
+            string nomeMes = "";
+
+            switch (numeroMes)
+            {
+                case 1:
+                    nomeMes = "Janeiro";
+                    break;
+
+                case 2:
+                    nomeMes = "Fevereiro";
+                    break;
+
+                case 3:
+                    nomeMes = "Março";
+                    break;
+
+                case 4:
+                    nomeMes = "Abril";
+                    break;
+
+                case 5:
+                    nomeMes = "Maio";
+                    break;
+
+                case 6:
+                    nomeMes = "Junho";
+                    break;
+
+                case 7:
+                    nomeMes = "Julho";
+                    break;
+
+                case 8:
+                    nomeMes = "Agosto";
+                    break;
+
+                case 9:
+                    nomeMes = "Setembro";
+                    break;
+
+                case 10:
+                    nomeMes = "Outubro";
+                    break;
+
+                case 11:
+                    nomeMes = "Novembro";
+                    break;
+
+                case 12:
+                    nomeMes = "Dezembro";
+                    break;
+            }
+
+            return nomeMes;
         }
     }
 }

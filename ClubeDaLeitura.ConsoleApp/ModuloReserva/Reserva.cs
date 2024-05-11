@@ -33,6 +33,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
             Status = VerificaStatus();
         }
 
+
+
         public override ArrayList Validar()
         {
             ArrayList erros = new ArrayList();
@@ -62,7 +64,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
 
         public string VerificaStatus()
         {
-            if (dataAtual >= dataLimite)
+            if (dataAtual > dataLimite)
                 return "Expirada";
 
 

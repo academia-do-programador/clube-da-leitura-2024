@@ -49,6 +49,7 @@ namespace ClubeDaLeitura.ConsoleApp
             telaRevista.CadastrarEntidadeTeste();
 
 
+
             RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
 
             TelaEmprestimo telaEmprestimo = new TelaEmprestimo();
@@ -73,6 +74,7 @@ namespace ClubeDaLeitura.ConsoleApp
 
             telaReserva.telaAmigo = telaAmigo;
             telaReserva.telaRevista = telaRevista;
+            telaReserva.telaEmprestimo = telaEmprestimo;
 
             telaReserva.repositorioAmigo = repositorioAmigo;
             telaReserva.repositorioRevista = repositorioRevista;
@@ -126,10 +128,6 @@ namespace ClubeDaLeitura.ConsoleApp
 
                 else if (operacaoEscolhida == '4')
                     tela.VisualizarRegistros(true);
-
-                else if (operacaoEscolhida == '5')
-                    tela.OperacaoAdicionada();
-                    //telaCaixa.ListarTodasRevistas();
             }
         }
     }

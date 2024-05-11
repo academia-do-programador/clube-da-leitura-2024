@@ -1,5 +1,6 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
+using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 
 using System.Collections;
@@ -11,9 +12,47 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
     {
         public TelaAmigo telaAmigo = null;
         public TelaRevista telaRevista = null;
+        public TelaEmprestimo telaEmprestimo = null;
 
         public RepositorioAmigo repositorioAmigo = null;
         public RepositorioRevista repositorioRevista = null;
+
+
+        public override char ApresentarMenu()
+        {
+            Console.Clear();
+
+            Console.WriteLine("----------------------------------------");
+            Console.WriteLine($"        Gestão de {tipoEntidade}s        ");
+            Console.WriteLine("----------------------------------------");
+
+            Console.WriteLine();
+
+            Console.WriteLine($"1 - Cadastrar {tipoEntidade}");
+            Console.WriteLine($"2 - Editar {tipoEntidade}");
+            Console.WriteLine($"3 - Excluir {tipoEntidade}");
+            Console.WriteLine($"4 - Visualizar {tipoEntidade}s");
+            Console.WriteLine($"5 - Realizar Emprestimo");
+
+            Console.WriteLine();
+
+            Console.WriteLine("S - Voltar");
+
+            Console.WriteLine();
+
+            Console.Write("Escolha uma das opções: ");
+            char operacaoEscolhida = Convert.ToChar(Console.ReadLine());
+
+            if (operacaoEscolhida == '5')
+            {
+                RealizarEmprestimo();
+                return 'S';
+            }
+
+            return operacaoEscolhida;
+        }
+
+
 
         public override void VisualizarRegistros(bool exibirTitulo)
         {
@@ -89,6 +128,12 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
             Reserva reserva = new Reserva(amigoTeste, revistaTeste, dataTeste);
 
              repositorio.Cadastrar (reserva);
+        }
+
+
+        private void RealizarEmprestimo()
+        {
+            telaEmprestimo.Registrar();
         }
     }
 }

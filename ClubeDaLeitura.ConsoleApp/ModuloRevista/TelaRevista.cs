@@ -23,8 +23,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
             Console.WriteLine();
 
             Console.WriteLine(
-                "{0, -10} | {1, -20} | {2, -20} | {3, -30} | {4, -30}",
-                "Id", "Titulo:", "Edição nº:", "Ano da Revista:", " Cor da Caixa Armazenada:" );
+                "{0, -5} | {1, -10} | {2, -10} | {3, -10} | {4, -10}",
+                "Id", "Titulo", "Edição nº", "Ano", "Caixa Armazenada" 
+                );
 
             ArrayList revistasCadastradas = repositorio.SelecionarTodos();
 
@@ -34,7 +35,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
                     continue;
 
                 Console.WriteLine(
-                "{0, -10} | {1, -20} | {2, -20} | {3, -30} |{4, -30} ",
+                    "{0, -5} | {1, -10} | {2, -10} | {3, -10} | {4, -10}",
 
                     revista.Id, revista.Nome, revista.Edicao, revista.Ano, revista.Caixa.Cor
                 );
@@ -78,7 +79,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
             Caixa caixateste = (Caixa) repositorioCaixa.SelecionarTodos()[0];
             
 
-            Revista revista = new Revista ("nome", "edição", "anoLancamento", caixateste );
+            Revista revista = new Revista ("Batman", "1251", "1970", caixateste );
 
             repositorio.Cadastrar(revista); 
         }
