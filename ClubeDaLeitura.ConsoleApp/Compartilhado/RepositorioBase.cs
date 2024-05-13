@@ -2,7 +2,7 @@
 
 namespace ControleMedicamentos.ConsoleApp.Compartilhado
 {
-    internal abstract class RepositorioBase
+    public abstract class RepositorioBase
     {
         protected ArrayList registros = new ArrayList();
 

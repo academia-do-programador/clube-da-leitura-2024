@@ -2,7 +2,7 @@
 
 namespace ControleMedicamentos.ConsoleApp.Compartilhado
 {
-    internal abstract class TelaBase
+    public abstract class TelaBase
     {
         public string tipoEntidade = "";
         public RepositorioBase repositorio = null;

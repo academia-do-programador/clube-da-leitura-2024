@@ -1,6 +1,6 @@
 ﻿namespace ControleMedicamentos.ConsoleApp.Compartilhado
 {
-    internal static class TelaPrincipal
+    public static class TelaPrincipal
     {
         public static char ApresentarMenuPrincipal()
         {

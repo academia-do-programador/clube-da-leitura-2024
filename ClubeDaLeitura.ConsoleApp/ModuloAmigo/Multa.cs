@@ -8,12 +8,17 @@
 
         public bool EstaPaga { get; set; }
 
-        public Multa(decimal valor, DateTime data)
+        public Multa(decimal valor)
         {
             Valor = valor;
-            Data = data;
 
+            Data = DateTime.Now;
             EstaPaga = false;
+        }
+
+        public void Pagar()
+        {
+            EstaPaga = true;
         }
     }
 }

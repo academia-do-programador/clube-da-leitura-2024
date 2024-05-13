@@ -2,7 +2,7 @@
 
 namespace ControleMedicamentos.ConsoleApp.Compartilhado
 {
-    internal abstract class EntidadeBase
+    public abstract class EntidadeBase
     {
         public int Id { get; set; }
 
