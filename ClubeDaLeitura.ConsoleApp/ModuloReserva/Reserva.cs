@@ -1,9 +1,11 @@
 ﻿using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
+using ControleMedicamentos.ConsoleApp.Compartilhado;
+using System.Collections;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
 {
-    public class Reserva
+    public class Reserva : EntidadeBase
     {
         public Amigo Amigo { get; set; }
 
@@ -11,7 +13,13 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
 
         public DateTime DataAbertura { get; set; }
 
-        public bool Expirada { get; set; }
+        public bool Expirada
+        {
+            get
+            {
+                return (DateTime.Now - DataAbertura).Days > 0;
+            }
+        }
 
         public Reserva(Amigo amigo, Revista revista)
         {
@@ -19,7 +27,34 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
             Revista = revista;
 
             DataAbertura = DateTime.Now;
-            Expirada = false;
+        }
+
+        public override ArrayList Validar()
+        {
+            ArrayList erros = new ArrayList();
+
+            if (Revista == null)
+                erros.Add("O campo \"revista\" é obrigatório");
+
+            if (Amigo == null)
+                erros.Add("O campo \"amigo\" é obrigatório");
+
+            return erros;
+        }
+
+        public override void AtualizarRegistro(EntidadeBase novoRegistro)
+        {
+
+        }
+
+        public void Iniciar()
+        {
+            Revista.Emprestar();
+        }
+
+        public void Concluir()
+        {
+            Revista.Devolver();
         }
     }
 }

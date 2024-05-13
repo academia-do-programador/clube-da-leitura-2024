@@ -25,7 +25,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             Data = DateTime.Now;
             DataDevolucao = Data.AddDays(Revista.Caixa.TempoEmprestimo);
             Concluido = false;
-
         }
 
         public override ArrayList Validar()
@@ -63,7 +62,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
             decimal valorMulta = 5 * diferenca.Days;
 
-            Multa multaGerada = new Multa(valorMulta, DateTime.Now);
+            Multa multaGerada = new Multa(valorMulta);
 
             Amigo.Multar(multaGerada);
 
