@@ -1,5 +1,6 @@
 ﻿using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
+using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 using ControleMedicamentos.ConsoleApp.Compartilhado;
 
@@ -35,16 +36,17 @@ namespace ClubeDaLeitura.ConsoleApp
             telaRevista.CadastrarEntidadeTeste();
 
             #region Empréstimos
-            //RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
+            RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
 
-            //TelaEmprestimo telaEmprestimo = new TelaEmprestimo();
-            //telaEmprestimo.tipoEntidade = "Empréstimo";
-            //telaEmprestimo.repositorio = repositorioEmprestimo;
-            //telaEmprestimo.repositorioAmigo = repositorioAmigo;
-            //telaEmprestimo.repositorioRevista = repositorioRevista;
+            TelaEmprestimo telaEmprestimo = new TelaEmprestimo();
+            telaEmprestimo.tipoEntidade = "Empréstimo";
+            telaEmprestimo.repositorio = repositorioEmprestimo;
 
-            //telaEmprestimo.telaAmigo = telaAmigo;
-            //telaEmprestimo.telaRevista = telaRevista;
+            telaEmprestimo.repositorioAmigo = repositorioAmigo;
+            telaEmprestimo.repositorioRevista = repositorioRevista;
+
+            telaEmprestimo.telaAmigo = telaAmigo;
+            telaEmprestimo.telaRevista = telaRevista;
             #endregion
 
             #region Reservas
@@ -63,24 +65,24 @@ namespace ClubeDaLeitura.ConsoleApp
 
             while (true)
             {
-                char opcaoTelaEscolhida = TelaPrincipal.ApresentarMenuPrincipal();
+                char opcaoTelaPrincipalEscolhida = TelaPrincipal.ApresentarMenuPrincipal();
 
-                if (opcaoTelaEscolhida == 'S' || opcaoTelaEscolhida == 's')
+                if (opcaoTelaPrincipalEscolhida == 'S' || opcaoTelaPrincipalEscolhida == 's')
                     break;
 
                 TelaBase tela = null;
 
-                if (opcaoTelaEscolhida == '1')
+                if (opcaoTelaPrincipalEscolhida == '1')
                     tela = telaAmigo;
 
-                else if (opcaoTelaEscolhida == '2')
+                else if (opcaoTelaPrincipalEscolhida == '2')
                     tela = telaCaixa;
 
-                else if (opcaoTelaEscolhida == '3')
+                else if (opcaoTelaPrincipalEscolhida == '3')
                     tela = telaRevista;
 
-                //else if (opcaoTelaEscolhida == '4')
-                //    tela = telaEmprestimo;
+                else if (opcaoTelaPrincipalEscolhida == '4')
+                    tela = telaEmprestimo;
 
                 //else if (opcaoTelaEscolhida == '5')
                 //    tela = telaReserva;
@@ -88,23 +90,39 @@ namespace ClubeDaLeitura.ConsoleApp
                 if (tela == null)
                     continue;
 
-                char operacaoEscolhida = tela.ApresentarMenu();
+                char operacaoSubmenuEscolhida = tela.ApresentarMenu();
 
-                if (operacaoEscolhida == 'S' || operacaoEscolhida == 's')
+                if (operacaoSubmenuEscolhida == 'S' || operacaoSubmenuEscolhida == 's')
                     continue;
 
-                if (operacaoEscolhida == '1')
-                    tela.Registrar();
+                if (tela.tipoEntidade == "Empréstimo")
+                {
+                    if (operacaoSubmenuEscolhida == '1')
+                        telaEmprestimo.Registrar();
 
-                else if (operacaoEscolhida == '2')
-                    tela.Editar();
+                    else if (operacaoSubmenuEscolhida == '2')
+                        telaEmprestimo.Concluir();
 
-                else if (operacaoEscolhida == '3')
-                    tela.Excluir();
+                    else if (operacaoSubmenuEscolhida == '3')
+                        telaEmprestimo.VisualizarRegistros(true);
+                }
 
-                else if (operacaoEscolhida == '4')
-                    tela.VisualizarRegistros(true);
+                else
+                {
+                    if (operacaoSubmenuEscolhida == '1')
+                        tela.Registrar();
+
+                    else if (operacaoSubmenuEscolhida == '2')
+                        tela.Editar();
+
+                    else if (operacaoSubmenuEscolhida == '3')
+                        tela.Excluir();
+
+                    else if (operacaoSubmenuEscolhida == '4')
+                        tela.VisualizarRegistros(true);
+                }
             }
+
         }
     }
 }
