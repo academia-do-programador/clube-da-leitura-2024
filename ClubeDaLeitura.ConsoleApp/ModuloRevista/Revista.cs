@@ -12,7 +12,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 
         public int Ano { get; set; }
 
-        public bool Emprestada { get; set; }
+        public bool EstaEmprestada { get; set; }
 
         public Caixa Caixa { get; set; }
 
@@ -23,7 +23,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
             Ano = ano;
             Caixa = caixa;
 
-            Emprestada = false;
+            EstaEmprestada = false;
         }
 
         public override ArrayList Validar()
@@ -52,12 +52,12 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 
         public void Emprestar()
         {
-            Emprestada = true;
+            EstaEmprestada = true;
         }
 
         public void Devolver()
         {
-            Emprestada = false;
+            EstaEmprestada = false;
         }
     }
 }

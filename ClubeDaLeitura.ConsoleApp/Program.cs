@@ -79,11 +79,11 @@ namespace ClubeDaLeitura.ConsoleApp
                 else if (opcaoTelaEscolhida == '3')
                     tela = telaRevista;
 
-                else if (opcaoTelaEscolhida == '4')
-                    tela = telaEmprestimo;
+                //else if (opcaoTelaEscolhida == '4')
+                //    tela = telaEmprestimo;
 
-                else if (opcaoTelaEscolhida == '5')
-                    tela = telaReserva;
+                //else if (opcaoTelaEscolhida == '5')
+                //    tela = telaReserva;
 
                 if (tela == null)
                     continue;

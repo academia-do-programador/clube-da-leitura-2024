@@ -32,7 +32,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
                 if (revista == null)
                     continue;
 
-                string statusEmprestimo = revista.Emprestada ? "Emprestada" : "Disponível";
+                string statusEmprestimo = revista.EstaEmprestada ? "Emprestada" : "Disponível";
 
                 Console.WriteLine(
                     "{0, -10} | {1, -20} | {2, -20} | {3, -10} | {4, -20} | {5, -10}",
@@ -40,7 +40,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
                 );
             }
 
-            Console.WriteLine();
+            Console.ReadLine();
         }
 
         protected override EntidadeBase ObterRegistro()

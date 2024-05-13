@@ -9,7 +9,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 
         public string Etiqueta { get; set; }
 
-        public int TempoEmprestimo { get; set; }
+        public int TempoEmprestimo { get; set; } // 3
 
         public ArrayList Revistas { get; set; } = new ArrayList();
 

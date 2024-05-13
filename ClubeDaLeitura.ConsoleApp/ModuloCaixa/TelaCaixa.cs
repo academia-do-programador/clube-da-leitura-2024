@@ -34,7 +34,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
                 );
             }
 
-            Console.WriteLine();
+            Console.ReadLine();
         }
 
         protected override EntidadeBase ObterRegistro()
