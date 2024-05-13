@@ -30,5 +30,18 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
             return emprestimosDoDia;
         }
+
+        public ArrayList SelecionarEmprestimosEmAberto()
+        {
+            ArrayList emprestimosEmAberto = new ArrayList();
+
+            foreach (Emprestimo e in registros)
+            {
+                if (!e.Concluido)
+                    emprestimosEmAberto.Add(e);
+            }
+
+            return emprestimosEmAberto;
+        }
     }
 }

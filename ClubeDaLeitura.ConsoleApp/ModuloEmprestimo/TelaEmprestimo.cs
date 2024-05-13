@@ -61,6 +61,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             base.InserirRegistro(emprestimo);
         }
 
+
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             ApresentarCabecalho();
@@ -117,6 +118,34 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             Console.ReadLine();
         }
 
+        public void VisualizarEmprestimosEmAberto()
+        {
+            Console.WriteLine();
+
+            Console.WriteLine(
+                "{0, -10} | {1, -20} | {2, -15} | {3, -10} | {4, -20} | {5, -20}",
+                "Id", "Revista", "Amigo", "Data", "Data de Devolução", "Status"
+            );
+
+            ArrayList emprestimos = ((RepositorioEmprestimo)repositorio).SelecionarEmprestimosEmAberto();
+
+            foreach (Emprestimo e in emprestimos)
+            {
+                if (e == null)
+                    continue;
+
+                string statusEmprestimo = e.Concluido ? "Concluído" : "Em Aberto";
+
+                Console.WriteLine(
+                    "{0, -10} | {1, -20} | {2, -15} | {3, -10} | {4, -20} | {5, -20}",
+                    e.Id, e.Revista.Titulo, e.Amigo.Nome, e.Data.ToShortDateString(), e.DataDevolucao.ToShortDateString(), statusEmprestimo
+                );
+            }
+
+            Console.ReadLine();
+        }
+
+
         protected override EntidadeBase ObterRegistro()
         {
             telaRevista.VisualizarRegistros(false);
@@ -138,7 +167,22 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
         public void Concluir()
         {
-            throw new NotImplementedException();
+            ApresentarCabecalho();
+
+            Console.WriteLine($"Conclusão de Empréstimo...");
+
+            Console.WriteLine();
+
+            VisualizarEmprestimosEmAberto();
+
+            Console.Write("Digite o ID do impréstimo que deseja concluir: ");
+            int idEmprestimo = Convert.ToInt32(Console.ReadLine());
+
+            Emprestimo emprestimo = (Emprestimo)repositorio.SelecionarPorId(idEmprestimo);
+
+            emprestimo.Concluir();
+
+            ExibirMensagem($"O empréstimo foi concluído com sucesso!", ConsoleColor.Green);
         }
     }
 }
