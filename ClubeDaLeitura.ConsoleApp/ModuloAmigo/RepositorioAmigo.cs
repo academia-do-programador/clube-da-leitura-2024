@@ -2,7 +2,7 @@
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 {
-    internal class RepositorioAmigo : RepositorioBase
+    public class RepositorioAmigo : RepositorioBase
     {
     }
 }

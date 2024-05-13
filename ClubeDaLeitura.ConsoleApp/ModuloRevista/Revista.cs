@@ -49,5 +49,15 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
         {
             throw new NotImplementedException();
         }
+
+        public void Emprestar()
+        {
+            Emprestada = true;
+        }
+
+        public void Devolver()
+        {
+            Emprestada = false;
+        }
     }
 }

@@ -50,5 +50,12 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 
             return new Caixa(etiqueta, cor, tempoEmprestimo);
         }
+
+        public void CadastrarEntidadeTeste()
+        {
+            Caixa caixa = new Caixa("Novidades", "Azul", 3);
+
+            repositorio.Cadastrar(caixa);
+        }
     }
 }

@@ -13,10 +13,10 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 
         public ArrayList Revistas { get; set; } = new ArrayList();
 
-        public Caixa(string cor, string etiqueta, int tempoEmprestimo)
+        public Caixa(string etiqueta, string cor, int tempoEmprestimo)
         {
-            Cor = cor;
             Etiqueta = etiqueta;
+            Cor = cor;
             TempoEmprestimo = tempoEmprestimo;
         }
 

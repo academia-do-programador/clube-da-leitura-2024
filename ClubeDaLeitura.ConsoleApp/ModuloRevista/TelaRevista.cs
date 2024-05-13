@@ -21,8 +21,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
             Console.WriteLine();
 
             Console.WriteLine(
-                "{0, -10} | {1, -20} | {2, -20} | {3, -10} | {4, -20}",
-                "Id", "Titulo", "Edição", "Ano", "Caixa"
+                "{0, -10} | {1, -20} | {2, -20} | {3, -10} | {4, -20} | {5, -10}",
+                "Id", "Titulo", "Edição", "Ano", "Caixa", "Status"
             );
 
             ArrayList revistasCadastradas = repositorio.SelecionarTodos();
@@ -32,9 +32,11 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
                 if (revista == null)
                     continue;
 
+                string statusEmprestimo = revista.Emprestada ? "Emprestada" : "Disponível";
+
                 Console.WriteLine(
-                    "{0, -10} | {1, -20} | {2, -20} | {3, -10} | {4, -20}",
-                    revista.Id, revista.Titulo, revista.NumeroEdicao, revista.Ano, revista.Caixa.Etiqueta
+                    "{0, -10} | {1, -20} | {2, -20} | {3, -10} | {4, -20} | {5, -10}",
+                    revista.Id, revista.Titulo, revista.NumeroEdicao, revista.Ano, revista.Caixa.Etiqueta, statusEmprestimo
                 );
             }
 
@@ -60,6 +62,15 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
             Caixa caixaSelecionada = (Caixa)repositorioCaixa.SelecionarPorId(idCaixa);
 
             return new Revista(titulo, numeroEdicao, ano, caixaSelecionada);
+        }
+
+        public void CadastrarEntidadeTeste()
+        {
+            Caixa caixa = (Caixa)repositorioCaixa.SelecionarTodos()[0];
+
+            Revista revista = new Revista("Amazing Spider-Man", 50, 1992, caixa);
+
+            repositorio.Cadastrar(revista);
         }
     }
 }

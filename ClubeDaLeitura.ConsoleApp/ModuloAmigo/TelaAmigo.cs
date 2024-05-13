@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 {
-    internal class TelaAmigo : TelaBase
+    public class TelaAmigo : TelaBase
     {
         public override void VisualizarRegistros(bool exibirTitulo)
         {
@@ -52,6 +52,13 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
             string endereço = Console.ReadLine();
 
             return new Amigo(nome, nomeResponsavel, telefone, endereço);
+        }
+
+        public void CadastrarEntidadeTeste()
+        {
+            Amigo amigo = new Amigo("Juninho", "Sérgio Borracheiro", "49 98225-5151", "Rua Jânio Quadros");
+
+            repositorio.Cadastrar(amigo);
         }
     }
 }
