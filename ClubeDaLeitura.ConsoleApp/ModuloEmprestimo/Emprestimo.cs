@@ -57,5 +57,17 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             Concluido = true;
         }
 
+        public Multa GerarMulta()
+        {
+            TimeSpan diferenca = DateTime.Now - DataDevolucao;
+
+            decimal valorMulta = 5 * diferenca.Days;
+
+            Multa multaGerada = new Multa(valorMulta, DateTime.Now);
+
+            Amigo.HistoricoMultas.Add(multaGerada);
+
+            return multaGerada;
+        }
     }
 }

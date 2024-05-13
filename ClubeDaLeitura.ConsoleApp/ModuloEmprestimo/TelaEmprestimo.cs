@@ -78,6 +78,15 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
             emprestimo.Concluir();
 
+            DateTime dataHoje = DateTime.Now;
+
+            if (dataHoje > emprestimo.DataDevolucao)
+            {
+                Multa multa = emprestimo.GerarMulta();
+
+                ExibirMensagem($"Uma multa de R$ {multa.Valor} foi gerada.", ConsoleColor.DarkYellow);
+            }
+
             ExibirMensagem($"O empréstimo foi concluído com sucesso!", ConsoleColor.Green);
         }
 

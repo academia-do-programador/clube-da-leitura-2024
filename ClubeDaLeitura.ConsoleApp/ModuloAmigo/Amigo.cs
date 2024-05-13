@@ -44,7 +44,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 
         public override void AtualizarRegistro(EntidadeBase novoRegistro)
         {
-            throw new NotImplementedException();
+
         }
     }
 }
