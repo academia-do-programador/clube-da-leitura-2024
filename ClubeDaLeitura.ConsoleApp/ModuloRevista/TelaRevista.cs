@@ -1,6 +1,5 @@
 ﻿using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 using ControleMedicamentos.ConsoleApp.Compartilhado;
-using System.Collections;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 {
@@ -25,7 +24,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
                 "Id", "Titulo", "Edição", "Ano", "Caixa", "Status"
             );
 
-            ArrayList revistasCadastradas = repositorio.SelecionarTodos();
+            List<EntidadeBase> revistasCadastradas = repositorio.SelecionarTodos();
 
             foreach (Revista revista in revistasCadastradas)
             {

@@ -1,5 +1,4 @@
 ﻿using ControleMedicamentos.ConsoleApp.Compartilhado;
-using System.Collections;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 {
@@ -21,7 +20,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
                 "Id", "Nome", "Responsável", "Telefone", "Endereço"
             );
 
-            ArrayList amigosCadastrados = repositorio.SelecionarTodos();
+            List<EntidadeBase> amigosCadastrados = repositorio.SelecionarTodos();
 
             foreach (Amigo amigo in amigosCadastrados)
             {

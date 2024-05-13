@@ -1,10 +1,8 @@
-﻿using System.Collections;
-
-namespace ControleMedicamentos.ConsoleApp.Compartilhado
+﻿namespace ControleMedicamentos.ConsoleApp.Compartilhado
 {
     public abstract class RepositorioBase
     {
-        protected ArrayList registros = new ArrayList();
+        protected List<EntidadeBase> registros = new List<EntidadeBase>();
 
         protected int contadorId = 1;
 
@@ -53,7 +51,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             return false;
         }
 
-        public ArrayList SelecionarTodos()
+        public List<EntidadeBase> SelecionarTodos()
         {
             return registros;
         }

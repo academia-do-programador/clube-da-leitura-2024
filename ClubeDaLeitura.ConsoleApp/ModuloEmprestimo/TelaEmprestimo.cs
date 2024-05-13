@@ -62,7 +62,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             base.InserirRegistro(emprestimo);
         }
 
-
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             ApresentarCabecalho();
@@ -80,7 +79,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             Console.Write("Digite uma opção válida: ");
             char opcaoEscolhida = Console.ReadLine()[0];
 
-            ArrayList emprestimos;
+            List<EntidadeBase> emprestimos;
 
             if (opcaoEscolhida == '1')
                 emprestimos = ((RepositorioEmprestimo)repositorio).SelecionarEmprestimosDoMes();
@@ -94,7 +93,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             VisualizarEmprestimos(emprestimos);
         }
 
-        public void VisualizarEmprestimos(ArrayList emprestimos)
+        public void VisualizarEmprestimos(List<EntidadeBase> emprestimos)
         {
             Console.WriteLine();
 
@@ -128,7 +127,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
                 "Id", "Revista", "Amigo", "Data", "Data de Devolução", "Status"
             );
 
-            ArrayList emprestimos = ((RepositorioEmprestimo)repositorio).SelecionarEmprestimosEmAberto();
+            List<EntidadeBase> emprestimos = ((RepositorioEmprestimo)repositorio).SelecionarEmprestimosEmAberto();
 
             foreach (Emprestimo e in emprestimos)
             {

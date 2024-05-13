@@ -1,13 +1,12 @@
 ﻿using ControleMedicamentos.ConsoleApp.Compartilhado;
-using System.Collections;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 {
     public class RepositorioEmprestimo : RepositorioBase
     {
-        public ArrayList SelecionarEmprestimosDoMes()
+        public List<EntidadeBase> SelecionarEmprestimosDoMes()
         {
-            ArrayList emprestimosDoMes = new ArrayList();
+            List<EntidadeBase> emprestimosDoMes = new List<EntidadeBase>();
 
             foreach (Emprestimo e in registros)
             {
@@ -18,9 +17,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             return emprestimosDoMes;
         }
 
-        public ArrayList SelecionarEmprestimosDoDia()
+        public List<EntidadeBase> SelecionarEmprestimosDoDia()
         {
-            ArrayList emprestimosDoDia = new ArrayList();
+            List<EntidadeBase> emprestimosDoDia = new List<EntidadeBase>();
 
             foreach (Emprestimo e in registros)
             {
@@ -31,9 +30,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             return emprestimosDoDia;
         }
 
-        public ArrayList SelecionarEmprestimosEmAberto()
+        public List<EntidadeBase> SelecionarEmprestimosEmAberto()
         {
-            ArrayList emprestimosEmAberto = new ArrayList();
+            List<EntidadeBase> emprestimosEmAberto = new List<EntidadeBase>();
 
             foreach (Emprestimo e in registros)
             {

@@ -1,5 +1,4 @@
 ﻿using ControleMedicamentos.ConsoleApp.Compartilhado;
-using System.Collections;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 {
@@ -21,7 +20,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
                 "Id", "Etiqueta", "Cor", "Tempo de Empréstimo"
             );
 
-            ArrayList caixasCadastradas = repositorio.SelecionarTodos();
+            List<EntidadeBase> caixasCadastradas = repositorio.SelecionarTodos();
 
             foreach (Caixa caixa in caixasCadastradas)
             {
