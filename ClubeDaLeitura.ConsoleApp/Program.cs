@@ -6,6 +6,7 @@ using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
 using ClubeDaLeitura.ConsoleApp.ModuloReserva;
 
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
+using ClubeDaLeitura.ConsoleApp.ModuloMulta;
 
 namespace ClubeDaLeitura.ConsoleApp
 {
@@ -13,7 +14,7 @@ namespace ClubeDaLeitura.ConsoleApp
     {
         static void Main(string[] args)
         {
-            #region Instâncias da Classe "Amigo"
+            #region Classe "Amigo"
             RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
 
             TelaAmigo telaAmigo = new TelaAmigo();
@@ -33,9 +34,7 @@ namespace ClubeDaLeitura.ConsoleApp
             telaCaixa.CadastrarCaixaNovidade();
             #endregion
 
-
-
-
+            #region Classe "Revista"
             RepositorioRevista repositorioRevista = new RepositorioRevista();
 
             TelaRevista telaRevista = new TelaRevista();
@@ -47,9 +46,17 @@ namespace ClubeDaLeitura.ConsoleApp
             telaRevista.repositorioCaixa = repositorioCaixa;
 
             telaRevista.CadastrarEntidadeTeste();
+            #endregion
 
+            #region Classe "Multa"
+            RepositorioMulta repositorioMulta = new RepositorioMulta();
 
+            TelaMulta telaMulta = new TelaMulta();
+            telaMulta.tipoEntidade = "Multa";
+            telaMulta.repositorio = repositorioMulta;
+            #endregion
 
+            #region Classe "Emprestimo"
             RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
 
             TelaEmprestimo telaEmprestimo = new TelaEmprestimo();
@@ -62,10 +69,13 @@ namespace ClubeDaLeitura.ConsoleApp
             telaEmprestimo.telaRevista = telaRevista;
             telaEmprestimo.repositorioRevista = repositorioRevista;
 
+            telaEmprestimo.telaMulta = telaMulta;
+            telaEmprestimo.repositorioMulta = repositorioMulta;;
+
             telaEmprestimo.CadastrarEntidadeTeste();
+            #endregion
 
-
-
+            #region Classe "Reserva"
             RepositorioReserva repositorioReserva = new RepositorioReserva();
 
             TelaReserva telaReserva = new TelaReserva();
@@ -80,6 +90,7 @@ namespace ClubeDaLeitura.ConsoleApp
             telaReserva.repositorioRevista = repositorioRevista;
 
             telaReserva.CadastrarEntidadeTeste();
+            #endregion
 
 
 
@@ -108,6 +119,8 @@ namespace ClubeDaLeitura.ConsoleApp
                 else if (opcaoPrincipalEscolhida == '5')
                     tela = telaReserva;
 
+                else if (opcaoPrincipalEscolhida == '6')
+                    tela = telaMulta;
 
 
                 char operacaoEscolhida = tela.ApresentarMenu();

@@ -9,11 +9,8 @@
 
   <ItemGroup>
     <Compile Remove="Documentacao\NewFolder\**" />
-    <Compile Remove="ModuloMulta\**" />
     <EmbeddedResource Remove="Documentacao\NewFolder\**" />
-    <EmbeddedResource Remove="ModuloMulta\**" />
     <None Remove="Documentacao\NewFolder\**" />
-    <None Remove="ModuloMulta\**" />
   </ItemGroup>
 
 </Project>

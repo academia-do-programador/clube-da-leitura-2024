@@ -17,6 +17,9 @@
             Console.WriteLine("3 - Cadastro de Revistas");
             Console.WriteLine("4 - Controle de Emprestimo");
             Console.WriteLine("5 - Controle de Reserva");
+            Console.WriteLine("6 - Controle de Multas");
+
+            Console.WriteLine();
 
             Console.WriteLine("S - Sair");
 

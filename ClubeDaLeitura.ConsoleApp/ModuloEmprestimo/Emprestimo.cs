@@ -1,5 +1,6 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
+using ClubeDaLeitura.ConsoleApp.ModuloMulta;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 using System.Collections;
 
@@ -19,8 +20,12 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         public Amigo Amigo { get; set; }
 
 
+        public ArrayList erros = new ArrayList();
+
+
         public Emprestimo(Amigo amigo, Revista revista, DateTime dataEmprestimo)
         {
+        
             Amigo = amigo;
             Revista = revista;
 
@@ -38,8 +43,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
         public override ArrayList Validar()
         {
-
-            ArrayList erros = new ArrayList();
 
             if (Amigo == null)
                 erros.Add("O campo \"Amigo\" é obrigatório");
@@ -75,6 +78,12 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
             else
                 return "Atrasado";
+        }
+
+        public void VerificaMultasEmAberto(bool multaPendente)
+        {
+            if (multaPendente)
+                erros.Add("O amigo possui uma multa em aberto. Para realizar a ação, quite-a primeiro.");
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
-using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
+using ClubeDaLeitura.ConsoleApp.ModuloMulta;
+
 using System.Collections;
-using System.IO.Pipes;
 
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
@@ -16,6 +16,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         public TelaRevista telaRevista = null;
         public RepositorioRevista repositorioRevista = null;
 
+        public TelaMulta telaMulta = null;
+        public RepositorioMulta repositorioMulta = null;
+        
         public override char ApresentarMenu()
         {
             Console.Clear();
@@ -110,10 +113,47 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
 
 
+            Emprestimo novoEmprestimo = new Emprestimo(amigoSelecionado, revistaSelecionada, dataEmprestimo);
 
-            return new Emprestimo(amigoSelecionado, revistaSelecionada, dataEmprestimo);
+
+            bool statusAmigo = MultaEmAberto(novoEmprestimo.Amigo);
+            
+            if(statusAmigo)
+            {
+                novoEmprestimo.VerificaMultasEmAberto(statusAmigo);
+            }
+
+            VerificaValidadeDevolucao(novoEmprestimo);
+
+            return novoEmprestimo;
         }
 
+
+        private void VerificaValidadeDevolucao(Emprestimo emprestimo)
+        {
+            if(emprestimo.Status == "Atrasado")
+            {
+                telaMulta.RegistrarMulta(emprestimo.Amigo, 10.00m);
+                telaMulta.Registrar();
+            }
+        }
+
+
+        private bool MultaEmAberto(Amigo amigoSelecionado)
+        {
+            ArrayList multasCadastradas = repositorioMulta.SelecionarTodos();
+
+            foreach (Multa multa in multasCadastradas)
+            {
+                if (multa == null)
+                    continue;
+                
+                if(amigoSelecionado.Id == multa.Amigo.Id)
+                    return true;
+            }
+
+            return false;
+        }
 
 
         public void CadastrarEntidadeTeste()
