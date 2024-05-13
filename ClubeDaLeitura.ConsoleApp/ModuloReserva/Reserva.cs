@@ -17,7 +17,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
         {
             get
             {
-                return (DateTime.Now - DataAbertura).Days > 0;
+                return (DateTime.Now - DataAbertura).Days > 2;
             }
         }
 

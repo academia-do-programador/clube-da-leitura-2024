@@ -1,6 +1,7 @@
 ﻿using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
+using ClubeDaLeitura.ConsoleApp.ModuloReserva;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 using ControleMedicamentos.ConsoleApp.Compartilhado;
 
@@ -50,17 +51,17 @@ namespace ClubeDaLeitura.ConsoleApp
             #endregion
 
             #region Reservas
-            //RepositorioReserva repositorioReserva = new RepositorioReserva();
+            RepositorioReserva repositorioReserva = new RepositorioReserva();
 
-            //TelaReserva telaReserva = new TelaReserva();
-            //telaReserva.tipoEntidade = "Reserva";
-            //telaReserva.repositorio = repositorioReserva;
-            //telaReserva.repositorioAmigo = repositorioAmigo;
-            //telaReserva.repositorioRevista = repositorioRevista;
+            TelaReserva telaReserva = new TelaReserva();
+            telaReserva.tipoEntidade = "Reserva";
+            telaReserva.repositorio = repositorioReserva;
+            telaReserva.repositorioAmigo = repositorioAmigo;
+            telaReserva.repositorioRevista = repositorioRevista;
 
-            //telaReserva.telaAmigo = telaAmigo;
-            //telaReserva.telaRevista = telaRevista;
-            //telaReserva.telaEmprestimo = telaEmprestimo;
+            telaReserva.telaAmigo = telaAmigo;
+            telaReserva.telaRevista = telaRevista;
+            telaReserva.telaEmprestimo = telaEmprestimo;
             #endregion
 
             while (true)
@@ -84,8 +85,8 @@ namespace ClubeDaLeitura.ConsoleApp
                 else if (opcaoTelaPrincipalEscolhida == '4')
                     tela = telaEmprestimo;
 
-                //else if (opcaoTelaEscolhida == '5')
-                //    tela = telaReserva;
+                else if (opcaoTelaPrincipalEscolhida == '5')
+                    tela = telaReserva;
 
                 if (tela == null)
                     continue;
@@ -105,6 +106,18 @@ namespace ClubeDaLeitura.ConsoleApp
 
                     else if (operacaoSubmenuEscolhida == '3')
                         telaEmprestimo.VisualizarRegistros(true);
+                }
+
+                else if (tela.tipoEntidade == "Reserva")
+                {
+                    if (operacaoSubmenuEscolhida == '1')
+                        telaReserva.Registrar();
+
+                    else if (operacaoSubmenuEscolhida == '2')
+                        telaReserva.AbrirEmprestimo();
+
+                    else if (operacaoSubmenuEscolhida == '3')
+                        telaReserva.VisualizarRegistros(true);
                 }
 
                 else

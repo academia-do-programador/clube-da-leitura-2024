@@ -1,4 +1,5 @@
 ﻿using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
+using ClubeDaLeitura.ConsoleApp.ModuloReserva;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 using ControleMedicamentos.ConsoleApp.Compartilhado;
 using System.Collections;
@@ -24,7 +25,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             Console.WriteLine();
 
             Console.WriteLine("1 - Cadastro de Novo Empréstimo");
-            Console.WriteLine("2 - Devolução de Empréstimo");
+            Console.WriteLine("2 - Conclusão de Empréstimo");
             Console.WriteLine("3 - Visualizar Empréstimos");
 
             Console.WriteLine("S - Voltar");
@@ -145,7 +146,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             Console.ReadLine();
         }
 
-
         protected override EntidadeBase ObterRegistro()
         {
             telaRevista.VisualizarRegistros(false);
@@ -183,6 +183,21 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             emprestimo.Concluir();
 
             ExibirMensagem($"O empréstimo foi concluído com sucesso!", ConsoleColor.Green);
+        }
+
+        public void RegistrarEmprestimoDeReserva(Reserva reserva)
+        {
+            ApresentarCabecalho();
+
+            Console.WriteLine($"Cadastrando {tipoEntidade}...");
+
+            Console.WriteLine();
+
+            Emprestimo novoEmprestimo = new Emprestimo(reserva.Amigo, reserva.Revista);
+
+            novoEmprestimo.Iniciar();
+
+            base.InserirRegistro(novoEmprestimo);
         }
     }
 }
