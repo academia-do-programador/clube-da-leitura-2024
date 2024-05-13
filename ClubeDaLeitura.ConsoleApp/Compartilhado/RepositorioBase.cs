@@ -9,7 +9,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
 {
     public abstract class RepositorioBase
     {
-        private ArrayList registros = [];
+        private List<EntidadeBase> registros = [];
         private int contadorId = 0;
 
         public void Cadastrar(EntidadeBase novoRegistro)
@@ -96,7 +96,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
                 if (registro.Id == id) return registro;
             return null;
         }
-        public ArrayList SelecionarTodos() => registros;
+        public List<EntidadeBase> SelecionarTodos() => registros;
         public bool ExistemItensCadastrados() => registros.Count == 0;
         public int CadastrandoID() => contadorId + 1;
         public bool Existe(int id, TelaBase tela)

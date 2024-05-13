@@ -24,9 +24,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
             Caixa = caixa;
         }
 
-        public override ArrayList Validar()
+        public override List<string> Validar()
         {
-            ArrayList erros = new ArrayList();
+            List<string> erros = [];
             VerificaNulo(ref erros, Titulo, "titulo");
             VerificaNulo(ref erros, Edicao, "edição");
             VerificaNulo(ref erros, Ano, "ano");
