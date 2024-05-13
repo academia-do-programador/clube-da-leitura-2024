@@ -103,7 +103,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             Console.WriteLine("-----------------------------------------------");
             Console.WriteLine(texto);
         }
-        protected void ApresentarErros(ArrayList erros)
+        protected void ApresentarErros(List<string> erros)
         {
             foreach (string erro in erros) ExibirMensagem(erro, ConsoleColor.Red);
             Console.ReadKey(true);
@@ -206,7 +206,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         }
         public void RecebeAtributo(Action funcao, ref EntidadeBase novaEntidade, ref string atributo, Action tabelaCadastro)
         {
-            ArrayList erros;
+            List<string> erros;
             do
             {
                 tabelaCadastro();
@@ -219,7 +219,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         }
         public void RecebeAtributo(Action funcao, ref EntidadeBase novaEntidade, ref int atributo, Action tabelaCadastro)
         {
-            ArrayList erros;
+            List<string> erros;
             do
             {
                 tabelaCadastro();
@@ -232,7 +232,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         }
         public void RecebeAtributo(Action funcao, ref EntidadeBase novaEntidade, ref DateTime atributo, Action tabelaCadastro)
         {
-            ArrayList erros;
+            List<string> erros;
             do
             {
                 tabelaCadastro();
@@ -247,7 +247,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         {
             Console.WriteLine($"\n\n{texto}s...");
             tela.VisualizarRegistros(false);
-            ArrayList erros;
+            List<string> erros;
 
             do
             {

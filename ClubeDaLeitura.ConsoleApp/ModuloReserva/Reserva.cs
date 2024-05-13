@@ -26,9 +26,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
             Status = status;
         }
 
-        public override ArrayList Validar()
+        public override List<string> Validar()
         {
-            ArrayList erros = new ArrayList();
+            List<string> erros = [];
 
             VerificaNulo(ref erros, Amigo);
             VerificaNulo(ref erros, Revista);

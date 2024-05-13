@@ -20,9 +20,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             DiasDeEmprestimo = diasDeEmprestimo;
         }
 
-        public override ArrayList Validar()
+        public override List<string> Validar()
         {
-            ArrayList erros = new ArrayList();
+            List<string> erros = [];
             VerificaNulo(ref erros, Etiqueta, "etiqueta");
             VerificaNulo(ref erros, Cor, "cor");
             return erros;

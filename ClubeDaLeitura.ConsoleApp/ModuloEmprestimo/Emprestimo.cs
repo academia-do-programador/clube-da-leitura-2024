@@ -14,7 +14,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
     {
         public EntidadeBase Amigo { get; set; }
         public EntidadeBase Revista { get; set; }
-        public EntidadeBase Multa { get; set; }
         public DateTime DataEmprestimo { get; set; }
         public DateTime DataDevolucao { get; set; }
         public int TempoAtraso { get; set; } = 0;
@@ -27,9 +26,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             DataDevolucao = dataDevolucao;
         }
 
-        public override ArrayList Validar()
+        public override List<string> Validar()
         {
-            ArrayList erros = new ArrayList();
+            List<string> erros = [];
             VerificaNulo(ref erros, Amigo);
             VerificaNulo(ref erros, Revista);
             return erros;

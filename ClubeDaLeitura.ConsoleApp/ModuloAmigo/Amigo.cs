@@ -23,9 +23,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
         }
 
 
-        public override ArrayList Validar()
+        public override List<string> Validar()
         {
-            ArrayList erros = new ArrayList();
+            List<string> erros = [];
             VerificaNulo(ref erros, Nome, "Nome");
             VerificaNulo(ref erros, NomeResponsavel, "Responsável");
             VerificaNulo(ref erros, Telefone, "Telefone");
