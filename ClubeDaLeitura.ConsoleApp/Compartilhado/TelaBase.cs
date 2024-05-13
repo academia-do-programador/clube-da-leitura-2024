@@ -44,7 +44,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
 
             repositorio.Cadastrar(entidade);
 
-            ExibirMensagem($"O {tipoEntidade} foi cadastrado com sucesso!", ConsoleColor.Green);
+            ExibirMensagem($"O(a) {tipoEntidade} foi cadastrado(a) com sucesso!", ConsoleColor.Green);
         }
 
         public virtual void Registrar()

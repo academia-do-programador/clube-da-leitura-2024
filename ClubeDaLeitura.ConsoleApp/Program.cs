@@ -1,6 +1,7 @@
 ﻿using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
+using ClubeDaLeitura.ConsoleApp.ModuloReserva;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 using ControleMedicamentos.ConsoleApp.Compartilhado;
 
@@ -46,6 +47,18 @@ namespace ClubeDaLeitura.ConsoleApp
             telaEmprestimo.telaAmigo = telaAmigo;
             telaEmprestimo.telaRevista = telaRevista;
 
+            RepositorioReserva repositorioReserva = new RepositorioReserva();
+
+            TelaReserva telaReserva = new TelaReserva();
+            telaReserva.tipoEntidade = "Reserva";
+            telaReserva.repositorio = repositorioReserva;
+            telaReserva.repositorioAmigo = repositorioAmigo;
+            telaReserva.repositorioRevista = repositorioRevista;
+
+            telaReserva.telaAmigo = telaAmigo;
+            telaReserva.telaRevista = telaRevista;
+            telaReserva.telaEmprestimo = telaEmprestimo;
+
             while (true)
             {
                 char opcaoTelaEscolhida = TelaPrincipal.ApresentarMenuPrincipal();
@@ -54,8 +67,6 @@ namespace ClubeDaLeitura.ConsoleApp
                     break;
 
                 TelaBase tela = null;
-
-
 
                 if (opcaoTelaEscolhida == '1')
                     tela = telaAmigo;
@@ -69,8 +80,8 @@ namespace ClubeDaLeitura.ConsoleApp
                 else if (opcaoTelaEscolhida == '4')
                     tela = telaEmprestimo;
 
-                //else if (opcaoTelaEscolhida == '5')
-                //    tela = telaAmigo;
+                else if (opcaoTelaEscolhida == '5')
+                    tela = telaReserva;
 
                 if (tela == null)
                     continue;
@@ -91,6 +102,19 @@ namespace ClubeDaLeitura.ConsoleApp
                     else if (operacaoEscolhida == '3')
                         tela.VisualizarRegistros(true);
                 }
+
+                else if (tela.tipoEntidade == "Reserva")
+                {
+                    if (operacaoEscolhida == '1')
+                        telaReserva.Registrar();
+
+                    else if (operacaoEscolhida == '2')
+                        telaReserva.AbrirEmprestimo();
+
+                    else if (operacaoEscolhida == '3')
+                        tela.VisualizarRegistros(true);
+                }
+
                 else
                 {
                     if (operacaoEscolhida == '1')
