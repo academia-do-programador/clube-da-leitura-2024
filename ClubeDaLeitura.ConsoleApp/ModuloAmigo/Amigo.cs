@@ -98,7 +98,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
                 Multa multa = (Multa)Multas[i];
 
                 if (!multa.EstaPaga)
-                    multa.EstaPaga = true;
+                    multa.Pagar();
             }
         }
     }
