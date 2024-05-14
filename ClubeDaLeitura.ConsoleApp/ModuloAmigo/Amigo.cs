@@ -15,6 +15,40 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 
         public ArrayList Multas { get; set; } = new ArrayList();
 
+        public bool TemMulta
+        {
+            get
+            {
+                for (int i = 0; i < Multas.Count; i++)
+                {
+                    Multa multa = (Multa)Multas[i];
+
+                    if (!multa.EstaPaga)
+                        return true;
+                }
+
+                return false;
+            }
+        }
+
+        public decimal ValorMulta
+        {
+            get
+            {
+                decimal valor = 0;
+
+                for (int i = 0; i < Multas.Count; i++)
+                {
+                    Multa multa = (Multa)Multas[i];
+
+                    if (!multa.EstaPaga)
+                        valor += multa.Valor;
+                }
+
+                return valor;
+            }
+        }
+
         public Amigo(string nome, string nomeResponsavel, string telefone, string endereco)
         {
             Nome = nome;
@@ -55,6 +89,17 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
         public void Multar(Multa multa)
         {
             Multas.Add(multa);
+        }
+
+        public void PagarMultas()
+        {
+            for (int i = 0; i < Multas.Count; i++)
+            {
+                Multa multa = (Multa)Multas[i];
+
+                if (!multa.EstaPaga)
+                    multa.EstaPaga = true;
+            }
         }
     }
 }

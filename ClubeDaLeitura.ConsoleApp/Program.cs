@@ -120,20 +120,20 @@ namespace ClubeDaLeitura.ConsoleApp
                         telaReserva.VisualizarRegistros(true);
                 }
 
-                else
-                {
-                    if (operacaoSubmenuEscolhida == '1')
-                        tela.Registrar();
+                else if (operacaoSubmenuEscolhida == '1')
+                    tela.Registrar();
 
-                    else if (operacaoSubmenuEscolhida == '2')
-                        tela.Editar();
+                else if (operacaoSubmenuEscolhida == '2')
+                    tela.Editar();
 
-                    else if (operacaoSubmenuEscolhida == '3')
-                        tela.Excluir();
+                else if (operacaoSubmenuEscolhida == '3')
+                    tela.Excluir();
 
-                    else if (operacaoSubmenuEscolhida == '4')
-                        tela.VisualizarRegistros(true);
-                }
+                else if (operacaoSubmenuEscolhida == '4')
+                    tela.VisualizarRegistros(true);
+
+                else if (operacaoSubmenuEscolhida == '5' && tela.tipoEntidade == "Amigo")
+                    telaAmigo.PagarMulta();
             }
 
         }

@@ -48,9 +48,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
 
             Console.WriteLine();
 
-            Reserva entidade = (Reserva)ObterRegistro();
+            Reserva reserva = (Reserva)ObterRegistro();
 
-            ArrayList erros = entidade.Validar();
+            ArrayList erros = reserva.Validar();
 
             if (erros.Count > 0)
             {
@@ -58,9 +58,21 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
                 return;
             }
 
-            entidade.Iniciar();
+            if (reserva.Revista.EstaEmprestada)
+            {
+                ExibirMensagem("Não é possível emprestar uma revista já emprestada.", ConsoleColor.Red);
+                return;
+            }
 
-            base.InserirRegistro(entidade);
+            if (reserva.Amigo.TemMulta)
+            {
+                ExibirMensagem("Não é possível emprestar para um amigo com multa pendente.", ConsoleColor.Red);
+                return;
+            }
+
+            reserva.Iniciar();
+
+            base.InserirRegistro(reserva);
         }
 
         public override void VisualizarRegistros(bool exibirTitulo)

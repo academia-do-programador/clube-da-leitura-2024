@@ -56,6 +56,18 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
                 return;
             }
 
+            if (emprestimo.Revista.EstaEmprestada)
+            {
+                ExibirMensagem("Não é possível emprestar uma revista já emprestada.", ConsoleColor.Red);
+                return;
+            }
+
+            if (emprestimo.Amigo.TemMulta)
+            {
+                ExibirMensagem("Não é possível emprestar para um amigo com multa pendente.", ConsoleColor.Red);
+                return;
+            }
+
             // mudar status da revista para emprestado
             emprestimo.Iniciar();
 
