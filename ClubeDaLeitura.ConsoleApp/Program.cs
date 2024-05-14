@@ -1,13 +1,9 @@
-﻿using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
-using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
-using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
-using ClubeDaLeitura.ConsoleApp.ModuloReserva;
-using ClubeDaLeitura.ConsoleApp.ModuloRevista;
-using ControleMedicamentos.ConsoleApp.Compartilhado;
+﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
+using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 
 namespace ClubeDaLeitura.ConsoleApp
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
@@ -19,50 +15,46 @@ namespace ClubeDaLeitura.ConsoleApp
 
             telaAmigo.CadastrarEntidadeTeste();
 
-            RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
+            //RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
 
-            TelaCaixa telaCaixa = new TelaCaixa();
-            telaCaixa.tipoEntidade = "Caixa";
-            telaCaixa.repositorio = repositorioCaixa;
+            //TelaCaixa telaCaixa = new TelaCaixa();
+            //telaCaixa.tipoEntidade = "Caixa";
+            //telaCaixa.repositorio = repositorioCaixa;
 
-            telaCaixa.CadastrarEntidadeTeste();
+            //telaCaixa.CadastrarEntidadeTeste();
 
-            RepositorioRevista repositorioRevista = new RepositorioRevista();
+            //RepositorioRevista repositorioRevista = new RepositorioRevista();
 
-            TelaRevista telaRevista = new TelaRevista();
-            telaRevista.tipoEntidade = "Revista";
-            telaRevista.repositorio = repositorioRevista;
-            telaRevista.repositorioCaixa = repositorioCaixa;
+            //TelaRevista telaRevista = new TelaRevista();
+            //telaRevista.tipoEntidade = "Revista";
+            //telaRevista.repositorio = repositorioRevista;
+            //telaRevista.repositorioCaixa = repositorioCaixa;
 
-            telaRevista.CadastrarEntidadeTeste();
+            //telaRevista.CadastrarEntidadeTeste();
 
-            #region Empréstimos
-            RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
+            //RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
 
-            TelaEmprestimo telaEmprestimo = new TelaEmprestimo();
-            telaEmprestimo.tipoEntidade = "Empréstimo";
-            telaEmprestimo.repositorio = repositorioEmprestimo;
+            //TelaEmprestimo telaEmprestimo = new TelaEmprestimo();
+            //telaEmprestimo.tipoEntidade = "Empréstimo";
+            //telaEmprestimo.repositorio = repositorioEmprestimo;
 
-            telaEmprestimo.repositorioAmigo = repositorioAmigo;
-            telaEmprestimo.repositorioRevista = repositorioRevista;
+            //telaEmprestimo.repositorioAmigo = repositorioAmigo;
+            //telaEmprestimo.repositorioRevista = repositorioRevista;
 
-            telaEmprestimo.telaAmigo = telaAmigo;
-            telaEmprestimo.telaRevista = telaRevista;
-            #endregion
+            //telaEmprestimo.telaAmigo = telaAmigo;
+            //telaEmprestimo.telaRevista = telaRevista;
 
-            #region Reservas
-            RepositorioReserva repositorioReserva = new RepositorioReserva();
+            //RepositorioReserva repositorioReserva = new RepositorioReserva();
 
-            TelaReserva telaReserva = new TelaReserva();
-            telaReserva.tipoEntidade = "Reserva";
-            telaReserva.repositorio = repositorioReserva;
-            telaReserva.repositorioAmigo = repositorioAmigo;
-            telaReserva.repositorioRevista = repositorioRevista;
+            //TelaReserva telaReserva = new TelaReserva();
+            //telaReserva.tipoEntidade = "Reserva";
+            //telaReserva.repositorio = repositorioReserva;
+            //telaReserva.repositorioAmigo = repositorioAmigo;
+            //telaReserva.repositorioRevista = repositorioRevista;
 
-            telaReserva.telaAmigo = telaAmigo;
-            telaReserva.telaRevista = telaRevista;
-            telaReserva.telaEmprestimo = telaEmprestimo;
-            #endregion
+            //telaReserva.telaAmigo = telaAmigo;
+            //telaReserva.telaRevista = telaRevista;
+            //telaReserva.telaEmprestimo = telaEmprestimo;
 
             while (true)
             {
@@ -76,17 +68,17 @@ namespace ClubeDaLeitura.ConsoleApp
                 if (opcaoTelaPrincipalEscolhida == '1')
                     tela = telaAmigo;
 
-                else if (opcaoTelaPrincipalEscolhida == '2')
-                    tela = telaCaixa;
+                //else if (opcaoTelaPrincipalEscolhida == '2')
+                //    tela = telaCaixa;
 
-                else if (opcaoTelaPrincipalEscolhida == '3')
-                    tela = telaRevista;
+                //else if (opcaoTelaPrincipalEscolhida == '3')
+                //    tela = telaRevista;
 
-                else if (opcaoTelaPrincipalEscolhida == '4')
-                    tela = telaEmprestimo;
+                //else if (opcaoTelaPrincipalEscolhida == '4')
+                //    tela = telaEmprestimo;
 
-                else if (opcaoTelaPrincipalEscolhida == '5')
-                    tela = telaReserva;
+                //else if (opcaoTelaPrincipalEscolhida == '5')
+                //    tela = telaReserva;
 
                 if (tela == null)
                     continue;
@@ -96,29 +88,29 @@ namespace ClubeDaLeitura.ConsoleApp
                 if (operacaoSubmenuEscolhida == 'S' || operacaoSubmenuEscolhida == 's')
                     continue;
 
-                if (tela.tipoEntidade == "Empréstimo")
-                {
-                    if (operacaoSubmenuEscolhida == '1')
-                        telaEmprestimo.Registrar();
+                //if (tela.tipoEntidade == "Empréstimo")
+                //{
+                //    if (operacaoSubmenuEscolhida == '1')
+                //        telaEmprestimo.Registrar();
 
-                    else if (operacaoSubmenuEscolhida == '2')
-                        telaEmprestimo.Concluir();
+                //    else if (operacaoSubmenuEscolhida == '2')
+                //        telaEmprestimo.Concluir();
 
-                    else if (operacaoSubmenuEscolhida == '3')
-                        telaEmprestimo.VisualizarRegistros(true);
-                }
+                //    else if (operacaoSubmenuEscolhida == '3')
+                //        telaEmprestimo.VisualizarRegistros(true);
+                //}
 
-                else if (tela.tipoEntidade == "Reserva")
-                {
-                    if (operacaoSubmenuEscolhida == '1')
-                        telaReserva.Registrar();
+                //else if (tela.tipoEntidade == "Reserva")
+                //{
+                //    if (operacaoSubmenuEscolhida == '1')
+                //        telaReserva.Registrar();
 
-                    else if (operacaoSubmenuEscolhida == '2')
-                        telaReserva.AbrirEmprestimo();
+                //    else if (operacaoSubmenuEscolhida == '2')
+                //        telaReserva.AbrirEmprestimo();
 
-                    else if (operacaoSubmenuEscolhida == '3')
-                        telaReserva.VisualizarRegistros(true);
-                }
+                //    else if (operacaoSubmenuEscolhida == '3')
+                //        telaReserva.VisualizarRegistros(true);
+                //}
 
                 else if (operacaoSubmenuEscolhida == '1')
                     tela.Registrar();
