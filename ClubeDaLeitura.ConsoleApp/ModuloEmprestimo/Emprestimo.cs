@@ -42,7 +42,10 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
         public override void AtualizarRegistro(EntidadeBase novoRegistro)
         {
+            Emprestimo emprestimo = (Emprestimo)novoRegistro;
 
+            this.Revista = emprestimo.Revista;
+            this.Amigo = emprestimo.Amigo;
         }
 
         public void Iniciar()

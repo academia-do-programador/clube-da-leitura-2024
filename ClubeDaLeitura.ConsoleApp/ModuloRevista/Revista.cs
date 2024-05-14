@@ -47,7 +47,12 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 
         public override void AtualizarRegistro(EntidadeBase novoRegistro)
         {
+            Revista revista = (Revista)novoRegistro;
 
+            this.Titulo = revista.Titulo;
+            this.NumeroEdicao = revista.NumeroEdicao;
+            this.Ano = revista.Ano;
+            this.Caixa = revista.Caixa;
         }
 
         public void Emprestar()

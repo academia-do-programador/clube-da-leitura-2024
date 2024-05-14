@@ -38,7 +38,11 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 
         public override void AtualizarRegistro(EntidadeBase novoRegistro)
         {
+            Caixa caixa = (Caixa)novoRegistro;
 
+            this.Etiqueta = caixa.Etiqueta;
+            this.Cor = caixa.Cor;
+            this.TempoEmprestimo = caixa.TempoEmprestimo;
         }
     }
 }

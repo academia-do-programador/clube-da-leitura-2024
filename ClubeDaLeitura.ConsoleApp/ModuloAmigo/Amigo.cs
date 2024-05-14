@@ -44,7 +44,12 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 
         public override void AtualizarRegistro(EntidadeBase novoRegistro)
         {
+            Amigo amigo = (Amigo)novoRegistro;
 
+            this.Nome = amigo.Nome;
+            this.NomeResponsavel = amigo.NomeResponsavel;
+            this.Telefone = amigo.Telefone;
+            this.Endereco = amigo.Endereco;
         }
 
         public void Multar(Multa multa)
