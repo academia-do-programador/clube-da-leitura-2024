@@ -19,7 +19,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         {
             telaCaixa = new(new RepositorioCaixa(), "caixa");
             telaRevista = new(new RepositorioRevista(), telaCaixa, "revista");
-            telaAmigo = new(new RepositorioAmigo(), telaMulta, "amigo");
+            telaAmigo = new(new RepositorioAmigo(), "amigo");
             telaMulta = new(new RepositorioMulta(), telaAmigo, "multa");
             telaEmprestimo = new(new RepositorioEmprestimo(), telaAmigo, telaRevista, telaMulta, "empréstimo");
             telaReserva = new(new RepositorioReserva(), telaAmigo, telaRevista, telaEmprestimo, "reserva");
