@@ -1,4 +1,4 @@
-﻿using ControleMedicamentos.ConsoleApp.Compartilhado;
+﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 {

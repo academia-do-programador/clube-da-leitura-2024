@@ -1,12 +1,12 @@
-﻿using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
+﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
+using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
-using ControleMedicamentos.ConsoleApp.Compartilhado;
 using System.Collections;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
 {
-    public class TelaReserva : TelaBase
+    public class TelaReserva : TelaBase, ITelaCadastravel
     {
         public TelaRevista telaRevista = null;
         public RepositorioRevista repositorioRevista = null;

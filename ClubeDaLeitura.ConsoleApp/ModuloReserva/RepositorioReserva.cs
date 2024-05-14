@@ -1,4 +1,4 @@
-﻿using ControleMedicamentos.ConsoleApp.Compartilhado;
+﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using System.Collections;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloReserva

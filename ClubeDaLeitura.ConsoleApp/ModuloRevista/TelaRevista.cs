@@ -1,9 +1,9 @@
-﻿using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
-using ControleMedicamentos.ConsoleApp.Compartilhado;
+﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
+using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 {
-    public class TelaRevista : TelaBase
+    public class TelaRevista : TelaBase, ITelaCadastravel
     {
         public TelaCaixa telaCaixa = null;
         public RepositorioCaixa repositorioCaixa = null;

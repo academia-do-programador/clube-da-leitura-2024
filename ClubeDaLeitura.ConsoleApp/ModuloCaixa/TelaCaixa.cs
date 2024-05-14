@@ -1,8 +1,8 @@
-﻿using ControleMedicamentos.ConsoleApp.Compartilhado;
+﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 {
-    public class TelaCaixa : TelaBase
+    public class TelaCaixa : TelaBase, ITelaCadastravel
     {
         public override void VisualizarRegistros(bool exibirTitulo)
         {

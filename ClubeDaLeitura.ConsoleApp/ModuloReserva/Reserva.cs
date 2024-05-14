@@ -1,6 +1,6 @@
-﻿using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
+﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
+using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
-using ControleMedicamentos.ConsoleApp.Compartilhado;
 using System.Collections;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloReserva

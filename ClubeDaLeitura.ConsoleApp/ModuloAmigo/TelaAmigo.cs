@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 {
-    public class TelaAmigo : TelaBase
+    public class TelaAmigo : TelaBase, ITelaCadastravel
     {
         public override char ApresentarMenu()
         {
