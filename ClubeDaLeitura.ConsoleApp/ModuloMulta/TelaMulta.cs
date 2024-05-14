@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloMulta
 {
-    internal class TelaMulta : TelaBase
+    public class TelaMulta : TelaBase<Multa>, ITelaCRUD
     {
         TelaAmigo telaAmigo { get; set; }
         public TelaMulta(RepositorioMulta repositorio, TelaAmigo telaAmigo, string tipoEntidade)
@@ -54,40 +54,43 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloMulta
             Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -15} | {4, -5}",
                 "Id", "Amigo", "Revista", "Dias de atraso", "Valor (R$)");
 
-            foreach (Emprestimo multa in repositorio.SelecionarTodos())
+            foreach (Multa multa in repositorio.SelecionarTodos())
             {
-                string[] parametros = [multa.Amigo.Nome, multa.Revista.Titulo];
+                string[] parametros = [multa.Amigo, multa.Revista];
                 AjustaTamanhoDeVisualizacao(parametros);
 
-                int diasAtraso = multa.TempoAtraso;
-
                 Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -15} | {4, -5}",
-                    multa.Id, parametros[0], parametros[1], diasAtraso, diasAtraso * 5);
+                    multa.Id, parametros[0], parametros[1], multa.DiasDeAtraso, multa.DiasDeAtraso * 5);
             }
 
             if (exibirTitulo) RecebeString("\n'Enter' para continuar ");
         }
-        public virtual void Excluir(ref bool retornar)
+        public override void Excluir(ref bool retornar)
         {
             while (true)
             {
                 retornar = false;
                 if (repositorio.ExistemItensCadastrados()) { RepositorioVazio(ref retornar); return; }
 
-                ApresentarCabecalhoEntidade($"\nExcluindo {tipoEntidade}...\n");
+                ApresentarCabecalhoEntidade($"Quitando multas...\n");
                 VisualizarRegistros(false);
 
-                int idRegistroEscolhido = RecebeInt($"\nDigite o ID do {tipoEntidade} que deseja excluir: ");
+                int idRegistroEscolhido = RecebeInt($"\nDigite o ID da multa que deseja quitar: ");
 
-                if (!repositorio.Existe(idRegistroEscolhido, this)) IdInvalido();
+                if (!repositorio.Existe(idRegistroEscolhido)) IdInvalido();
                 else
                 {
-                    RealizaAcao(() => repositorio.Excluir(idRegistroEscolhido, telaAmigo), "excluído");
+                    foreach (Amigo amigo in telaAmigo.repositorio.SelecionarTodos())
+                    {
+                        if (amigo.Nome == repositorio.SelecionarPorId(idRegistroEscolhido).Amigo) amigo.multa = false;
+                        telaAmigo.repositorio.Editar(amigo.Id, amigo);
+                    }
+                    RealizaAcao(() => repositorio.Excluir(idRegistroEscolhido), "excluído");
                     break;
                 }
             }
         }
 
-        protected override EntidadeBase ObterRegistro(int id) => throw new NotImplementedException();
+        protected override Multa ObterRegistro(int id) => throw new NotImplementedException();
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ControleMedicamentos.ConsoleApp.Compartilhado;
 namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 {
-    internal class RepositorioAmigo : RepositorioBase
+    public class RepositorioAmigo : RepositorioBase <Amigo>
     {
     }
 }

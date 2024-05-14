@@ -7,7 +7,7 @@ using ControleMedicamentos.ConsoleApp.Compartilhado;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 {
-    internal class RepositorioRevista : RepositorioBase
+    public class RepositorioRevista : RepositorioBase <Revista>
     {
     }
 }

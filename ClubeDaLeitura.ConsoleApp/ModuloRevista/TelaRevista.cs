@@ -7,13 +7,12 @@ using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
 using ControleMedicamentos.ConsoleApp.Compartilhado;
-
 namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
 {
-    internal class TelaRevista : TelaBase
+    public class TelaRevista : TelaBase <Revista> , ITelaCRUD
     {
-        TelaBase telaCaixa;
-        public TelaRevista(RepositorioBase repositorio, TelaBase telaCaixa, string tipoEntidade)
+        TelaCaixa telaCaixa;
+        public TelaRevista(RepositorioRevista repositorio, TelaCaixa telaCaixa, string tipoEntidade)
         {
             this.repositorio = repositorio;
             this.telaCaixa = telaCaixa;
@@ -65,28 +64,37 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista
             if (exibirTitulo) RecebeString("\n'Enter' para continuar ");
         }
 
-        protected override EntidadeBase ObterRegistro(int id)
+        protected override Revista ObterRegistro(int id)
         {
             string titulo = "-", edicao = "-", ano = "-";
             int idCaixa = 0;
-            EntidadeBase caixaSelecionada = new Caixa("-", "-", 0);
-            EntidadeBase novoRegistro = new Revista(titulo, edicao, ano, caixaSelecionada);
+            Caixa caixaSelecionada = new Caixa("-", "-", 0);
+            Revista novoRegistro = new Revista(titulo, edicao, ano, caixaSelecionada);
 
             RecebeAtributo(() => novoRegistro = new Revista(titulo, edicao, ano, caixaSelecionada), ref novoRegistro, ref titulo,
                 () => TabelaDeCadastro(id, "{0, -5} | ", titulo, edicao, ano, caixaSelecionada.Etiqueta));
+            
             RecebeAtributo(() => novoRegistro = new Revista(titulo, edicao, ano, caixaSelecionada), ref novoRegistro, ref edicao,
                 () => TabelaDeCadastro(id, "{0, -5} | {1, -15} | ", titulo, edicao, ano, caixaSelecionada.Etiqueta));
+            
             RecebeAtributo(() => novoRegistro = new Revista(titulo, edicao, ano, caixaSelecionada), ref novoRegistro, ref ano,
                 () => TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | ", titulo, edicao, ano, caixaSelecionada.Etiqueta));
 
+            do
+            {
+                TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | {3, -15} | ", titulo, edicao, ano, caixaSelecionada.Etiqueta);
+                RecebeAtributo(() => novoRegistro = new Revista(titulo, edicao, ano, caixaSelecionada),
+                    () => caixaSelecionada = (Caixa)telaCaixa.repositorio.SelecionarPorId(idCaixa),
+                    ref novoRegistro, ref caixaSelecionada, telaCaixa, "caixa", ref idCaixa);
+            }
+            while (!IdEhValido(idCaixa, telaCaixa, ref caixaSelecionada, () => caixaSelecionada = new Caixa("-", "-", 0)));
+
             TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | {3, -15} | ", titulo, edicao, ano, caixaSelecionada.Etiqueta);
-            RecebeAtributo(() => novoRegistro = new Revista(titulo, edicao, ano, caixaSelecionada),
-                () => caixaSelecionada = (Caixa)telaCaixa.repositorio.SelecionarPorId(idCaixa), ref novoRegistro, ref caixaSelecionada, telaCaixa, "caixa", ref idCaixa);
             
-            TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | {3, -15} | ", titulo, edicao, ano, caixaSelecionada.Etiqueta);
-            CorDaCaixa(((Caixa)caixaSelecionada).Cor); 
+            CorDaCaixa(caixaSelecionada.Cor); 
             Console.Write("{0, -5}", caixaSelecionada.Etiqueta);
             Console.ResetColor();
+
             Console.WriteLine();
 
             return novoRegistro;

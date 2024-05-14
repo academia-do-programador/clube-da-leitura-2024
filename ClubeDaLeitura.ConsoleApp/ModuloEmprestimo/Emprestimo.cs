@@ -16,7 +16,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         public EntidadeBase Revista { get; set; }
         public DateTime DataEmprestimo { get; set; }
         public DateTime DataDevolucao { get; set; }
-        public int TempoAtraso { get; set; } = 0;
 
         public Emprestimo(EntidadeBase amigo, EntidadeBase revistaEmprestada, DateTime dataEmprestimo, DateTime dataDevolucao)
         {
@@ -42,7 +41,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             Revista = emprestimo.Revista;
             DataEmprestimo = emprestimo.DataEmprestimo;
             DataDevolucao = emprestimo.DataDevolucao;
-            TempoAtraso = emprestimo.TempoAtraso;
         }
     }
 }

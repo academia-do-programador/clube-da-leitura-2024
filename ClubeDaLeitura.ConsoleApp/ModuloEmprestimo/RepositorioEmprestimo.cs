@@ -9,5 +9,5 @@ using ControleMedicamentos.ConsoleApp.Compartilhado;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 {
-    internal class RepositorioEmprestimo : RepositorioBase {}
+    internal class RepositorioEmprestimo : RepositorioBase <Emprestimo> {}
 }

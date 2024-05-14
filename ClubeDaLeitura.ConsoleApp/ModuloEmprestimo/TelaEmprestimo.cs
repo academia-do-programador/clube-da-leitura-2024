@@ -13,10 +13,12 @@ using ControleMedicamentos.ConsoleApp.Compartilhado;
 using Microsoft.Win32;
 namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 {
-    internal class TelaEmprestimo : TelaBase
+    internal class TelaEmprestimo : TelaBase <Emprestimo>, ITelaCRUD
     {
-        TelaBase telaAmigo, telaRevista, telaMulta;
-        public TelaEmprestimo(RepositorioBase repositorio, TelaBase telaAmigo, TelaBase telaRevista, TelaBase telaMulta, string tipoEntidade)
+        TelaAmigo telaAmigo;
+        TelaRevista telaRevista;
+        TelaMulta telaMulta;
+        public TelaEmprestimo(RepositorioEmprestimo repositorio, TelaAmigo telaAmigo, TelaRevista telaRevista, TelaMulta telaMulta, string tipoEntidade)
         {
             this.repositorio = repositorio;
             this.telaAmigo = telaAmigo;
@@ -59,7 +61,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             bool repetir = false;
             ApresentarCabecalhoEntidade($"Cadastrando {tipoEntidade}...\n");
 
-            if (TodosOsAmigosTemMulta()) return;
+            if (NaoHaAmigosDisponiveis()) return;
             if (NaoHaRevistasDisponiveis()) return;
             if (telaAmigo.repositorio.ExistemItensCadastrados() || telaRevista.repositorio.ExistemItensCadastrados()) { RepositorioVazio(ref repetir); return; }
             
@@ -99,24 +101,28 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
                 int idRegistroEscolhido = RecebeInt($"\nDigite o ID do {tipoEntidade} que deseja devolver: ");
 
-                if (!repositorio.Existe(idRegistroEscolhido, this)) IdInvalido();
+                if (!repositorio.Existe(idRegistroEscolhido)) IdInvalido();
                 else
                 {
                     DateTime devolucao = RecebeData("\nInforme a data da devolução: ");
-                    RealizaAcao(() => repositorio.Excluir(idRegistroEscolhido, devolucao, telaAmigo, telaMulta, telaRevista), "devolvido");
+                    Emprestimo emprestimo = repositorio.SelecionarPorId(idRegistroEscolhido);
+
+                    GeraMulta(idRegistroEscolhido, devolucao, emprestimo);
+                    LiberaRevista(emprestimo);
+
+                    RealizaAcao(() => repositorio.Excluir(idRegistroEscolhido), "devolvido");
                     break;
                 }
             }
         }
-
-        protected override EntidadeBase ObterRegistro(int id)
+        protected override Emprestimo ObterRegistro(int id)
         {
             int idSelecionado = 0;
             TimeSpan diasParaDevolver = new TimeSpan(0, 0, 0, 0);
 
-            EntidadeBase amigoSelecionado = new Amigo("-", "-", "-", "-");
-            EntidadeBase revistaSelecionada = new Revista("-", "-", "-", null);
-            EntidadeBase novoEmprestimo = new Emprestimo(amigoSelecionado, revistaSelecionada, DateTime.Now, DateTime.Now);
+            Amigo amigoSelecionado = new Amigo("-", "-", "-", "-");
+            Revista revistaSelecionada = new Revista("-", "-", "-", null);
+            Emprestimo novoEmprestimo = new Emprestimo(amigoSelecionado, revistaSelecionada, DateTime.Now, DateTime.Now);
 
             do
             {
@@ -125,8 +131,8 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
                     () => amigoSelecionado = (Amigo)telaAmigo.repositorio.SelecionarPorId(idSelecionado),
                     ref novoEmprestimo, ref amigoSelecionado, telaAmigo, "amigo", ref idSelecionado);
             }
-            while (ValidaMultas(amigoSelecionado) || !IdEhValido(idSelecionado, telaAmigo, ref amigoSelecionado,
-                    () => amigoSelecionado = new Amigo("-", "-", "-", "-")));
+            while (!IdEhValido(idSelecionado, telaAmigo, ref amigoSelecionado,
+                    () => amigoSelecionado = new Amigo("-", "-", "-", "-")) || AmigoTemMulta(amigoSelecionado));
 
             do
             {
@@ -135,14 +141,12 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
                     () => revistaSelecionada = (Revista)telaRevista.repositorio.SelecionarPorId(idSelecionado),
                     ref novoEmprestimo, ref revistaSelecionada, telaRevista, "revista", ref idSelecionado);
             }
-            while (ValidaReserva(revistaSelecionada) || !IdEhValido(idSelecionado, telaRevista, ref revistaSelecionada,
-                    () => revistaSelecionada = new Revista("-", "-", "-", null)));
+            while (!IdEhValido(idSelecionado, telaRevista, ref revistaSelecionada,
+                    () => revistaSelecionada = new Revista("-", "-", "-", null)) || RevistaIndisponivel(revistaSelecionada));
 
-            ((Revista)telaRevista.repositorio.SelecionarPorId(idSelecionado)).indiponivel = true;
+            BloqueiaRevista(idSelecionado, revistaSelecionada);
 
-            Revista revista = (Revista)revistaSelecionada;
-            Caixa caixa = (Caixa)revista.Caixa;
-            diasParaDevolver = new TimeSpan(caixa.DiasDeEmprestimo, 0, 0, 0);
+            diasParaDevolver = new TimeSpan(revistaSelecionada.Caixa.DiasDeEmprestimo, 0, 0, 0);
 
             TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | {3, -20} | {4, -5}", amigoSelecionado.Nome, revistaSelecionada.Titulo, DateTime.Now.ToString("d"), DateTime.Now.Add(diasParaDevolver).ToString("d"));
             Console.WriteLine();
@@ -150,47 +154,40 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             return new Emprestimo(amigoSelecionado, revistaSelecionada, DateTime.Now, DateTime.Now.Add(diasParaDevolver));
         }
 
-        private bool ValidaMultas(EntidadeBase amigoSelecionado)
+
+        private bool AmigoTemMulta(Amigo amigo)
         {
-            foreach (Emprestimo multa in telaMulta.repositorio.SelecionarTodos())
-                if (amigoSelecionado == multa.Amigo)
-                {
-                    ExibirMensagem("Este amigo possui multas em aberto. Não é possível emprestar ", ConsoleColor.Red);
-                    Console.ReadKey(true);
-                    return true;
-                }
-            return false;
+            if (amigo.multa)
+            {
+                ExibirMensagem("Este amigo possui multas em aberto. Não é possível emprestar ", ConsoleColor.Red);
+                Console.ReadKey(true);
+            }
+            return amigo.multa;
         }
-        private bool TodosOsAmigosTemMulta()
+        private bool RevistaIndisponivel(Revista revista)
         {
-            if (telaAmigo.repositorio.SelecionarTodos().Count == 0) 
-                return false;
-
-            foreach (Amigo amigo in telaAmigo.repositorio.SelecionarTodos())
-                if (!amigo.multa) return false;
-
-            ExibirMensagem("Todos os amigos tem multa :(", ConsoleColor.Red);
-            Console.ReadKey(true);
-            return true;
-        }
-        private bool ValidaReserva(EntidadeBase revistaSelecionada)
-        {
-            Revista revista = (Revista)revistaSelecionada;
-
             if (revista.indiponivel)
             {
-                ExibirMensagem("Esta revista já está reservada. Escolha outra ", ConsoleColor.Red);
+                ExibirMensagem("Essa revista já está reservada ou emprestada, selecione uma revista válida", ConsoleColor.DarkYellow);
                 Console.ReadKey(true);
-                return true;
             }
-            return false;
+            return revista.indiponivel;
         }
         private bool NaoHaRevistasDisponiveis()
         {
             foreach (Revista revista in telaRevista.repositorio.SelecionarTodos())
                 if (!revista.indiponivel) return false;
 
-            ExibirMensagem("Todos as revistas estão reservadas :(", ConsoleColor.Red);
+            ExibirMensagem("Não há revistas disponíveis :(", ConsoleColor.Red);
+            Console.ReadKey(true);
+            return true;
+        }
+        private bool NaoHaAmigosDisponiveis()
+        {
+            foreach (Amigo amigo in telaAmigo.repositorio.SelecionarTodos())
+                if (!amigo.multa) return false;
+
+            ExibirMensagem("Todos os amigos tem multa :(", ConsoleColor.Red);
             Console.ReadKey(true);
             return true;
         }
@@ -205,5 +202,41 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
 
             Console.Write(texto[0], id, texto[1], texto[2], texto[3], texto[4]);
         }
+        private void BloqueiaRevista(int idSelecionado, Revista revistaSelecionada)
+        {
+            foreach (Revista revistas in telaRevista.repositorio.SelecionarTodos())
+                if (revistas == revistaSelecionada)
+                {
+                    revistas.indiponivel = true;
+                    telaRevista.repositorio.Editar(idSelecionado, revistas);
+                }
+        }
+        private void LiberaRevista(Emprestimo emprestimo)
+        {
+            foreach (Revista revista in telaRevista.repositorio.SelecionarTodos())
+            {
+                if (revista == emprestimo.Revista) revista.indiponivel = false;
+                telaRevista.repositorio.Editar(revista.Id, revista);
+            }
+        }
+        private void GeraMulta(int idRegistroEscolhido, DateTime devolucao, Emprestimo emprestimo)
+        {
+            if (devolucao > emprestimo.DataDevolucao)
+                foreach (Amigo amigo in telaAmigo.repositorio.SelecionarTodos())
+                    if (amigo == emprestimo.Amigo)
+                    {
+                        repositorio.Editar(idRegistroEscolhido, emprestimo);
+                        amigo.multa = true;
+
+                        string[] tempo = (devolucao - emprestimo.DataDevolucao).ToString().Split('.');
+                        if (tempo[0].Length > 3) tempo[0] = "1";
+
+                        Multa multa = new(emprestimo.Amigo.Nome, emprestimo.Revista.Titulo, Convert.ToInt32(tempo[0]));
+
+                        telaMulta.repositorio.Cadastrar(multa);
+                        telaAmigo.repositorio.Editar(amigo.Id, amigo);
+                    }
+        }
+
     }
 }

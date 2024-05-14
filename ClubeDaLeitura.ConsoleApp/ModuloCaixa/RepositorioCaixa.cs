@@ -7,7 +7,7 @@ using ControleMedicamentos.ConsoleApp.Compartilhado;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 {
-    internal class RepositorioCaixa : RepositorioBase
+    public class RepositorioCaixa : RepositorioBase <Caixa>
     {
     }
 }
