@@ -1,7 +1,5 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
-using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
-using ClubeDaLeitura.ConsoleApp.ModuloReserva;
 
 namespace ClubeDaLeitura.ConsoleApp
 {
@@ -24,11 +22,11 @@ namespace ClubeDaLeitura.ConsoleApp
                     continue;
 
                 // asserção -> cast
-                if (tela is TelaEmprestimo telaEmprestimo)
-                    GerenciarEmprestimos(operacaoSubmenuEscolhida, telaEmprestimo);
+                //if (tela is TelaEmprestimo telaEmprestimo)
+                //    GerenciarEmprestimos(operacaoSubmenuEscolhida, telaEmprestimo);
 
-                else if (tela is TelaReserva telaReserva)
-                    GerenciarReservas(operacaoSubmenuEscolhida, telaReserva);
+                //else if (tela is TelaReserva telaReserva)
+                //    GerenciarReservas(operacaoSubmenuEscolhida, telaReserva);
 
                 else if (operacaoSubmenuEscolhida == '1')
                     tela.Registrar();
@@ -47,28 +45,28 @@ namespace ClubeDaLeitura.ConsoleApp
             }
         }
 
-        static void GerenciarReservas(char operacaoSubmenuEscolhida, TelaReserva telaReserva)
-        {
-            if (operacaoSubmenuEscolhida == '1')
-                telaReserva.Registrar();
+        //static void GerenciarReservas(char operacaoSubmenuEscolhida, TelaReserva telaReserva)
+        //{
+        //    if (operacaoSubmenuEscolhida == '1')
+        //        telaReserva.Registrar();
 
-            else if (operacaoSubmenuEscolhida == '2')
-                telaReserva.AbrirEmprestimo();
+        //    else if (operacaoSubmenuEscolhida == '2')
+        //        telaReserva.AbrirEmprestimo();
 
-            else if (operacaoSubmenuEscolhida == '3')
-                telaReserva.VisualizarRegistros(true);
-        }
+        //    else if (operacaoSubmenuEscolhida == '3')
+        //        telaReserva.VisualizarRegistros(true);
+        //}
 
-        static void GerenciarEmprestimos(char operacaoSubmenuEscolhida, TelaEmprestimo telaEmprestimo)
-        {
-            if (operacaoSubmenuEscolhida == '1')
-                telaEmprestimo.Registrar();
+        //static void GerenciarEmprestimos(char operacaoSubmenuEscolhida, TelaEmprestimo telaEmprestimo)
+        //{
+        //    if (operacaoSubmenuEscolhida == '1')
+        //        telaEmprestimo.Registrar();
 
-            else if (operacaoSubmenuEscolhida == '2')
-                telaEmprestimo.Concluir();
+        //    else if (operacaoSubmenuEscolhida == '2')
+        //        telaEmprestimo.Concluir();
 
-            else if (operacaoSubmenuEscolhida == '3')
-                telaEmprestimo.VisualizarRegistros(true);
-        }
+        //    else if (operacaoSubmenuEscolhida == '3')
+        //        telaEmprestimo.VisualizarRegistros(true);
+        //}
     }
 }

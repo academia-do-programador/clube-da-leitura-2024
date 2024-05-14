@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 {
-    public class TelaAmigo : TelaBase, ITelaCadastravel
+    public class TelaAmigo : TelaBase<Amigo>, ITelaCadastravel
     {
         public override char ApresentarMenu()
         {
@@ -42,7 +42,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
             Console.Write("Digite o ID do amigo que deseja pagar as multas: ");
             int idAmigo = Convert.ToInt32(Console.ReadLine());
 
-            Amigo amigo = (Amigo)repositorio.SelecionarPorId(idAmigo);
+            Amigo amigo = repositorio.SelecionarPorId(idAmigo);
 
             Console.WriteLine($"Você deseja pagar o valor total de: R$ {amigo.ValorMulta}?");
             Console.WriteLine("1 - Pagar");
@@ -77,7 +77,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
                 "Id", "Nome", "Responsável", "Telefone", "Endereço"
             );
 
-            List<EntidadeBase> amigosCadastrados = repositorio.SelecionarTodos();
+            List<Amigo> amigosCadastrados = repositorio.SelecionarTodos();
 
             foreach (Amigo amigo in amigosCadastrados)
             {
@@ -118,7 +118,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
             Console.ReadLine();
         }
 
-        protected override EntidadeBase ObterRegistro()
+        protected override Amigo ObterRegistro()
         {
             Console.Write("Digite o nome: ");
             string nome = Console.ReadLine();

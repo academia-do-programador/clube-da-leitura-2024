@@ -11,16 +11,6 @@
     //      Geralmente, interfaces são declaradas com o prefixo I, ex: ITelaCadastravel
     #endregion
 
-    #region Generics
-    //  Generics permitem criarmos código não-específico para tipos de dados abrangentes
-
-    //      É possível adicionar o marcador <T> para: classes, métodos, campos, etc.
-
-    //      Benefícios = reusabilidade de código para tipos de dados específicos
-    //          + identificação de código genérico em tempo de desenvolvimento
-    //          + diminuição o uso de cast (Tipo)
-    #endregion
-
     public interface ITelaCadastravel
     {
         char ApresentarMenu();

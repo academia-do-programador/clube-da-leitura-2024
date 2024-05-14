@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 {
-    public class RepositorioAmigo : RepositorioBase
+    public class RepositorioAmigo : RepositorioBase<Amigo>
     {
         public ArrayList SelecionarAmigosComMulta()
         {

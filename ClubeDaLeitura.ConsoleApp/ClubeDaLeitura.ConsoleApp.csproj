@@ -8,6 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ModuloEmprestimo\**" />
+    <Compile Remove="ModuloReserva\**" />
+    <Compile Remove="ModuloRevista\**" />
+    <EmbeddedResource Remove="ModuloEmprestimo\**" />
+    <EmbeddedResource Remove="ModuloReserva\**" />
+    <EmbeddedResource Remove="ModuloRevista\**" />
+    <None Remove="ModuloEmprestimo\**" />
+    <None Remove="ModuloReserva\**" />
+    <None Remove="ModuloRevista\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Documentacao\" />
   </ItemGroup>
 

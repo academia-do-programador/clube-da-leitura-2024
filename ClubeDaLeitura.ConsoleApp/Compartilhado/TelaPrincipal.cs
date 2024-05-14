@@ -1,8 +1,5 @@
 ﻿using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
-using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
-using ClubeDaLeitura.ConsoleApp.ModuloReserva;
-using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 
 namespace ClubeDaLeitura.ConsoleApp.Compartilhado
 {
@@ -14,14 +11,14 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
         private RepositorioCaixa repositorioCaixa;
         private TelaCaixa telaCaixa;
 
-        private RepositorioRevista repositorioRevista;
-        private TelaRevista telaRevista;
+        //private RepositorioRevista repositorioRevista;
+        //private TelaRevista telaRevista;
 
-        private RepositorioEmprestimo repositorioEmprestimo;
-        private TelaEmprestimo telaEmprestimo;
+        //private RepositorioEmprestimo repositorioEmprestimo;
+        //private TelaEmprestimo telaEmprestimo;
 
-        private RepositorioReserva repositorioReserva;
-        private TelaReserva telaReserva;
+        //private RepositorioReserva repositorioReserva;
+        //private TelaReserva telaReserva;
 
         public TelaPrincipal()
         {
@@ -41,38 +38,38 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
 
             telaCaixa.CadastrarEntidadeTeste();
 
-            repositorioRevista = new RepositorioRevista();
+            //repositorioRevista = new RepositorioRevista();
 
-            telaRevista = new TelaRevista();
-            telaRevista.tipoEntidade = "Revista";
-            telaRevista.repositorio = repositorioRevista;
-            telaRevista.repositorioCaixa = repositorioCaixa;
+            //telaRevista = new TelaRevista();
+            //telaRevista.tipoEntidade = "Revista";
+            //telaRevista.repositorio = repositorioRevista;
+            //telaRevista.repositorioCaixa = repositorioCaixa;
 
-            telaRevista.CadastrarEntidadeTeste();
+            //telaRevista.CadastrarEntidadeTeste();
 
-            repositorioEmprestimo = new RepositorioEmprestimo();
+            //repositorioEmprestimo = new RepositorioEmprestimo();
 
-            telaEmprestimo = new TelaEmprestimo();
-            telaEmprestimo.tipoEntidade = "Empréstimo";
-            telaEmprestimo.repositorio = repositorioEmprestimo;
+            //telaEmprestimo = new TelaEmprestimo();
+            //telaEmprestimo.tipoEntidade = "Empréstimo";
+            //telaEmprestimo.repositorio = repositorioEmprestimo;
 
-            telaEmprestimo.repositorioAmigo = repositorioAmigo;
-            telaEmprestimo.repositorioRevista = repositorioRevista;
+            //telaEmprestimo.repositorioAmigo = repositorioAmigo;
+            //telaEmprestimo.repositorioRevista = repositorioRevista;
 
-            telaEmprestimo.telaAmigo = telaAmigo;
-            telaEmprestimo.telaRevista = telaRevista;
+            //telaEmprestimo.telaAmigo = telaAmigo;
+            //telaEmprestimo.telaRevista = telaRevista;
 
-            repositorioReserva = new RepositorioReserva();
+            //repositorioReserva = new RepositorioReserva();
 
-            telaReserva = new TelaReserva();
-            telaReserva.tipoEntidade = "Reserva";
-            telaReserva.repositorio = repositorioReserva;
-            telaReserva.repositorioAmigo = repositorioAmigo;
-            telaReserva.repositorioRevista = repositorioRevista;
+            //telaReserva = new TelaReserva();
+            //telaReserva.tipoEntidade = "Reserva";
+            //telaReserva.repositorio = repositorioReserva;
+            //telaReserva.repositorioAmigo = repositorioAmigo;
+            //telaReserva.repositorioRevista = repositorioRevista;
 
-            telaReserva.telaAmigo = telaAmigo;
-            telaReserva.telaRevista = telaRevista;
-            telaReserva.telaEmprestimo = telaEmprestimo;
+            //telaReserva.telaAmigo = telaAmigo;
+            //telaReserva.telaRevista = telaRevista;
+            //telaReserva.telaEmprestimo = telaEmprestimo;
         }
 
         public ITelaCadastravel ApresentarMenuPrincipal()
@@ -107,14 +104,14 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
             else if (opcaoEscolhida == '2')
                 tela = telaCaixa;
 
-            else if (opcaoEscolhida == '3')
-                tela = telaRevista;
+            //else if (opcaoEscolhida == '3')
+            //    tela = telaRevista;
 
-            else if (opcaoEscolhida == '4')
-                tela = telaEmprestimo;
+            //else if (opcaoEscolhida == '4')
+            //    tela = telaEmprestimo;
 
-            else if (opcaoEscolhida == '5')
-                tela = telaReserva;
+            //else if (opcaoEscolhida == '5')
+            //    tela = telaReserva;
 
             return tela;
         }

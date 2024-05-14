@@ -2,7 +2,7 @@
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 {
-    public class TelaCaixa : TelaBase, ITelaCadastravel
+    public class TelaCaixa : TelaBase<Caixa>, ITelaCadastravel
     {
         public override void VisualizarRegistros(bool exibirTitulo)
         {
@@ -20,7 +20,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
                 "Id", "Etiqueta", "Cor", "Tempo de Empréstimo"
             );
 
-            List<EntidadeBase> caixasCadastradas = repositorio.SelecionarTodos();
+            List<Caixa> caixasCadastradas = repositorio.SelecionarTodos();
 
             foreach (Caixa caixa in caixasCadastradas)
             {
@@ -36,7 +36,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             Console.ReadLine();
         }
 
-        protected override EntidadeBase ObterRegistro()
+        protected override Caixa ObterRegistro()
         {
             Console.Write("Digite a etiqueta da caixa: ");
             string etiqueta = Console.ReadLine();
