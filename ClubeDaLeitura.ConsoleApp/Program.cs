@@ -36,6 +36,7 @@ namespace ClubeDaLeitura.ConsoleApp
 
             telaAmigo.CadastrarEntidadeTeste();
 
+            #region TODO: Descomentar
             //RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
 
             //TelaCaixa telaCaixa = new TelaCaixa();
@@ -76,6 +77,7 @@ namespace ClubeDaLeitura.ConsoleApp
             //telaReserva.telaAmigo = telaAmigo;
             //telaReserva.telaRevista = telaRevista;
             //telaReserva.telaEmprestimo = telaEmprestimo;
+            #endregion
 
             while (true)
             {
@@ -89,6 +91,7 @@ namespace ClubeDaLeitura.ConsoleApp
                 if (opcaoTelaPrincipalEscolhida == '1')
                     tela = telaAmigo;
 
+                #region TODO: Descomentar
                 //else if (opcaoTelaPrincipalEscolhida == '2')
                 //    tela = telaCaixa;
 
@@ -100,6 +103,7 @@ namespace ClubeDaLeitura.ConsoleApp
 
                 //else if (opcaoTelaPrincipalEscolhida == '5')
                 //    tela = telaReserva;
+                #endregion
 
                 if (tela == null)
                     continue;
@@ -109,6 +113,7 @@ namespace ClubeDaLeitura.ConsoleApp
                 if (operacaoSubmenuEscolhida == 'S' || operacaoSubmenuEscolhida == 's')
                     continue;
 
+                #region TODO: Descomentar
                 //if (tela.tipoEntidade == "Empréstimo")
                 //{
                 //    if (operacaoSubmenuEscolhida == '1')
@@ -132,6 +137,7 @@ namespace ClubeDaLeitura.ConsoleApp
                 //    else if (operacaoSubmenuEscolhida == '3')
                 //        telaReserva.VisualizarRegistros(true);
                 //}
+                #endregion
 
                 else if (operacaoSubmenuEscolhida == '1')
                     tela.Registrar();
@@ -148,7 +154,6 @@ namespace ClubeDaLeitura.ConsoleApp
                 else if (operacaoSubmenuEscolhida == '5' && tela.tipoEntidade == "Amigo")
                     telaAmigo.PagarMulta();
             }
-
         }
     }
 }
