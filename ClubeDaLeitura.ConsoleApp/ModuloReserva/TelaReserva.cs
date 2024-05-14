@@ -70,6 +70,47 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
             Reserva entidade = ObterRegistro(repositorio.CadastrandoID());
             RealizaAcao(() => repositorio.Cadastrar(entidade), "cadastrado");
         }
+        protected override Reserva ObterRegistro(int id)
+        {
+            int idSelecionado = 0;
+            DateTime dataSelecionada = DateTime.Now;
+            Amigo amigoSelecionado = new Amigo("-", "-", "-", "-");
+            Revista revistaSelecionada = new Revista("-", "-", "-", null);
+
+            Reserva novaReserva = new Reserva(amigoSelecionado, revistaSelecionada, dataSelecionada, true);
+
+            do
+            {
+                TabelaDeCadastro(id, "{0, -5} | ", amigoSelecionado.Nome, revistaSelecionada.Titulo, dataSelecionada.ToString("d"));
+                RecebeAtributo(() => new Reserva(amigoSelecionado, revistaSelecionada, dataSelecionada, true),
+                    () => amigoSelecionado = (Amigo)telaAmigo.repositorio.SelecionarPorId(idSelecionado),
+                    ref novaReserva, ref amigoSelecionado, telaAmigo, "amigo", ref idSelecionado);
+
+            }
+            while (!IdEhValido(idSelecionado, telaAmigo, ref amigoSelecionado,
+            () => amigoSelecionado = new Amigo("-", "-", "-", "-")) || AmigoTemMulta(amigoSelecionado));
+
+            do
+            {
+                TabelaDeCadastro(id, "{0, -5} | {1, -15} | ", amigoSelecionado.Nome, revistaSelecionada.Titulo, dataSelecionada.ToString("d"));
+                RecebeAtributo(() => new Reserva(amigoSelecionado, revistaSelecionada, dataSelecionada, true),
+                    () => revistaSelecionada = (Revista)telaRevista.repositorio.SelecionarPorId(idSelecionado),
+                    ref novaReserva, ref revistaSelecionada, telaRevista, "revista", ref idSelecionado);
+            }
+            while (!IdEhValido(idSelecionado, telaRevista, ref revistaSelecionada,
+                    () => revistaSelecionada = new Revista("-", "-", "-", null)) || RevistaIndisponivel(revistaSelecionada));
+
+
+            RecebeAtributo(() => new Reserva(amigoSelecionado, revistaSelecionada, dataSelecionada, true),
+                ref novaReserva, ref dataSelecionada,
+                () => TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | ", amigoSelecionado.Nome, revistaSelecionada.Titulo, dataSelecionada.ToString("d")));
+
+            novaReserva = new Reserva(amigoSelecionado, revistaSelecionada, dataSelecionada, DateTime.Now < dataSelecionada.Add(new TimeSpan(2, 0, 0, 0)));
+
+            BloqueiaRevista(novaReserva);
+
+            return novaReserva;
+        }
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             bool retornar = false;
@@ -175,47 +216,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
         }
 
 
-        protected override Reserva ObterRegistro(int id)
-        {
-            int idSelecionado = 0;
-            DateTime dataSelecionada = DateTime.Now;
-            Amigo amigoSelecionado = new Amigo("-", "-", "-", "-");
-            Revista revistaSelecionada = new Revista("-", "-", "-", null);
-
-            Reserva novaReserva = new Reserva(amigoSelecionado, revistaSelecionada, dataSelecionada, true);
-
-            do
-            {
-                TabelaDeCadastro(id, "{0, -5} | ", amigoSelecionado.Nome, revistaSelecionada.Titulo, dataSelecionada.ToString("d"));
-                RecebeAtributo(() => new Reserva(amigoSelecionado, revistaSelecionada, dataSelecionada, true),
-                    () => amigoSelecionado = (Amigo)telaAmigo.repositorio.SelecionarPorId(idSelecionado),
-                    ref novaReserva, ref amigoSelecionado, telaAmigo, "amigo", ref idSelecionado);
-
-            }
-            while (!IdEhValido(idSelecionado, telaAmigo, ref amigoSelecionado, 
-            () => amigoSelecionado = new Amigo("-", "-", "-", "-")) || AmigoTemMulta(amigoSelecionado));
-
-            do
-            {
-                TabelaDeCadastro(id, "{0, -5} | {1, -15} | ", amigoSelecionado.Nome, revistaSelecionada.Titulo, dataSelecionada.ToString("d"));
-                RecebeAtributo(() => new Reserva(amigoSelecionado, revistaSelecionada, dataSelecionada, true),
-                    () => revistaSelecionada = (Revista)telaRevista.repositorio.SelecionarPorId(idSelecionado),
-                    ref novaReserva, ref revistaSelecionada, telaRevista, "revista", ref idSelecionado);
-            }
-            while (!IdEhValido(idSelecionado, telaRevista, ref revistaSelecionada,
-                    () => revistaSelecionada = new Revista("-", "-", "-", null)) || RevistaIndisponivel(revistaSelecionada));
-
-
-            RecebeAtributo(() => new Reserva(amigoSelecionado, revistaSelecionada, dataSelecionada, true),
-                ref novaReserva, ref dataSelecionada,
-                () => TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | ", amigoSelecionado.Nome, revistaSelecionada.Titulo, dataSelecionada.ToString("d")));
-
-            novaReserva = new Reserva(amigoSelecionado, revistaSelecionada, dataSelecionada, DateTime.Now < dataSelecionada.Add(new TimeSpan(2, 0, 0, 0)));
-
-            BloqueiaRevista(novaReserva);
-
-            return novaReserva;
-        }
         protected override void TabelaDeCadastro(int id, params string[] texto)
         {
             Console.Clear();
@@ -228,7 +228,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
             Console.Write(texto[0], id, texto[1], texto[2], texto[3]);
         }
 
-        #region Auxiliares
+        #region Barra o cadastro
         private bool AmigoTemMulta(Amigo amigo)
         {
             if (amigo.multa)
@@ -275,7 +275,10 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
             ExibirMensagem("Todas as reservas estão expiradas, emprestimos só serão feitos a partir de reservas em aberto.", ConsoleColor.Red);
             Console.ReadKey(true);
             return true;
-        }        
+        }
+        #endregion
+
+        #region Altera outras classes
         private void BloqueiaRevista(Reserva novaReserva)
         {
             if (novaReserva.Status)

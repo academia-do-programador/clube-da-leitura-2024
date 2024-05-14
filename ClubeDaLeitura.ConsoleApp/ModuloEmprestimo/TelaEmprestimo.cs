@@ -68,6 +68,44 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             Emprestimo entidade = (Emprestimo)ObterRegistro(repositorio.CadastrandoID());
             RealizaAcao(() => repositorio.Cadastrar(entidade), "cadastrado");
         }
+        protected override Emprestimo ObterRegistro(int id)
+        {
+            int idSelecionado = 0;
+            TimeSpan diasParaDevolver = new TimeSpan(0, 0, 0, 0);
+
+            Amigo amigoSelecionado = new Amigo("-", "-", "-", "-");
+            Revista revistaSelecionada = new Revista("-", "-", "-", null);
+            Emprestimo novoEmprestimo = new Emprestimo(amigoSelecionado, revistaSelecionada, DateTime.Now, DateTime.Now);
+
+            do
+            {
+                TabelaDeCadastro(id, "{0, -5} | ", amigoSelecionado.Nome, revistaSelecionada.Titulo, "-", "-");
+                RecebeAtributo(() => new Emprestimo(amigoSelecionado, revistaSelecionada, DateTime.Now, DateTime.Now),
+                    () => amigoSelecionado = (Amigo)telaAmigo.repositorio.SelecionarPorId(idSelecionado),
+                    ref novoEmprestimo, ref amigoSelecionado, telaAmigo, "amigo", ref idSelecionado);
+            }
+            while (!IdEhValido(idSelecionado, telaAmigo, ref amigoSelecionado,
+                    () => amigoSelecionado = new Amigo("-", "-", "-", "-")) || AmigoTemMulta(amigoSelecionado));
+
+            do
+            {
+                TabelaDeCadastro(id, "{0, -5} | {1, -15} | ", amigoSelecionado.Nome, revistaSelecionada.Titulo, "-", "-");
+                RecebeAtributo(() => new Emprestimo(amigoSelecionado, revistaSelecionada, DateTime.Now, DateTime.Now),
+                    () => revistaSelecionada = (Revista)telaRevista.repositorio.SelecionarPorId(idSelecionado),
+                    ref novoEmprestimo, ref revistaSelecionada, telaRevista, "revista", ref idSelecionado);
+            }
+            while (!IdEhValido(idSelecionado, telaRevista, ref revistaSelecionada,
+                    () => revistaSelecionada = new Revista("-", "-", "-", null)) || RevistaIndisponivel(revistaSelecionada));
+
+            BloqueiaRevista(idSelecionado, revistaSelecionada);
+
+            diasParaDevolver = new TimeSpan(revistaSelecionada.Caixa.DiasDeEmprestimo, 0, 0, 0);
+
+            TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | {3, -20} | {4, -5}", amigoSelecionado.Nome, revistaSelecionada.Titulo, DateTime.Now.ToString("d"), DateTime.Now.Add(diasParaDevolver).ToString("d"));
+            Console.WriteLine();
+
+            return new Emprestimo(amigoSelecionado, revistaSelecionada, DateTime.Now, DateTime.Now.Add(diasParaDevolver));
+        }
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             bool retornar = false;
@@ -115,46 +153,20 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
                 }
             }
         }
-        protected override Emprestimo ObterRegistro(int id)
+
+
+        protected override void TabelaDeCadastro(int id, params string[] texto)
         {
-            int idSelecionado = 0;
-            TimeSpan diasParaDevolver = new TimeSpan(0, 0, 0, 0);
+            Console.Clear();
+            ApresentarCabecalhoEntidade($"Cadastrando caixa...\n");
+            Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -20} | {4, -5}", "Id", "Amigo", "Revista", "Data de empréstimo", "Data de devolução");
 
-            Amigo amigoSelecionado = new Amigo("-", "-", "-", "-");
-            Revista revistaSelecionada = new Revista("-", "-", "-", null);
-            Emprestimo novoEmprestimo = new Emprestimo(amigoSelecionado, revistaSelecionada, DateTime.Now, DateTime.Now);
+            AjustaTamanhoDeVisualizacao(texto);
 
-            do
-            {
-                TabelaDeCadastro(id, "{0, -5} | ", amigoSelecionado.Nome, revistaSelecionada.Titulo, "-", "-");
-                RecebeAtributo(() => new Emprestimo(amigoSelecionado, revistaSelecionada, DateTime.Now, DateTime.Now),
-                    () => amigoSelecionado = (Amigo)telaAmigo.repositorio.SelecionarPorId(idSelecionado),
-                    ref novoEmprestimo, ref amigoSelecionado, telaAmigo, "amigo", ref idSelecionado);
-            }
-            while (!IdEhValido(idSelecionado, telaAmigo, ref amigoSelecionado,
-                    () => amigoSelecionado = new Amigo("-", "-", "-", "-")) || AmigoTemMulta(amigoSelecionado));
-
-            do
-            {
-                TabelaDeCadastro(id, "{0, -5} | {1, -15} | ", amigoSelecionado.Nome, revistaSelecionada.Titulo, "-", "-");
-                RecebeAtributo(() => new Emprestimo(amigoSelecionado, revistaSelecionada, DateTime.Now, DateTime.Now),
-                    () => revistaSelecionada = (Revista)telaRevista.repositorio.SelecionarPorId(idSelecionado),
-                    ref novoEmprestimo, ref revistaSelecionada, telaRevista, "revista", ref idSelecionado);
-            }
-            while (!IdEhValido(idSelecionado, telaRevista, ref revistaSelecionada,
-                    () => revistaSelecionada = new Revista("-", "-", "-", null)) || RevistaIndisponivel(revistaSelecionada));
-
-            BloqueiaRevista(idSelecionado, revistaSelecionada);
-
-            diasParaDevolver = new TimeSpan(revistaSelecionada.Caixa.DiasDeEmprestimo, 0, 0, 0);
-
-            TabelaDeCadastro(id, "{0, -5} | {1, -15} | {2, -15} | {3, -20} | {4, -5}", amigoSelecionado.Nome, revistaSelecionada.Titulo, DateTime.Now.ToString("d"), DateTime.Now.Add(diasParaDevolver).ToString("d"));
-            Console.WriteLine();
-
-            return new Emprestimo(amigoSelecionado, revistaSelecionada, DateTime.Now, DateTime.Now.Add(diasParaDevolver));
+            Console.Write(texto[0], id, texto[1], texto[2], texto[3], texto[4]);
         }
 
-
+        #region Barra o cadastro
         private bool AmigoTemMulta(Amigo amigo)
         {
             if (amigo.multa)
@@ -191,17 +203,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
             Console.ReadKey(true);
             return true;
         }
+        #endregion
 
-        protected override void TabelaDeCadastro(int id, params string[] texto)
-        {
-            Console.Clear();
-            ApresentarCabecalhoEntidade($"Cadastrando caixa...\n");
-            Console.WriteLine("{0, -5} | {1, -15} | {2, -15} | {3, -20} | {4, -5}", "Id", "Amigo", "Revista", "Data de empréstimo", "Data de devolução");
-
-            AjustaTamanhoDeVisualizacao(texto);
-
-            Console.Write(texto[0], id, texto[1], texto[2], texto[3], texto[4]);
-        }
+        #region Altera outras classes
         private void BloqueiaRevista(int idSelecionado, Revista revistaSelecionada)
         {
             foreach (Revista revistas in telaRevista.repositorio.SelecionarTodos())
@@ -237,6 +241,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
                         telaAmigo.repositorio.Editar(amigo.Id, amigo);
                     }
         }
-
+        #endregion
     }
 }

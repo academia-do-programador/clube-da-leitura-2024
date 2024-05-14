@@ -10,11 +10,9 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 {
     public class TelaAmigo : TelaBase<Amigo> , ITelaCRUD
     {
-        TelaMulta telaMulta;
-        public TelaAmigo(RepositorioAmigo repositorio, TelaMulta telaMulta, string tipoEntidade)
+        public TelaAmigo(RepositorioAmigo repositorio, string tipoEntidade)
         {
             this.repositorio = repositorio;
-            this.telaMulta = telaMulta;
             this.tipoEntidade = tipoEntidade;
         }
 
@@ -66,7 +64,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 
             return novoRegistro;
         }
-
         protected override void TabelaDeCadastro(int id, params string[] texto)
         {
             Console.Clear();
