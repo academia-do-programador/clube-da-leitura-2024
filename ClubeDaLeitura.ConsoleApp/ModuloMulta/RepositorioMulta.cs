@@ -8,5 +8,5 @@ using ControleMedicamentos.ConsoleApp.Compartilhado;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloMulta
 {
-    internal class RepositorioMulta : RepositorioBase {}
+    public class RepositorioMulta : RepositorioBase <Multa> {}
 }

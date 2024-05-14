@@ -6,14 +6,24 @@ using ClubeDaLeitura.ConsoleApp.ModuloReserva;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 namespace ControleMedicamentos.ConsoleApp.Compartilhado
 {
-    internal class TelaPrincipal : TelaBase
+    internal class TelaPrincipal 
     {
-        static TelaCaixa telaCaixa = new(new RepositorioCaixa(), "caixa");
-        static TelaRevista telaRevista = new(new RepositorioRevista(), telaCaixa, "revista");
-        static TelaAmigo telaAmigo = new(new RepositorioAmigo(), telaMulta, "amigo");
-        static TelaMulta telaMulta = new(new RepositorioMulta(), telaAmigo, "multa");
-        static TelaEmprestimo telaEmprestimo = new(new RepositorioEmprestimo(), telaAmigo, telaRevista, telaMulta, "empréstimo");
-        static TelaReserva telaReserva = new(new RepositorioReserva(), telaAmigo, telaRevista, telaEmprestimo, "reserva");
+        TelaCaixa telaCaixa;
+        TelaRevista telaRevista;
+        TelaAmigo telaAmigo;
+        TelaMulta telaMulta;
+        TelaEmprestimo telaEmprestimo;
+        TelaReserva telaReserva;
+
+        public TelaPrincipal()
+        {
+            telaCaixa = new(new RepositorioCaixa(), "caixa");
+            telaRevista = new(new RepositorioRevista(), telaCaixa, "revista");
+            telaAmigo = new(new RepositorioAmigo(), telaMulta, "amigo");
+            telaMulta = new(new RepositorioMulta(), telaAmigo, "multa");
+            telaEmprestimo = new(new RepositorioEmprestimo(), telaAmigo, telaRevista, telaMulta, "empréstimo");
+            telaReserva = new(new RepositorioReserva(), telaAmigo, telaRevista, telaEmprestimo, "reserva");
+        }
 
         public void MenuPrincipal(ref bool sair)
         {
@@ -30,9 +40,10 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             Console.WriteLine("6 - Gerir multas");
             Console.WriteLine("S - Sair");
 
-            string opcaoEscolhida = RecebeString("\nEscolha uma das opções: ");
+            string opcaoEscolhida = telaAmigo.RecebeString("\nEscolha uma das opções: ");
+            
+            ITelaCRUD tela = null;
 
-            TelaBase tela = null;            
             switch (opcaoEscolhida)
             {
                 case "1": tela = telaAmigo; break;
@@ -42,12 +53,9 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
                 case "5": tela = telaReserva; break;
                 case "6": tela = telaMulta; break;
                 case "S": sair = true; break;
-                default: OpcaoInvalida(); break;
+                default: telaAmigo.OpcaoInvalida(); break;
             }
             tela?.ApresentarMenu(ref sair);
         }
-
-        public override void VisualizarRegistros(bool exibirTitulo) => throw new NotImplementedException();
-        protected override EntidadeBase ObterRegistro(int id) => throw new NotImplementedException();
     }
 }

@@ -1,14 +1,15 @@
-﻿
+﻿using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
+using ClubeDaLeitura.ConsoleApp.ModuloRevista;
 using System;
 using System.Collections;
 using System.Runtime.ConstrainedExecution;
 namespace ControleMedicamentos.ConsoleApp.Compartilhado
 {
-    public abstract class TelaBase
+    public abstract class TelaBase <T> where T : EntidadeBase
     {
         public string tipoEntidade = "";
-        public RepositorioBase repositorio;
+        public RepositorioBase<T> repositorio;
 
         public virtual void ApresentarMenu(ref bool sair)
         {
@@ -41,10 +42,10 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         }
         public virtual void Registrar()
         {
-            EntidadeBase entidade = ObterRegistro(repositorio.CadastrandoID());
+            T entidade = ObterRegistro(repositorio.CadastrandoID());
             RealizaAcao(() => repositorio.Cadastrar(entidade), "cadastrado");
         }
-        protected abstract EntidadeBase ObterRegistro(int id);
+        protected abstract T ObterRegistro(int id);
         public virtual void Editar(ref bool retornar)
         {
             while (true)
@@ -57,10 +58,10 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
 
                 int idEntidadeEscolhida = RecebeInt($"\nDigite o ID do {tipoEntidade} que deseja editar: ");
 
-                if (!repositorio.Existe(idEntidadeEscolhida, this)) IdInvalido();
+                if (!repositorio.Existe(idEntidadeEscolhida)) IdInvalido();
                 else
                 {
-                    EntidadeBase entidade = ObterRegistro(idEntidadeEscolhida);
+                    T entidade = ObterRegistro(idEntidadeEscolhida);
                     RealizaAcao(() => repositorio.Editar(idEntidadeEscolhida, entidade), "editado");
                     break;
                 }
@@ -78,7 +79,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
 
                 int idRegistroEscolhido = RecebeInt($"\nDigite o ID do {tipoEntidade} que deseja excluir: ");
 
-                if (!repositorio.Existe(idRegistroEscolhido, this)) IdInvalido();
+                if (!repositorio.Existe(idRegistroEscolhido)) IdInvalido();
                 else
                 {
                     RealizaAcao(() => repositorio.Excluir(idRegistroEscolhido), "excluído");
@@ -172,7 +173,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
         }
 
         #region Inputs
-        public static string RecebeString(string texto)
+        public string RecebeString(string texto)
         {
             Console.Write(texto);
             return Console.ReadLine().ToUpper();
@@ -204,7 +205,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             }
             return Convert.ToDateTime(data);
         }
-        public void RecebeAtributo(Action funcao, ref EntidadeBase novaEntidade, ref string atributo, Action tabelaCadastro)
+        public void RecebeAtributo(Action funcao, ref T novaEntidade, ref string atributo, Action tabelaCadastro)
         {
             List<string> erros;
             do
@@ -217,7 +218,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             }
             while (erros.Count != 0);
         }
-        public void RecebeAtributo(Action funcao, ref EntidadeBase novaEntidade, ref int atributo, Action tabelaCadastro)
+        public void RecebeAtributo(Action funcao, ref T novaEntidade, ref int atributo, Action tabelaCadastro)
         {
             List<string> erros;
             do
@@ -230,7 +231,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             }
             while (erros.Count != 0);
         }
-        public void RecebeAtributo(Action funcao, ref EntidadeBase novaEntidade, ref DateTime atributo, Action tabelaCadastro)
+        public void RecebeAtributo(Action funcao, ref T novaEntidade, ref DateTime atributo, Action tabelaCadastro)
         {
             List<string> erros;
             do
@@ -243,12 +244,41 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             }
             while (erros.Count != 0);
         }
-        public void RecebeAtributo(Action funcao, Action atributo, ref EntidadeBase novaEntidade, ref EntidadeBase novoAtributo, TelaBase tela, string texto, ref int idEscolhido)
+        public void RecebeAtributo(Action funcao, Action atributo, ref T novaEntidade, ref Amigo novoAtributo, TelaAmigo tela, string texto, ref int idEscolhido)
         {
             Console.WriteLine($"\n\n{texto}s...");
             tela.VisualizarRegistros(false);
             List<string> erros;
-
+            do
+            {
+                idEscolhido = RecebeInt($"\nDigite o ID do {texto}: ");
+                atributo();
+                funcao();
+                erros = novaEntidade.Validar();
+                if (erros.Count != 0) ApresentarErros(erros.GetRange(0, 1));
+            }
+            while (erros.Count != 0);
+        }
+        public void RecebeAtributo(Action funcao, Action atributo, ref T novaEntidade, ref Revista novoAtributo, TelaRevista tela, string texto, ref int idEscolhido)
+        {
+            Console.WriteLine($"\n\n{texto}s...");
+            tela.VisualizarRegistros(false);
+            List<string> erros;
+            do
+            {
+                idEscolhido = RecebeInt($"\nDigite o ID do {texto}: ");
+                atributo();
+                funcao();
+                erros = novaEntidade.Validar();
+                if (erros.Count != 0) ApresentarErros(erros.GetRange(0, 1));
+            }
+            while (erros.Count != 0);
+        }
+        public void RecebeAtributo(Action funcao, Action atributo, ref T novaEntidade, ref Caixa novoAtributo, TelaCaixa tela, string texto, ref int idEscolhido)
+        {
+            Console.WriteLine($"\n\n{texto}s...");
+            tela.VisualizarRegistros(false);
+            List<string> erros;
             do
             {
                 idEscolhido = RecebeInt($"\nDigite o ID do {texto}: ");
@@ -287,17 +317,34 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             ExibirMensagem($"\nO {tipoEntidade} mencionado não existe! ", ConsoleColor.DarkYellow);
             Console.ReadKey(true);
         }
-        protected bool IdEhValido(int IdSelecionado, TelaBase tela, ref EntidadeBase entidadeSelecionada, Action funcao)
+        protected bool IdEhValido(int IdSelecionado, TelaAmigo tela, ref Amigo entidadeSelecionada, Action funcao)
         {
-            if(repositorio.Existe(IdSelecionado, tela)) return true;
+            if(tela.repositorio.Existe(IdSelecionado)) return true;
 
             funcao();
             tela.IdInvalido();
             return false;
         }
+        protected bool IdEhValido(int IdSelecionado, TelaRevista tela, ref Revista entidadeSelecionada, Action funcao)
+        {
+            if (tela.repositorio.Existe(IdSelecionado)) return true;
+
+            funcao();
+            tela.IdInvalido();
+            return false;
+        }
+        protected bool IdEhValido(int IdSelecionado, TelaCaixa tela, ref Caixa entidadeSelecionada, Action funcao)
+        {
+            if (tela.repositorio.Existe(IdSelecionado)) return true;
+
+            funcao();
+            tela.IdInvalido();
+            return false;
+        }
+
         protected bool IdEhValido(int IdSelecionado)
         {
-            if (repositorio.Existe(IdSelecionado, this)) return true;
+            if (repositorio.Existe(IdSelecionado)) return true;
 
             IdInvalido();
             return false;

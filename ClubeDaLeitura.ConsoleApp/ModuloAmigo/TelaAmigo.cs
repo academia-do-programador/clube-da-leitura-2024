@@ -4,13 +4,14 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using ClubeDaLeitura.ConsoleApp.ModuloMulta;
 using ControleMedicamentos.ConsoleApp.Compartilhado;
 namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 {
-    internal class TelaAmigo : TelaBase
+    public class TelaAmigo : TelaBase<Amigo> , ITelaCRUD
     {
-        TelaBase telaMulta;
-        public TelaAmigo(RepositorioBase repositorio, TelaBase telaMulta, string tipoEntidade)
+        TelaMulta telaMulta;
+        public TelaAmigo(RepositorioAmigo repositorio, TelaMulta telaMulta, string tipoEntidade)
         {
             this.repositorio = repositorio;
             this.telaMulta = telaMulta;
@@ -41,10 +42,10 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 
             if (exibirTitulo) RecebeString("\n'Enter' para continuar ");
         }
-        protected override EntidadeBase ObterRegistro(int id)
+        protected override Amigo ObterRegistro(int id)
         {
             string nome = "-", nomeResp = "-", telefono = "-", endereco = "-";
-            EntidadeBase novoRegistro = new Amigo(nome, nomeResp, telefono, endereco);
+            Amigo novoRegistro = new Amigo(nome, nomeResp, telefono, endereco);
 
             do
             {

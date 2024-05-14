@@ -7,7 +7,7 @@ using ControleMedicamentos.ConsoleApp.Compartilhado;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloReserva
 {
-    internal class RepositorioReserva : RepositorioBase
+    internal class RepositorioReserva : RepositorioBase <Reserva>
     {
     }
 }

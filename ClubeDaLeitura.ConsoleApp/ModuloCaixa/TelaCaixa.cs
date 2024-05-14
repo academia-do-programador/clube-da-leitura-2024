@@ -7,9 +7,9 @@ using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
 using ControleMedicamentos.ConsoleApp.Compartilhado;
 namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 {
-    internal class TelaCaixa : TelaBase
+    public class TelaCaixa : TelaBase<Caixa>, ITelaCRUD
     {
-        public TelaCaixa(RepositorioBase repositorio, string tipoEntidade)
+        public TelaCaixa(RepositorioCaixa repositorio, string tipoEntidade)
         {
             this.repositorio = repositorio;
             this.tipoEntidade = tipoEntidade;
@@ -42,11 +42,11 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
            
             if (exibirTitulo) RecebeString("\n'Enter' para continuar ");
         }
-        protected override EntidadeBase ObterRegistro(int id)
+        protected override Caixa ObterRegistro(int id)
         {
             string etiqueta = "-", cor = "-";
             int diasDeEmprestimo = 0;
-            EntidadeBase novoRegistro = new Caixa(etiqueta, cor, diasDeEmprestimo);
+            Caixa novoRegistro = new Caixa(etiqueta, cor, diasDeEmprestimo);
 
             do
             {
@@ -88,27 +88,5 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
                 Console.ReadKey(true);
             }
         }
-        //public virtual int RecebeInt(string texto)
-        //{
-        //    Console.Write(texto);
-        //    string quantidade = "", input = Console.ReadLine();
-
-        //    if (string.IsNullOrEmpty(input)) 
-        //        NaoEhNumero(ref input, texto);
-
-        //    foreach (char c in input.ToCharArray())
-        //    {
-        //        if (c == '-') NaoEhNumero(ref input, texto);
-        //        if (Convert.ToInt32(c) >= 48 && Convert.ToInt32(c) <= 57) quantidade += c;
-        //    }
-
-        //    if (quantidade.Length != input.Length) NaoEhNumero(ref quantidade, texto);
-
-        //    return Convert.ToInt32(quantidade);
-        //}
     }
 }
-
-//ExibirMensagem("Por favor, insira um número ", ConsoleColor.Red);
-
-//input = Convert.ToString(RecebeInt(texto));
